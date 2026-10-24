@@ -1,0 +1,620 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寻味 · 懂你的美食推荐</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
+</head>
+<body>
+<div id="app" v-cloak>
+    <!-- ============ 顶部导航 ============ -->
+    <header class="topbar" :class="{ scrolled: scrolled }">
+        <div class="topbar-inner">
+            <a class="brand" href="javascript:void(0)" @click="go('home')">
+                <span class="brand-mark">🍜</span>
+                <span class="brand-name">寻味</span>
+            </a>
+
+            <nav class="nav">
+                <a v-for="item in navItems" :key="item.key"
+                   class="nav-link" :class="{ active: view === item.key }"
+                   href="javascript:void(0)" @click="go(item.key)">
+                    <span class="nav-emoji">[[ item.emoji ]]</span>[[ item.label ]]
+                </a>
+            </nav>
+
+            <div class="topbar-right">
+                <div class="mini-search" v-if="view !== 'home'">
+                    <input v-model.trim="keyword" placeholder="搜菜名 / 食材 / 心情" @keyup.enter="doSearch()">
+                    <button @click="doSearch()">🔍</button>
+                </div>
+                <div class="user-chip" v-if="user.authenticated">
+                    <span class="avatar">[[ (user.nickname || 'U')[0] ]]</span>
+                    <span class="uname">[[ user.nickname || user.username ]]</span>
+                </div>
+                <a class="login-btn" v-else href="/">登录</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- ============ 首页 ============ -->
+        <section v-show="view === 'home'" class="view">
+            <div class="hero">
+                <div class="hero-bg"></div>
+                <div class="hero-content">
+                    <p class="hero-kicker">AI 美食推荐 · RAG 语义检索</p>
+                    <h1 class="hero-title">今天，想吃点什么？</h1>
+                    <p class="hero-sub">说说你冰箱里有什么，或者此刻的心情，我来配一桌菜。</p>
+                    <div class="hero-search">
+                        <input v-model.trim="keyword" placeholder="例如：番茄 鸡蛋 / 想吃点辣的 / 20 分钟快手菜"
+                               @keyup.enter="doSearch()">
+                        <button class="hero-btn" @click="doSearch()">找菜</button>
+                    </div>
+                    <div class="hero-chips">
+                        <button v-for="c in quickQueries" :key="c" class="chip" @click="quickSearch(c)">[[ c ]]</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 场景栏 -->
+            <div class="scene-bar">
+                <button v-for="s in scenes" :key="s.value"
+                        class="scene" :class="{ active: activeScene === s.value }"
+                        @click="switchScene(s.value)">
+                    <span class="scene-emoji">[[ s.emoji ]]</span>
+                    <span>[[ s.label ]]</span>
+                </button>
+            </div>
+
+            <!-- 个性化推荐 -->
+            <section class="block">
+                <div class="block-head">
+                    <div>
+                        <h2>[[ user.authenticated ? '为你推荐' : '大家都在吃' ]]</h2>
+                        <p class="block-sub">[[ feedHint ]]</p>
+                    </div>
+                    <button class="ghost-btn" @click="loadFeed()" :disabled="loading.feed">
+                        [[ loading.feed ? '刷新中…' : '换一批' ]]
+                    </button>
+                </div>
+                <div class="grid" v-if="feed.length">
+                    <recipe-card v-for="item in feed" :key="'f' + item.id" :item="item"
+                                 :reason="item.reason" @open="openRecipe"></recipe-card>
+                </div>
+                <div class="empty" v-else-if="!loading.feed">
+                    <p class="empty-emoji">🍳</p>
+                    <p>还没有菜谱数据，先在后台执行 <code>python manage.py seed_data</code> 灌入演示数据。</p>
+                </div>
+                <div class="skeleton-grid" v-else>
+                    <div class="skeleton-card" v-for="n in 8" :key="'sk' + n"></div>
+                </div>
+            </section>
+
+            <!-- 菜系 -->
+            <section class="block" v-if="cuisines.length">
+                <div class="block-head"><h2>按菜系逛</h2></div>
+                <div class="cuisine-row">
+                    <button v-for="c in cuisines" :key="c.id" class="cuisine-card"
+                            @click="browseCuisine(c.name)">
+                        <span class="cuisine-icon">[[ c.icon || '🍽️' ]]</span>
+                        <span class="cuisine-name">[[ c.name ]]</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 热门 -->
+            <section class="block">
+                <div class="block-head">
+                    <h2>本周热门</h2>
+                    <button class="ghost-btn" @click="goSearchWithSort('hot')">全部热门 →</button>
+                </div>
+                <div class="grid">
+                    <recipe-card v-for="item in hot" :key="'h' + item.id" :item="item" @open="openRecipe"></recipe-card>
+                </div>
+            </section>
+        </section>
+
+        <!-- ============ 附近美食 ============ -->
+        <section v-show="view === 'nearby'" class="view nearby-view">
+            <div class="nearby-head">
+                <button class="loc-box" @click="nbLocate" :title="nb.geoStatus">
+                    <span class="loc-icon">📍</span>
+                    <span class="loc-text">
+                        <b>[[ nb.address || '点击获取我的位置' ]]</b>
+                        <small>[[ nb.geoStatus ]][[ nb.addressDetail ? ' · ' + nb.addressDetail : '' ]][[ nb.geoError ? ' · ' + nb.geoError : '' ]]</small>
+                    </span>
+                </button>
+                <button class="ghost-btn tiny" @click="nbLocateIp">IP 定位</button>
+
+                <div class="nearby-search">
+                    <input v-model="nb.keyword" @input="nbOnInput" @keyup.enter="nbSearch"
+                           placeholder="搜店名 / 菜系 / 招牌菜，例如：火锅、砂锅、咖啡">
+                    <button class="primary-btn" :disabled="nb.loading" @click="nbSearch">
+                        [[ nb.loading ? '搜索中…' : '搜附近' ]]
+                    </button>
+                    <div class="tips-panel" v-if="nb.showTips && nb.tips.length">
+                        <button v-for="t in nb.tips" :key="t.name + t.location" @click="nbPickTip(t)">
+                            <b>[[ t.name ]]</b>
+                            <small>[[ t.district ]][[ t.address ]]</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nearby-toolbar">
+                <div class="radius-chips">
+                    <button v-for="r in nb.config.radius_options" :key="r"
+                            :class="{ on: Number(nb.radius) === Number(r) }" @click="nbSetRadius(r)">
+                        [[ r >= 1000 ? (r / 1000) + 'km' : r + 'm' ]]
+                    </button>
+                </div>
+                <select v-model="nb.type" @change="nbSearch">
+                    <option v-for="t in nb.config.types" :key="t.key" :value="t.key">[[ t.label ]]</option>
+                </select>
+                <select v-model="nb.sort" @change="nbSearch">
+                    <option v-for="s in nb.config.sorts" :key="s.key" :value="s.key">[[ s.label ]]</option>
+                </select>
+                <select v-model="nb.budget" @change="nbSearch">
+                    <option value="">不限人均</option>
+                    <option value="20">人均 ≤ 20</option>
+                    <option value="40">人均 ≤ 40</option>
+                    <option value="80">人均 ≤ 80</option>
+                    <option value="150">人均 ≤ 150</option>
+                </select>
+                <span class="nearby-meta" v-if="nb.total">
+                    共 [[ nb.total ]] 家 · [[ nbDistLabel ]] 内 · [[ nb.latency ]]ms
+                    <span v-if="nb.fromCache">· 缓存</span>
+                    <span v-if="nb.keyPool.total">· Key 池 [[ nb.keyPool.available ]]/[[ nb.keyPool.total ]]</span>
+                </span>
+            </div>
+
+            <div class="nearby-alert" v-if="nb.degraded">⚠️ [[ nb.message ]]</div>
+
+            <div class="nearby-body">
+                <div class="nearby-list">
+                    <article class="place-card" v-for="(p, i) in nb.items" :key="p.poi_id"
+                             :class="{ active: nb.activePoi === p.poi_id }" @click="nbOpenPlace(p)">
+                        <div class="place-cover" :style="placeCover(p)">
+                            <span v-if="!p.photos.length" class="place-emoji">[[ placeEmoji(p) ]]</span>
+                            <span class="place-rank">[[ i + 1 ]]</span>
+                        </div>
+                        <div class="place-main">
+                            <div class="place-title-row">
+                                <h3>[[ p.name ]]</h3>
+                                <span class="place-dist">[[ p.distance_text ]]</span>
+                            </div>
+                            <p class="place-sub">
+                                <span class="tag-type">[[ p.type_label ]]</span>
+                                <span v-if="p.rating">★ [[ p.rating ]]</span>
+                                <span v-if="p.cost">人均 ¥[[ p.cost ]]</span>
+                                <span v-if="p.business_hours" class="hours">🕒 [[ p.business_hours ]]</span>
+                            </p>
+                            <p class="place-addr">[[ p.address || p.district ]]</p>
+                            <div class="place-tags" v-if="p.tag">
+                                <span v-for="t in p.tag.split(',')" :key="t" class="mini-tag">[[ t ]]</span>
+                            </div>
+                            <div class="place-actions">
+                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'car')">🚗 导航</button>
+                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'walk')">🚶 步行</button>
+                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'taxi')">🚕 叫车</button>
+                                <button class="ghost-btn tiny" @click.stop="nbOpenPlace(p)">详情</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <div class="empty" v-if="!nb.items.length && !nb.loading">
+                        <p class="empty-emoji">🗺️</p>
+                        <p>[[ nb.located ? '这个范围内没搜到餐饮店，试试放大范围或换关键词' : '先点上方定位，或直接输入地址搜索' ]]</p>
+                    </div>
+                    <div class="skeleton-grid" v-if="nb.loading">
+                        <div class="skeleton-card" v-for="n in 4" :key="'nb' + n"></div>
+                    </div>
+                </div>
+
+                <div class="nearby-map">
+                    <div id="amap-container"></div>
+                    <div class="map-fallback" v-if="nb.mapError">
+                        <p>🗺️ 地图不可用：[[ nb.mapError ]]</p>
+                        <p class="muted">列表与距离数据不受影响，可继续查看详情与导航。</p>
+                    </div>
+                    <div class="map-hint" v-else-if="!nb.mapReady">地图加载中…</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 搜索 ============ -->
+        <section v-show="view === 'search'" class="view">
+            <div class="search-head">
+                <h2>搜索结果</h2>
+                <p class="block-sub" v-if="searchState.done">
+                    「[[ searchState.query ]]」共 [[ searchState.total ]] 道菜 · [[ searchState.mode === 'semantic' ? '语义检索' : '关键词检索' ]] · [[ searchState.latency ]]ms
+                </p>
+            </div>
+
+            <div class="toolbar">
+                <div class="seg">
+                    <button :class="{ active: searchMode === 'keyword' }" @click="setMode('keyword')">关键词</button>
+                    <button :class="{ active: searchMode === 'semantic' }" @click="setMode('semantic')">语义检索</button>
+                </div>
+                <select v-model="filters.cuisine" @change="runSearch()">
+                    <option value="">全部菜系</option>
+                    <option v-for="c in cuisines" :key="c.id" :value="c.name">[[ c.name ]]</option>
+                </select>
+                <select v-model="filters.difficulty" @change="runSearch()">
+                    <option value="">全部难度</option>
+                    <option v-for="d in difficulties" :key="d.value" :value="d.value">[[ d.label ]]</option>
+                </select>
+                <select v-model="filters.max_minutes" @change="runSearch()">
+                    <option value="">不限耗时</option>
+                    <option value="15">15 分钟内</option>
+                    <option value="30">30 分钟内</option>
+                    <option value="60">1 小时内</option>
+                </select>
+                <select v-model="filters.sort" @change="runSearch()">
+                    <option value="recommend">综合排序</option>
+                    <option value="hot">最热</option>
+                    <option value="new">最新</option>
+                    <option value="rating">评分最高</option>
+                    <option value="quick">最快</option>
+                </select>
+            </div>
+
+            <div class="grid" v-if="results.length">
+                <recipe-card v-for="item in results" :key="'r' + item.id" :item="item"
+                             :reason="item.reason" :score="item.score" @open="openRecipe"></recipe-card>
+            </div>
+            <div class="empty" v-else-if="searchState.done">
+                <p class="empty-emoji">🥲</p>
+                <p>没找到「[[ searchState.query ]]」相关菜谱</p>
+                <button class="primary-btn" @click="askAssistant('我想吃' + searchState.query + '，有什么推荐？')">
+                    问问 AI 助手
+                </button>
+            </div>
+            <div class="skeleton-grid" v-else-if="loading.search">
+                <div class="skeleton-card" v-for="n in 6" :key="'ss' + n"></div>
+            </div>
+        </section>
+
+        <!-- ============ 菜谱详情 ============ -->
+        <section v-show="view === 'recipe'" class="view" v-if="detail">
+            <div class="detail-top">
+                <button class="back-btn" @click="go('home')">← 返回</button>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-cover" :style="coverStyle(detail)">
+                    <span class="cover-emoji">[[ detailEmoji ]]</span>
+                </div>
+                <div class="detail-info">
+                    <div class="detail-tags">
+                        <span class="pill" v-if="detail.cuisine">[[ detail.cuisine ]]</span>
+                        <span class="pill soft" v-for="t in detail.tags" :key="t">[[ t ]]</span>
+                    </div>
+                    <h1 class="detail-title">[[ detail.title ]]</h1>
+                    <p class="detail-summary">[[ detail.summary ]]</p>
+
+                    <div class="meta-row">
+                        <div class="meta"><b>[[ detail.total_minutes ]]</b><small>分钟</small></div>
+                        <div class="meta"><b>[[ detail.difficulty_label ]]</b><small>难度</small></div>
+                        <div class="meta"><b>[[ detail.servings ]]</b><small>人份</small></div>
+                        <div class="meta"><b>[[ detail.calories ]]</b><small>kcal/份</small></div>
+                    </div>
+
+                    <div class="stars-row">
+                        <star-rating :value="detail.rating_avg" readonly></star-rating>
+                        <span class="rating-text">[[ detail.rating_avg ]] 分 · [[ detail.rating_count ]] 人评分</span>
+                        <span class="view-text">· [[ detail.view_count ]] 次浏览</span>
+                    </div>
+
+                    <div class="actions">
+                        <button class="primary-btn" @click="toggleFavorite">
+                            [[ detail.is_favorite ? '❤️ 已收藏' : '🤍 收藏' ]]
+                        </button>
+                        <button class="ghost-btn" @click="askAssistant('教我怎么做' + detail.title)">问 AI 助手</button>
+                        <button class="ghost-btn" @click="toggleRate">[[ myRating ? '我的评分 ' + myRating + ' 星' : '给它评分' ]]</button>
+                    </div>
+                    <div class="rate-box" v-if="showRate">
+                        <star-rating :value="myRating || 0" @change="submitRating"></star-rating>
+                        <span class="hint">点击星星评分</span>
+                    </div>
+
+                    <div class="nutrition">
+                        <h3>营养成分（[[ detail.servings ]] 人份估算）</h3>
+                        <div class="nutri-bar">
+                            <div class="nutri" v-for="n in nutritionRows" :key="n.key">
+                                <div class="nutri-label">[[ n.label ]]</div>
+                                <div class="nutri-track"><i :style="{ width: n.percent + '%', background: n.color }"></i></div>
+                                <div class="nutri-value">[[ n.value ]][[ n.unit ]]</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-body">
+                <div class="panel">
+                    <h2>食材清单</h2>
+                    <ul class="ing-list">
+                        <li v-for="(ing, idx) in detail.ingredients" :key="'i' + idx" :class="{ main: ing.is_main }">
+                            <span class="ing-dot"></span>
+                            <span class="ing-name">[[ ing.name ]]</span>
+                            <span class="ing-amount">[[ ing.amount ]][[ ing.unit ]]</span>
+                            <span class="ing-note" v-if="ing.note">[[ ing.note ]]</span>
+                        </li>
+                    </ul>
+                    <p class="tips" v-if="detail.tips"><b>小贴士：</b>[[ detail.tips ]]</p>
+                </div>
+
+                <div class="panel">
+                    <h2>做法步骤</h2>
+                    <ol class="step-list">
+                        <li v-for="step in detail.steps" :key="'s' + step.index">
+                            <div class="step-no">[[ step.index ]]</div>
+                            <div class="step-text">
+                                [[ step.text ]]
+                                <span class="step-time" v-if="step.duration_min">约 [[ step.duration_min ]] 分钟</span>
+                            </div>
+                        </li>
+                    </ol>
+                    <p class="source" v-if="detail.source_url">
+                        来源：<a :href="detail.source_url" target="_blank" rel="noopener">[[ detail.source_site || detail.source_url ]]</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 评论 -->
+            <div class="panel">
+                <h2>厨友评论 <small>([[ detail.comments.length ]])</small></h2>
+                <div class="comment-form" v-if="user.authenticated">
+                    <textarea v-model.trim="commentText" placeholder="做完说说味道怎么样…" rows="3" maxlength="1000"></textarea>
+                    <button class="primary-btn small" :disabled="!commentText" @click="submitComment">发表评论</button>
+                </div>
+                <p class="login-hint" v-else>登录后可以评论 · <a href="/">去登录</a></p>
+
+                <ul class="comment-list" v-if="detail.comments.length">
+                    <li v-for="c in detail.comments" :key="c.id">
+                        <div class="c-avatar">[[ c.user[0] ]]</div>
+                        <div class="c-body">
+                            <div class="c-head"><b>[[ c.user ]]</b><span>[[ formatTime(c.created_at) ]]</span></div>
+                            <p>[[ c.content ]]</p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="muted" v-else>还没有评论，来做第一个吧。</p>
+            </div>
+
+            <!-- 相似推荐 -->
+            <section class="block" v-if="similar.length">
+                <div class="block-head"><h2>你可能还喜欢</h2></div>
+                <div class="grid">
+                    <recipe-card v-for="item in similar" :key="'sim' + item.id" :item="item"
+                                 :reason="item.reason" @open="openRecipe"></recipe-card>
+                </div>
+            </section>
+        </section>
+
+        <!-- ============ AI 助手 ============ -->
+        <section v-show="view === 'assistant'" class="view chat-view">
+            <div class="chat-shell">
+                <aside class="chat-side">
+                    <h3>小味能做什么</h3>
+                    <ul class="cap-list">
+                        <li @click="askAssistant('冰箱里只有番茄、鸡蛋和挂面，能做什么？')">🧊 按现有食材配菜</li>
+                        <li @click="askAssistant('推荐三道 20 分钟内能做完的下饭菜')">⏱️ 按时长/场景推荐</li>
+                        <li @click="askAssistant('麻婆豆腐怎么做？关键步骤是什么？')">👩‍🍳 讲清关键步骤</li>
+                        <li @click="askAssistant('减脂期晚餐吃什么？热量控制在 500 大卡以内')">🥗 营养与热量搭配</li>
+                        <li @click="askAssistant('川菜有什么代表作？')">🗺️ 菜系知识问答</li>
+                    </ul>
+                    <div class="side-status">
+                        <div><span class="dot" :class="status.llm.ready ? 'ok' : 'warn'"></span>大模型 [[ status.llm.ready ? '已连接' : '未配置（检索模式）' ]]</div>
+                        <div><span class="dot" :class="status.index.ready ? 'ok' : 'warn'"></span>向量索引 [[ status.index.ready ? status.index.size + ' 块' : '未构建' ]]</div>
+                    </div>
+                </aside>
+
+                <div class="chat-main">
+                    <div class="chat-log" ref="chatLog">
+                        <div v-if="!messages.length" class="chat-welcome">
+                            <p class="welcome-emoji">🍜</p>
+                            <h2>你好，我是小味</h2>
+                            <p>告诉我你的食材、口味或时间，我来帮你想这一餐。</p>
+                        </div>
+                        <div v-for="(m, idx) in messages" :key="idx" class="msg-row" :class="m.role">
+                            <div class="bubble" v-html="renderMarkdown(m.content)"></div>
+                            <div class="citations" v-if="m.citations && m.citations.length">
+                                <span class="cite-label">参考菜谱：</span>
+                                <button v-for="c in m.citations" :key="c.recipe_id" class="cite-chip"
+                                        @click="openRecipe({ id: c.recipe_id })">[[ c.title ]]</button>
+                            </div>
+                        </div>
+                        <div class="msg-row assistant" v-if="thinking">
+                            <div class="bubble typing"><i></i><i></i><i></i></div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input">
+                        <textarea v-model.trim="question" rows="2" placeholder="想吃点什么？（Enter 发送，Shift+Enter 换行）"
+                                  @keydown.enter.exact.prevent="sendQuestion" @keydown.shift.enter.stop></textarea>
+                        <button class="primary-btn" :disabled="!question || thinking" @click="sendQuestion">
+                            [[ thinking ? '思考中…' : '发送' ]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 我的 ============ -->
+        <section v-show="view === 'profile'" class="view">
+            <div class="profile-head" v-if="user.authenticated">
+                <div class="p-avatar">[[ (user.nickname || 'U')[0] ]]</div>
+                <div>
+                    <h2>[[ user.nickname ]]</h2>
+                    <p class="muted">[[ user.email ]] · 已收藏 [[ user.counts ? user.counts.favorites : 0 ]] · 已评分 [[ user.counts ? user.counts.ratings : 0 ]]</p>
+                </div>
+                <a class="ghost-btn" href="/logout/">退出登录</a>
+            </div>
+
+            <div class="panel" v-if="user.authenticated">
+                <h2>口味偏好</h2>
+                <p class="muted">设置越具体，推荐越准。</p>
+                <div class="pref-row">
+                    <label>喜欢的菜系</label>
+                    <div class="chips">
+                        <button v-for="c in cuisines" :key="c.id" class="chip"
+                                :class="{ on: pref.cuisines.includes(c.id) }" @click="togglePref('cuisines', c.id)">
+                            [[ c.icon || '🍽️' ]] [[ c.name ]]
+                        </button>
+                    </div>
+                </div>
+                <div class="pref-row">
+                    <label>吃辣程度：[[ pref.spicy_level ]] / 5</label>
+                    <input type="range" min="0" max="5" v-model.number="pref.spicy_level">
+                </div>
+                <div class="pref-row">
+                    <label>可接受最长耗时：[[ pref.max_cook_minutes ]] 分钟</label>
+                    <input type="range" min="10" max="180" step="5" v-model.number="pref.max_cook_minutes">
+                </div>
+                <div class="pref-row">
+                    <label>饮食标识</label>
+                    <div class="chips">
+                        <button v-for="d in dietOptions" :key="d.value" class="chip"
+                                :class="{ on: pref.diet_flags.includes(d.value) }" @click="togglePref('diet_flags', d.value)">
+                            [[ d.emoji ]] [[ d.label ]]
+                        </button>
+                    </div>
+                </div>
+                <div class="pref-row">
+                    <label>忌口（逗号分隔）</label>
+                    <input class="text-input" v-model="pref.disliked_text" placeholder="例如：香菜, 花生">
+                </div>
+                <button class="primary-btn" @click="savePref">保存偏好</button>
+                <span class="save-msg" v-if="prefSaved">✓ 已保存，推荐已更新</span>
+            </div>
+
+            <div class="panel" v-if="user.authenticated">
+                <h2>我的收藏</h2>
+                <div class="grid" v-if="favorites.length">
+                    <recipe-card v-for="item in favorites" :key="'fv' + item.id" :item="item" @open="openRecipe"></recipe-card>
+                </div>
+                <p class="muted" v-else>还没有收藏，去首页逛逛吧。</p>
+            </div>
+
+            <div class="panel" v-if="!user.authenticated">
+                <h2>登录后解锁</h2>
+                <p>收藏菜谱、记录口味、获得个性化推荐。</p>
+                <a class="primary-btn" href="/">去登录</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div>🍜 寻味 · Django 6 + RAG 检索增强 + 混合推荐</div>
+        <div class="footer-links">
+            <a href="/admin/" target="_blank" rel="noopener">运营后台</a>
+            <a href="/health/" target="_blank" rel="noopener">系统状态</a>
+            <a href="/api/v1/meta/" target="_blank" rel="noopener">开放接口</a>
+        </div>
+    </footer>
+
+    <!-- ============ 店铺详情（附近） ============ -->
+    <div class="modal-mask" v-if="nb.detail" @click.self="nbCloseDetail">
+        <div class="modal">
+            <header class="modal-head">
+                <div class="modal-title-wrap">
+                    <h2>[[ nb.detail.name ]]</h2>
+                    <p class="muted">
+                        [[ nb.detail.type_label ]] · [[ nb.detail.distance_text ]]
+                        <span v-if="nb.detail.address">· [[ nb.detail.address ]]</span>
+                    </p>
+                </div>
+                <button class="modal-close" @click="nbCloseDetail">✕</button>
+            </header>
+
+            <div class="modal-body">
+                <div class="detail-facts">
+                    <span v-if="nb.detail.rating" class="fact">★ [[ nb.detail.rating ]]</span>
+                    <span v-if="nb.detail.cost" class="fact">人均 ¥[[ nb.detail.cost ]]</span>
+                    <span v-if="nb.detail.business_hours" class="fact">🕒 [[ nb.detail.business_hours ]]</span>
+                    <span v-if="nb.detail.tel" class="fact">📞 [[ nb.detail.tel ]]</span>
+                    <span v-if="nb.detail.pname" class="fact">[[ nb.detail.pname ]][[ nb.detail.city ]][[ nb.detail.district ]]</span>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="primary-btn small" @click="nbToggleFavorite">
+                        [[ nb.isFavorite ? '❤️ 已收藏' : '🤍 收藏' ]]
+                    </button>
+                    <button class="ghost-btn" @click="nbNavigate(nb.detail, 'car')">🚗 导航</button>
+                    <button class="ghost-btn" @click="nbNavigate(nb.detail, 'walk')">🚶 步行</button>
+                    <button class="ghost-btn" @click="nbNavigate(nb.detail, 'taxi')">🚕 叫车</button>
+                    <button class="ghost-btn" @click="nbFocus(nb.detail)">🗺️ 地图定位</button>
+                </div>
+
+                <h3 class="modal-title">
+                    打卡评价
+                    <small>共 [[ nb.reviewStats.count ]] 条 · 均分 [[ nb.reviewStats.avg_rating || '—' ]] · [[ nb.reviewStats.favorited ]] 人收藏</small>
+                </h3>
+
+                <div class="review-form" v-if="user.authenticated">
+                    <div class="review-stars">
+                        <span>我的评分</span>
+                        <star-rating :value="nb.myRating" @change="(v) => (nb.myRating = v)"></star-rating>
+                        <b>[[ nb.myRating ]] 星</b>
+                    </div>
+                    <textarea v-model="nb.myContent" rows="2" placeholder="这家店怎么样？推荐什么菜？" maxlength="1000"></textarea>
+                    <div class="review-row">
+                        <input v-model="nb.myCost" class="text-input" placeholder="人均消费（元）">
+                        <input v-model="nb.myDishes" class="text-input" placeholder="推荐菜（逗号分隔）">
+                    </div>
+                    <button class="primary-btn small" :disabled="nb.submitting" @click="nbSubmitReview">
+                        [[ nb.submitting ? '提交中…' : '发布打卡' ]]
+                    </button>
+                </div>
+                <p class="login-hint" v-else>登录后可打卡评价 · <a href="/">去登录</a></p>
+
+                <ul class="review-list" v-if="nb.reviews.length">
+                    <li v-for="r in nb.reviews" :key="r.id">
+                        <div class="c-avatar">[[ (r.user || 'U')[0] ]]</div>
+                        <div class="c-body">
+                            <div class="c-head">
+                                <b>[[ r.user ]]</b>
+                                <span>[[ formatTime(r.created_at) ]] · [[ r.rating ]] 星</span>
+                            </div>
+                            <p>[[ r.content ]]</p>
+                            <p class="mini-tags" v-if="r.dishes && r.dishes.length">
+                                <span v-for="d in r.dishes" :key="d" class="mini-tag">[[ d ]]</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="muted" v-else>还没有人打卡，来做第一个。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" v-if="toast"><span>[[ toast ]]</span></div>
+</div>
+
+<script>
+    window.__BOOT__ = {
+        page: "{{ page|default:'home'|escapejs }}",
+        recipeId: {{ recipe_id|default:"0" }},
+        keyword: "{{ keyword|default:''|escapejs }}",
+        isAuthenticated: {{ is_authenticated|yesno:"true,false" }},
+        userName: "{{ user_name|escapejs }}",
+        llmReady: {{ llm_ready|yesno:"true,false" }},
+        demoMode: {{ demo_mode|yesno:"true,false" }},
+        cuisines: {{ cuisines|safe }},
+        tags: {{ tags|safe }}
+    };
+</script>
+<script src="{% static 'js/vue.global.js' %}"></script>
+<script src="{% static 'js/axios.min.js' %}"></script>
+<script src="{% static 'js/api.js' %}"></script>
+<script src="{% static 'js/components.js' %}"></script>
+<script src="{% static 'js/nearby.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

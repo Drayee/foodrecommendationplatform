@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寻味 · 登录</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="stage">
+        <!-- 左侧品牌区 -->
+        <section class="brand-panel">
+            <div class="brand-inner">
+                <div class="logo">
+                    <span class="logo-mark">🍜</span>
+                    <span class="logo-text">寻味</span>
+                </div>
+                <h1>今天，想吃点什么？</h1>
+                <p class="subtitle">
+                    真实菜谱 · RAG 语义检索 · 个性化推荐<br>
+                    说出食材或心情，让小味替你想好这一餐。
+                </p>
+                <ul class="feature-list">
+                    <li><span class="emoji">🔍</span><div><b>语义找菜</b><small>「冰箱里只有番茄和鸡蛋」也能找到菜</small></div></li>
+                    <li><span class="emoji">🎯</span><div><b>懂你口味</b><small>协同过滤 + 内容画像，越用越准</small></div></li>
+                    <li><span class="emoji">🌐</span><div><b>联网补充</b><small>站内没有的菜式，实时抓取入库</small></div></li>
+                </ul>
+                <div class="floating-foods">
+                    <span>🍲</span><span>🥘</span><span>🍤</span><span>🥗</span><span>🍜</span><span>🍰</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 右侧登录卡 -->
+        <section class="form-panel">
+            <div class="card">
+                <div class="card-head">
+                    <h2>邮箱验证码登录</h2>
+                    <p>无需密码，验证码 5 分钟内有效</p>
+                </div>
+
+                <div class="field">
+                    <label>邮箱</label>
+                    <div class="input-wrap">
+                        <span class="prefix">✉️</span>
+                        <input v-model.trim="email" type="email" placeholder="you@example.com"
+                               :disabled="loading || !!countdown" @keyup.enter="sendCode" autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>验证码</label>
+                    <div class="code-row">
+                        <div class="input-wrap grow">
+                            <span class="prefix">🔑</span>
+                            <input v-model.trim="code" maxlength="6" inputmode="numeric" placeholder="6 位数字"
+                                   :disabled="loading" @keyup.enter="login">
+                        </div>
+                        <button class="btn ghost" :disabled="loading || !!countdown || !email" @click="sendCode">
+                            [[ countdown ? countdown + 's' : '获取验证码' ]]
+                        </button>
+                    </div>
+                </div>
+
+                <div v-if="demoCode" class="demo-tip">
+                    <b>演示模式</b> 未配置 SMTP，验证码：<code>[[ demoCode ]]</code>
+                    <button class="link" @click="code = demoCode">一键填入</button>
+                </div>
+
+                <button class="btn primary" :disabled="loading || !email || code.length !== 6" @click="login">
+                    <span v-if="!loading">进入寻味</span>
+                    <span v-else class="loading"><i class="spinner"></i> 登录中…</span>
+                </button>
+
+                <p class="msg" :class="msgType" v-if="message">[[ message ]]</p>
+
+                <div class="divider"><span>或者</span></div>
+                <button class="btn text" @click="tourist">先随便逛逛（游客模式）</button>
+
+                <p class="agreement">
+                    登录即表示同意《用户协议》与《隐私政策》。首次登录将自动创建账号。
+                </p>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="{% static 'js/vue.global.js' %}"></script>
+<script src="{% static 'js/axios.min.js' %}"></script>
+<script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+        delimiters: ['[[', ']]'],
+        setup() {
+            const email = ref('');
+            const code = ref('');
+            const loading = ref(false);
+            const countdown = ref(0);
+            const message = ref('');
+            const msgType = ref('info');
+            const demoCode = ref('');
+
+            let timer = null;
+
+            const startCountdown = (seconds = 60) => {
+                countdown.value = seconds;
+                clearInterval(timer);
+                timer = setInterval(() => {
+                    countdown.value -= 1;
+                    if (countdown.value <= 0) clearInterval(timer);
+                }, 1000);
+            };
+
+            const setMsg = (text, type = 'info') => {
+                message.value = text;
+                msgType.value = type;
+            };
+
+            const sendCode = async () => {
+                if (!email.value || loading.value) return;
+                loading.value = true;
+                setMsg('');
+                try {
+                    const { data } = await axios.post('/api/v1/auth/send_code/', { email: email.value });
+                    if (data.code === 0) {
+                        startCountdown(60);
+                        demoCode.value = (data.data && data.data.demo_code) || '';
+                        setMsg(data.msg || '验证码已发送', 'success');
+                    } else {
+                        setMsg(data.msg || '发送失败', 'error');
+                    }
+                } catch (err) {
+                    const detail = err.response && err.response.data && err.response.data.msg;
+                    setMsg(detail || '网络异常，请稍后重试', 'error');
+                } finally {
+                    loading.value = false;
+                }
+            };
+
+            const login = async () => {
+                if (code.value.length !== 6 || loading.value) return;
+                loading.value = true;
+                setMsg('');
+                try {
+                    const { data } = await axios.post('/api/v1/auth/login/', {
+                        email: email.value, code: code.value,
+                    });
+                    if (data.code === 0) {
+                        setMsg('登录成功，正在进入…', 'success');
+                        setTimeout(() => window.location.href = '/app/', 400);
+                    } else {
+                        setMsg(data.msg || '登录失败', 'error');
+                    }
+                } catch (err) {
+                    const detail = err.response && err.response.data && err.response.data.msg;
+                    setMsg(detail || '网络异常，请稍后重试', 'error');
+                } finally {
+                    loading.value = false;
+                }
+            };
+
+            const tourist = () => { window.location.href = '/app/'; };
+
+            return { email, code, loading, countdown, message, msgType, demoCode, sendCode, login, tourist };
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>

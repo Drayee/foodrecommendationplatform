@@ -1,0 +1,40 @@
+[
+  {"name": "麻辣", "kind": "taste", "color": "#d9480f"},
+  {"name": "香辣", "kind": "taste", "color": "#e8590c"},
+  {"name": "咸鲜", "kind": "taste", "color": "#b35c00"},
+  {"name": "酸甜", "kind": "taste", "color": "#e67700"},
+  {"name": "清淡", "kind": "taste", "color": "#f8a34a"},
+  {"name": "酱香", "kind": "taste", "color": "#a34f16"},
+  {"name": "鲜香", "kind": "taste", "color": "#c96a1f"},
+  {"name": "微辣", "kind": "taste", "color": "#e8833a"},
+  {"name": "酸辣", "kind": "taste", "color": "#d9480f"},
+
+  {"name": "炒", "kind": "method", "color": "#f08c00"},
+  {"name": "蒸", "kind": "method", "color": "#f59f00"},
+  {"name": "炖", "kind": "method", "color": "#b35c00"},
+  {"name": "煮", "kind": "method", "color": "#f59f00"},
+  {"name": "烤", "kind": "method", "color": "#c2410c"},
+  {"name": "焖", "kind": "method", "color": "#a34f16"},
+  {"name": "凉拌", "kind": "method", "color": "#f8a34a"},
+  {"name": "煎", "kind": "method", "color": "#e8833a"},
+  {"name": "炸", "kind": "method", "color": "#d9480f"},
+  {"name": "煲", "kind": "method", "color": "#b45309"},
+
+  {"name": "下饭", "kind": "scene", "color": "#e8590c"},
+  {"name": "快手", "kind": "scene", "color": "#f59f00"},
+  {"name": "早餐", "kind": "scene", "color": "#f8a34a"},
+  {"name": "夜宵", "kind": "scene", "color": "#c2410c"},
+  {"name": "宴客", "kind": "scene", "color": "#a34f16"},
+  {"name": "一人食", "kind": "scene", "color": "#e8833a"},
+  {"name": "减脂", "kind": "scene", "color": "#f59f00"},
+  {"name": "家常", "kind": "scene", "color": "#b35c00"},
+
+  {"name": "素食", "kind": "diet", "color": "#f08c00"},
+  {"name": "低卡", "kind": "diet", "color": "#f8a34a"},
+  {"name": "高蛋白", "kind": "diet", "color": "#c2410c"},
+  {"name": "无辣", "kind": "diet", "color": "#f59f00"},
+
+  {"name": "低脂", "kind": "nutrition", "color": "#e8833a"},
+  {"name": "高纤", "kind": "nutrition", "color": "#b35c00"},
+  {"name": "补钙", "kind": "nutrition", "color": "#f8a34a"}
+]

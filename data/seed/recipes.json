@@ -1,0 +1,5184 @@
+[
+  {
+    "title": "麻婆豆腐",
+    "cuisine": "川菜",
+    "tags": [
+      "麻辣",
+      "下饭",
+      "家常",
+      "炒"
+    ],
+    "summary": "豆腐先盐水浸去豆腥，牛肉末煸到酥香再下豆瓣炒出红油，两次勾芡让汁挂得住豆腐。",
+    "difficulty": 2,
+    "prep_minutes": 10,
+    "cook_minutes": 15,
+    "servings": 2,
+    "calories": 380,
+    "protein": 22,
+    "fat": 26,
+    "carbs": 14,
+    "ingredients": [
+      {
+        "name": "北豆腐",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "牛肉末",
+        "amount": "80",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "郫县豆瓣酱",
+        "amount": "1.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "豆豉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "北豆腐切 2cm 见方小块，放进淡盐水（1 升水加 5 克盐）浸 3 分钟去豆腥，捞出沥干水分。",
+      "花椒冷锅小火焙 2 分钟至出香，倒出碾成花椒粉；姜蒜切末，小葱切葱花，淀粉加 3 汤匙清水调成水淀粉。",
+      "锅中放 2 汤匙油烧至五成热，下牛肉末中火煸 3 分钟，煸到肉末发干、边缘微焦、锅底见清油。",
+      "转小火下郫县豆瓣酱与豆豉炒 1 分钟至红油渗出，加姜蒜末炒香，倒入 250 毫升热水烧开。",
+      "滑入豆腐块，用锅铲背面轻推散开，中火煮 4 分钟，其间不要大力翻炒以免碎块。",
+      "分两次勾芡：先淋一半水淀粉晃锅至汤汁微稠，煮 1 分钟后再淋剩下的，收到汁能挂住豆腐。",
+      "撒花椒粉与葱花，关火后沿锅边淋 1 汤匙热油激香，出锅装盘。"
+    ],
+    "tips": "勾芡分两次，第一次让豆腐入味，第二次收亮油；花椒粉最后撒才够麻。"
+  },
+  {
+    "title": "宫保鸡丁",
+    "cuisine": "川菜",
+    "tags": [
+      "香辣",
+      "酸甜",
+      "下饭",
+      "炒"
+    ],
+    "summary": "鸡腿肉上浆滑炒保持嫩度，干辣椒与花椒炝出糊辣香，糖醋汁收得亮而不流。",
+    "difficulty": 2,
+    "prep_minutes": 20,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 448,
+    "protein": 28,
+    "fat": 24,
+    "carbs": 30,
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "花生米",
+        "amount": "50",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大葱",
+        "amount": "60",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "2",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鸡腿去骨切 1.5cm 丁，加 1 汤匙料酒、半汤匙生抽、5 克淀粉抓匀，封 1 汤匙油腌 15 分钟。",
+      "大葱切 1.5cm 段，姜蒜切片，干辣椒剪段抖掉部分辣椒籽；花生米冷油下锅小火炸 3 分钟至微黄捞出。",
+      "碗汁：白糖 2 茶匙、香醋 2 汤匙、生抽半汤匙、淀粉 5 克、清水 3 汤匙搅匀备用。",
+      "锅烧到冒青烟，下 2 汤匙油滑锅后倒出，重新加冷油，鸡丁下锅中大火摊平不动煎 40 秒再翻炒至变白，盛出。",
+      "锅内留底油小火下干辣椒与花椒，炒 30 秒至辣椒呈棕红色、闻到糊辣香，下姜蒜片爆香。",
+      "转大火倒回鸡丁与葱段翻炒 30 秒，沿锅边淋入碗汁，快速翻匀至汁变稠裹住鸡丁，约 40 秒。",
+      "关火撒入花生米翻两下立刻装盘，花生保持脆感。"
+    ],
+    "tips": "碗汁一定要提前调好，下锅后 40 秒内必须收汁，久炒鸡肉就柴了。"
+  },
+  {
+    "title": "白切鸡",
+    "cuisine": "粤菜",
+    "tags": [
+      "清淡",
+      "咸鲜",
+      "宴客",
+      "煮"
+    ],
+    "summary": "整鸡在微沸的姜葱水里浸熟，关火焖出嫩滑鸡皮，配姜葱蓉蘸食最见本味。",
+    "difficulty": 3,
+    "prep_minutes": 15,
+    "cook_minutes": 45,
+    "servings": 4,
+    "calories": 458,
+    "protein": 45,
+    "fat": 30,
+    "carbs": 2,
+    "ingredients": [
+      {
+        "name": "整鸡",
+        "amount": "1",
+        "unit": "只",
+        "is_main": true
+      },
+      {
+        "name": "姜",
+        "amount": "60",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "4",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "香油",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "整鸡（约 1.2 公斤）洗净擦干，鸡腔内外抹 1 茶匙盐，塞入 20 克姜片与 20 克葱段，室温回温 20 分钟。",
+      "深锅加足量水（能没过鸡身），放剩余姜片葱段，大火烧到锅底冒细密小泡、水面将沸未沸（约 90℃）。",
+      "提鸡颈把鸡浸入水中 10 秒提起，重复 3 次让鸡皮收紧，再整只放入，保持水面微微冒泡不翻滚。",
+      "小火浸煮 18 分钟后关火，盖盖焖 12 分钟；用筷子扎鸡腿最厚处，流出清汁不见血水即熟。",
+      "捞出立刻放入冰水（冰块加水）浸 10 分钟，鸡皮收紧变脆爽，捞出沥干斩件摆盘。",
+      "姜 40 克剁蓉、葱切细花，加半茶匙盐拌匀，淋 4 汤匙烧到冒烟的热油激香，做成姜葱蓉。",
+      "生抽加香油调成蘸碟，鸡块配姜葱蓉与豉油碟一起上桌。"
+    ],
+    "tips": "全程水面只能「虾眼水」微沸，大滚会把鸡肉煮柴；冰水急冷是鸡皮爽脆的关键。"
+  },
+  {
+    "title": "地三鲜",
+    "cuisine": "东北菜",
+    "tags": [
+      "咸鲜",
+      "下饭",
+      "家常",
+      "炒"
+    ],
+    "summary": "土豆茄子先煎到外壳定型少吸油，再与青椒合炒，一碗酱汁收得浓亮最配米饭。",
+    "difficulty": 2,
+    "prep_minutes": 15,
+    "cook_minutes": 15,
+    "servings": 2,
+    "calories": 464,
+    "protein": 8,
+    "fat": 28,
+    "carbs": 45,
+    "ingredients": [
+      {
+        "name": "土豆",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "茄子",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "青椒",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大蒜",
+        "amount": "4",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "4",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "土豆去皮切滚刀块，清水冲去表面淀粉后彻底擦干；茄子切滚刀块撒 3 克盐抓匀腌 10 分钟，挤掉渗出的水。",
+      "茄子挤水后拍一层薄淀粉，这样煎的时候不容易吸油。青椒去籽切菱形块，蒜拍碎切末。",
+      "平底锅放 2 汤匙油中火煎土豆，每面煎 3 分钟至金黄起壳、筷子能插入，盛出。",
+      "补 1 汤匙油下茄子，中火煎 4 分钟至表面微焦、体积缩小三分之一，盛出。",
+      "碗汁：生抽、老抽、白糖、半茶匙盐、淀粉加 4 汤匙清水搅匀。",
+      "锅留底油下蒜末小火炒香，倒回土豆茄子转大火翻炒 1 分钟，下青椒炒 30 秒。",
+      "沿锅边淋入碗汁，翻炒至汤汁浓稠挂在食材上（约 40 秒），撒葱花出锅。"
+    ],
+    "tips": "茄子先用盐杀水再拍淀粉，煎的时候能少吸一半油，成菜不腻。"
+  },
+  {
+    "title": "番茄炒蛋",
+    "cuisine": "家常菜",
+    "tags": [
+      "酸甜",
+      "快手",
+      "下饭",
+      "家常",
+      "无辣"
+    ],
+    "summary": "蛋液加温水炒到半凝就盛出，番茄炒出沙再回锅，蛋嫩汁浓，十分钟端上桌。",
+    "difficulty": 1,
+    "prep_minutes": 5,
+    "cook_minutes": 8,
+    "servings": 2,
+    "calories": 292,
+    "protein": 16,
+    "fat": 20,
+    "carbs": 12,
+    "ingredients": [
+      {
+        "name": "番茄",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "3",
+        "unit": "个",
+        "is_main": true
+      },
+      {
+        "name": "小葱",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "番茄顶部划十字，淋沸水烫 40 秒后撕皮，切 2cm 块；小葱切葱花。",
+      "鸡蛋磕入碗中加 1 汤匙温水与 2 克盐，用筷子划圈打散到蛋液起细泡。",
+      "锅烧热放 2 汤匙油，油面微微晃动时倒入蛋液，静置 10 秒待底部凝固，用铲子推成大块，七成熟立刻盛出。",
+      "锅中补 1 汤匙油，下番茄块中火炒 3 分钟，边炒边压，炒到番茄出红沙、汤汁变浓。",
+      "加 1 茶匙白糖与 2 克盐调味，倒回鸡蛋块翻炒 30 秒让蛋吸汁，撒葱花出锅。"
+    ],
+    "tips": "蛋液里加一点温水更嫩；鸡蛋七成熟就盛出，回锅收汁时才不会老。"
+  },
+  {
+    "title": "鱼香肉丝",
+    "cuisine": "川菜",
+    "tags": [
+      "酸甜",
+      "微辣",
+      "下饭",
+      "炒"
+    ],
+    "summary": "泡椒豆瓣炒出鱼香底味，糖醋比例一比一，肉丝上浆滑炒后大火收汁，酸甜带辣最下饭。",
+    "difficulty": 2,
+    "prep_minutes": 20,
+    "cook_minutes": 8,
+    "servings": 2,
+    "calories": 380,
+    "protein": 24,
+    "fat": 20,
+    "carbs": 26,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "木耳",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "胡萝卜",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "青椒",
+        "amount": "60",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "郫县豆瓣酱",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "2",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "12",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "猪里脊顺纹切 0.3cm 薄片再切 8cm 长细丝，加 1 汤匙料酒、半汤匙生抽、5 克淀粉抓至发黏，封 1 汤匙油腌 15 分钟。",
+      "木耳提前泡发切丝，胡萝卜与青椒切与肉丝同粗的丝；姜蒜切末，小葱切葱花。",
+      "调鱼香汁：白糖 2 茶匙、香醋 2 汤匙、生抽半汤匙、淀粉 5 克、清水 4 汤匙搅匀，尝起来应是明显酸甜。",
+      "锅烧热放 2 汤匙油，四成热下肉丝快速划散，肉丝变白立刻盛出，全程不超过 40 秒。",
+      "锅内留底油小火下郫县豆瓣酱炒 40 秒出红油，加姜蒜末炒香，转大火下胡萝卜丝与木耳丝炒 1 分钟。",
+      "倒回肉丝与青椒丝翻炒 30 秒，沿锅边淋入鱼香汁，快速翻匀至汁浓裹丝，撒葱花出锅。"
+    ],
+    "tips": "鱼香汁的糖醋要提前尝一口，酸甜打底才叫鱼香；肉丝回锅后别超过 40 秒。"
+  },
+  {
+    "title": "回锅肉",
+    "cuisine": "川菜",
+    "tags": [
+      "香辣",
+      "酱香",
+      "下饭",
+      "炒"
+    ],
+    "summary": "五花肉先煮后切薄片，煸到卷成灯盏窝再下豆瓣甜酱，肥而不腻、酱香扑鼻。",
+    "difficulty": 2,
+    "prep_minutes": 40,
+    "cook_minutes": 8,
+    "servings": 2,
+    "calories": 584,
+    "protein": 26,
+    "fat": 48,
+    "carbs": 12,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "蒜苗",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "青椒",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "郫县豆瓣酱",
+        "amount": "1.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "甜面酱",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "豆豉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "2",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "五花肉整块冷水下锅，加姜片与 1 汤匙料酒，水开后中小火煮 25 分钟，筷子能扎透皮即可捞出。",
+      "煮好的肉放凉到不烫手（或冷藏 20 分钟），切成 2mm 薄片，越薄越容易煸出灯盏窝。",
+      "蒜苗斜刀切段，蒜白与蒜叶分开放；青椒切菱形块；豆瓣酱与豆豉略剁碎更出味。",
+      "锅烧热放 1 汤匙油，下肉片中火煸 4 分钟，煸到肉片卷曲、边缘微焦、锅底积出清亮猪油。",
+      "把肉片推到锅边，用锅内猪油小火炒豆瓣酱、豆豉 40 秒出红油，加甜面酱与蒜片炒匀。",
+      "大火下青椒与蒜白炒 1 分钟，加生抽、白糖调味，最后下蒜叶炒 20 秒断生即出锅。"
+    ],
+    "tips": "肉一定要煮透再切，冷藏后的肉片更好切薄；靠煸出的猪油炒酱，香味才够厚。"
+  },
+  {
+    "title": "水煮鱼",
+    "cuisine": "川菜",
+    "tags": [
+      "麻辣",
+      "鲜香",
+      "宴客",
+      "煮"
+    ],
+    "summary": "鱼片蛋清上浆后小火浸熟，最后泼一勺滚油激香干辣椒花椒，麻辣鲜嫩一锅端。",
+    "difficulty": 3,
+    "prep_minutes": 30,
+    "cook_minutes": 20,
+    "servings": 3,
+    "calories": 664,
+    "protein": 58,
+    "fat": 40,
+    "carbs": 18,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "amount": "700",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "绿豆芽",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "干辣椒",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "2",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "郫县豆瓣酱",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "6",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "6",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "草鱼片下两侧鱼肉，斜刀片成 3mm 厚鱼片；鱼骨鱼头剁块，鱼片用清水冲 2 分钟至水清，挤干水分。",
+      "鱼片加 1 茶匙盐、1 汤匙料酒、蛋清 1 个、10 克淀粉抓匀上浆，腌 10 分钟；鱼骨另加料酒抓匀。",
+      "豆芽掐去根部，沸水焯 30 秒铺在深盆底；干辣椒剪段、蒜切末、姜切片。",
+      "锅中放 3 汤匙油，下姜片与鱼骨煎 2 分钟至微黄，加 800 毫升开水大火煮 8 分钟，汤色变白后捞骨留汤。",
+      "汤中下郫县豆瓣酱与一半蒜末煮 3 分钟出红油，转小火把鱼片逐片抖散下锅，保持汤面微沸浸 90 秒即熟。",
+      "连汤倒入盆中，撒剩余蒜末、干辣椒段与花椒；另起锅烧 3 汤匙油至冒青烟，泼在辣椒花椒上。",
+      "撒葱花，静置 1 分钟让香味渗入再上桌。"
+    ],
+    "tips": "鱼片一定要温汤浸熟而不是大火滚煮，90 秒足够，久了就散；泼油必须烧到冒烟。"
+  },
+  {
+    "title": "酸菜鱼",
+    "cuisine": "川菜",
+    "tags": [
+      "酸辣",
+      "鲜香",
+      "下饭",
+      "煮"
+    ],
+    "summary": "酸菜先干煸去水汽再与鱼骨同熬，汤酸得干净，鱼片最后下锅浸熟，嫩得能用勺舀。",
+    "difficulty": 3,
+    "prep_minutes": 25,
+    "cook_minutes": 20,
+    "servings": 3,
+    "calories": 524,
+    "protein": 52,
+    "fat": 28,
+    "carbs": 16,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "amount": "700",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "酸菜",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "小米辣",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "5",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白胡椒粉",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "5",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "草鱼取肉片成 3mm 薄片，鱼骨剁段；鱼片加 1 汤匙料酒、半茶匙盐、白胡椒粉与 10 克淀粉抓黏，腌 10 分钟。",
+      "酸菜切 2cm 段，清水抓洗两遍挤干；姜切片、蒜拍碎、小米辣切圈。",
+      "干锅不放油，下酸菜中火干煸 3 分钟，煸到边缘发干、酸香变浓，盛出备用。",
+      "锅中放 3 汤匙油，下鱼骨煎至两面微黄，加姜片、一半蒜末炒香，倒 900 毫升开水大火滚 8 分钟至汤白。",
+      "下酸菜与小米辣再煮 5 分钟，加半茶匙盐调味，把鱼骨与酸菜捞出铺在盆底。",
+      "汤转小火，鱼片逐片下锅浸 90 秒至变白卷边，连汤倒入盆中。",
+      "另起锅烧 2 汤匙油，下干辣椒与花椒炸 20 秒，连油泼在鱼片上，撒葱花即可。"
+    ],
+    "tips": "酸菜务必干煸去水汽，否则汤会寡淡发涩；鱼片下锅后不要搅动，晃锅即可。"
+  },
+  {
+    "title": "蜜汁叉烧",
+    "cuisine": "粤菜",
+    "tags": [
+      "酱香",
+      "酸甜",
+      "烤",
+      "宴客"
+    ],
+    "summary": "梅花肉用叉烧酱腌足一夜，中温烤到边缘焦糖化，出炉再刷一层蜜汁，甜咸带焦香。",
+    "difficulty": 2,
+    "prep_minutes": 30,
+    "cook_minutes": 45,
+    "servings": 3,
+    "calories": 490,
+    "protein": 34,
+    "fat": 26,
+    "carbs": 30,
+    "ingredients": [
+      {
+        "name": "猪梅花肉",
+        "amount": "600",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "蜂蜜",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "蚝油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "2",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "五香粉",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "梅花肉切成 3cm 厚长条，用叉子在表面扎孔，方便入味。",
+      "腌料：生抽 3 汤匙、老抽半汤匙、蚝油 1 汤匙、白糖 2 茶匙、料酒 1 汤匙、五香粉半茶匙、蒜末姜末，与 1 汤匙蜂蜜拌匀。",
+      "肉与腌料装入保鲜袋揉匀，冷藏腌 12 小时，中途翻面两次。",
+      "烤箱上下火 200℃ 预热 10 分钟，肉条放烤架、下层垫接油盘，烤 20 分钟后翻面再烤 15 分钟。",
+      "剩余 2 汤匙蜂蜜加 1 汤匙腌料汁调成蜜汁，刷在肉条两面，转 220℃ 再烤 8 分钟至边缘焦糖化。",
+      "出炉静置 10 分钟锁汁，逆纹切 0.5cm 厚片，淋盘中蜜汁即可。"
+    ],
+    "tips": "梅花肉肥瘦相间最适合叉烧；最后 8 分钟高温上色要守着烤箱，糖分很容易焦。"
+  },
+  {
+    "title": "水晶虾饺",
+    "cuisine": "粤菜",
+    "tags": [
+      "鲜香",
+      "清淡",
+      "蒸",
+      "宴客"
+    ],
+    "summary": "澄面用滚水烫熟揉成水晶皮，包入整只虾仁与笋丁，蒸六分钟皮透亮、咬开有汁。",
+    "difficulty": 4,
+    "prep_minutes": 40,
+    "cook_minutes": 8,
+    "servings": 3,
+    "calories": 434,
+    "protein": 28,
+    "fat": 10,
+    "carbs": 58,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "淀粉",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "竹笋",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "白胡椒粉",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香油",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "虾仁一半剁成虾胶、一半切大粒，加半茶匙盐抓 1 分钟至起胶，再用清水冲净沥干。",
+      "虾肉加笋丁（切 3mm 小粒）、半茶匙盐、1 茶匙糖、白胡椒粉、香油与 1 汤匙食用油，顺一个方向搅 2 分钟，冷藏 20 分钟。",
+      "澄面（小麦淀粉）200 克与 40 克淀粉混匀，冲入 260 毫升刚烧开的沸水，边倒边用筷子搅成絮状。",
+      "趁热揉成光滑面团（烫手可垫布），加 1 汤匙油揉匀，盖湿布防干。",
+      "面团搓条切 12 克小剂，用刀面压成直径 8cm 薄圆皮，包入 15 克馅料，捏出 10 道褶收口。",
+      "蒸笼垫油纸，水开后大火蒸 6 分钟，皮变透明即熟，趁热上桌。"
+    ],
+    "tips": "澄面必须用 100℃ 滚水烫才透明；皮要现擀现包，放久会干裂。"
+  },
+  {
+    "title": "清蒸鲈鱼",
+    "cuisine": "粤菜",
+    "tags": [
+      "清淡",
+      "鲜香",
+      "蒸",
+      "快手",
+      "高蛋白"
+    ],
+    "summary": "鲈鱼大火足汽只蒸八分钟，倒掉腥水换新葱丝，最后一勺滚油淋出豉油香。",
+    "difficulty": 1,
+    "prep_minutes": 10,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 306,
+    "protein": 42,
+    "fat": 14,
+    "carbs": 3,
+    "ingredients": [
+      {
+        "name": "鲈鱼",
+        "amount": "600",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "姜",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鲈鱼（约 600 克）去鳞去内脏洗净，两面各斜划三刀，用料酒与盐抹匀腌 5 分钟去腥。",
+      "盘底横放两根葱段与姜片把鱼架空，鱼腹内也塞姜片，让蒸汽能循环。",
+      "蒸锅水大开后放入鱼盘，盖盖大火蒸 8 分钟（每 500 克约 7 分钟），关火虚蒸 1 分钟。",
+      "取出倒掉盘中腥水，去掉旧姜葱，重新铺上细葱丝与姜丝。",
+      "淋 2 汤匙生抽在鱼身两侧，另烧 2 汤匙油至冒烟，浇在葱丝上激香即可。"
+    ],
+    "tips": "蒸鱼的水一定要先烧到大滚再上锅；盘里的腥水必须倒掉，否则整道菜发苦。"
+  },
+  {
+    "title": "腊味煲仔饭",
+    "cuisine": "粤菜",
+    "tags": [
+      "酱香",
+      "咸鲜",
+      "煲",
+      "一人食"
+    ],
+    "summary": "砂锅小火焗出金黄饭焦，腊肉油脂渗进米粒，最后淋豉油、卧一只半熟蛋。",
+    "difficulty": 3,
+    "prep_minutes": 15,
+    "cook_minutes": 35,
+    "servings": 2,
+    "calories": 810,
+    "protein": 30,
+    "fat": 34,
+    "carbs": 96,
+    "ingredients": [
+      {
+        "name": "大米",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "腊肉",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "小白菜",
+        "amount": "150",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "2",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "蚝油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香油",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "大米淘洗后加 240 毫升清水泡 30 分钟；腊肉温水刷洗表面，切 2mm 薄片。",
+      "砂锅内壁刷一层油，倒入泡好的米与水，大火煮到水面冒大泡、边缘起小孔（约 6 分钟）。",
+      "转最小火，铺上腊肉片，盖盖焗 12 分钟，让腊味油脂渗进米饭。",
+      "沿锅边淋 1 汤匙油，转中火 40 秒逼出锅巴，听到轻微噼啪声即可关火，焖 5 分钟。",
+      "小白菜沸水焯 30 秒捞出；另煎两个溏心蛋。",
+      "生抽、老抽、蚝油、白糖加 2 汤匙热水调成豉油汁，饭上摆菜与蛋，淋汁拌匀开吃。"
+    ],
+    "tips": "锅边淋油那 40 秒是锅巴的关键，听到噼啪声就要立刻关火，再久就糊了。"
+  },
+  {
+    "title": "糖醋里脊",
+    "cuisine": "鲁菜",
+    "tags": [
+      "酸甜",
+      "炸",
+      "宴客",
+      "下饭"
+    ],
+    "summary": "里脊条挂蛋糊两次复炸到外壳酥脆，糖醋汁熬到起大泡再下锅，裹汁三十秒出锅才脆。",
+    "difficulty": 3,
+    "prep_minutes": 20,
+    "cook_minutes": 15,
+    "servings": 3,
+    "calories": 733,
+    "protein": 32,
+    "fat": 45,
+    "carbs": 50,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "番茄酱",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "3",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "8",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "里脊切 1cm 粗、6cm 长的条，加半茶匙盐、料酒抓匀腌 10 分钟。",
+      "加 1 个鸡蛋与 30 克淀粉抓成黏稠糊状，让每根肉条都挂上薄浆。",
+      "另取 70 克干淀粉，把挂糊的肉条逐根滚一圈干粉，抖掉多余粉，静置 2 分钟回潮。",
+      "油烧到六成热（筷子插入冒密集小泡），下肉条中火炸 3 分钟至定型微黄，捞出。",
+      "油温升到八成热，回锅复炸 40 秒至外壳金黄发脆，捞出沥油。",
+      "另起锅小火，放番茄酱 3 汤匙、白糖 3 茶匙、香醋 2 汤匙、半茶匙盐与 4 汤匙清水，熬到起大泡变稠。",
+      "倒入炸好的里脊，快速翻匀 30 秒让糖醋汁裹满，立即出锅。"
+    ],
+    "tips": "复炸是酥脆的关键；糖醋汁必须熬到起大泡再下肉，汁太稀会把外壳泡软。"
+  },
+  {
+    "title": "葱爆羊肉",
+    "cuisine": "鲁菜",
+    "tags": [
+      "咸鲜",
+      "鲜香",
+      "快手",
+      "炒",
+      "高蛋白"
+    ],
+    "summary": "羊肉逆纹切薄片大火爆炒，葱白断生即出锅，锅气足、葱香冲，冬天最下饭。",
+    "difficulty": 2,
+    "prep_minutes": 15,
+    "cook_minutes": 5,
+    "servings": 2,
+    "calories": 558,
+    "protein": 40,
+    "fat": 38,
+    "carbs": 14,
+    "ingredients": [
+      {
+        "name": "羊肉",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大葱",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "2",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "羊腿肉逆纹切 2mm 薄片，加料酒、半茶匙盐、淀粉抓匀，封 1 汤匙油腌 10 分钟。",
+      "大葱斜刀切 3cm 马耳段，葱白葱叶分开；姜蒜切末。",
+      "锅烧到冒青烟，放 2 汤匙油滑满锅壁，羊肉下锅大火摊开，20 秒后翻炒至七成熟盛出。",
+      "锅内留底油下姜蒜末爆香，倒葱白大火炒 30 秒至边缘微透明。",
+      "倒回羊肉与葱叶，淋生抽，沿锅边点香醋，大火翻 20 秒立即出锅。"
+    ],
+    "tips": "全程大火，羊肉在锅里累计不超过 90 秒；香醋只点几滴，作用是去膻提香。"
+  },
+  {
+    "title": "油焖大虾",
+    "cuisine": "鲁菜",
+    "tags": [
+      "咸鲜",
+      "酸甜",
+      "焖",
+      "宴客"
+    ],
+    "summary": "整虾煎出虾油后加糖醋汁小火焖透，壳红亮、肉弹牙，汤汁拌饭一滴不剩。",
+    "difficulty": 2,
+    "prep_minutes": 15,
+    "cook_minutes": 12,
+    "servings": 3,
+    "calories": 400,
+    "protein": 45,
+    "fat": 20,
+    "carbs": 10,
+    "ingredients": [
+      {
+        "name": "基围虾",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大葱",
+        "amount": "40",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "2",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "基围虾剪去虾枪虾须，从背部剪开挑出虾线，用厨房纸彻底吸干水分。",
+      "姜切片、大葱切段；碗中调生抽 2 汤匙、料酒 2 汤匙、白糖 2 茶匙、盐半茶匙与 4 汤匙清水。",
+      "锅中放 3 汤匙油，中火下虾煎 2 分钟，一面变红翻面再煎 1 分钟，用铲子轻压虾头逼出虾油。",
+      "下姜片葱段炒香，倒入调好的碗汁，加盖小火焖 3 分钟。",
+      "开盖转大火收汁 1 分钟，边收边把汁淋在虾身上，收到汤汁浓亮挂壳即可装盘。"
+    ],
+    "tips": "虾必须擦干再下锅，才煎得出红亮虾油；焖的时间别超过 3 分钟，否则虾肉发柴。"
+  },
+  {
+    "title": "醋溜白菜",
+    "cuisine": "鲁菜",
+    "tags": [
+      "酸辣",
+      "清淡",
+      "快手",
+      "素食",
+      "低卡"
+    ],
+    "summary": "白菜帮斜刀片薄先炒，醋分两次淋，出锅脆生带酸香，五分钟的快手素菜。",
+    "difficulty": 1,
+    "prep_minutes": 8,
+    "cook_minutes": 5,
+    "servings": 2,
+    "calories": 266,
+    "protein": 6,
+    "fat": 18,
+    "carbs": 20,
+    "ingredients": [
+      {
+        "name": "大白菜",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "干辣椒",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2.5",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "白菜帮斜刀片成 3mm 薄片，菜叶手撕成块，分开装；蒜切片、干辣椒剪段。",
+      "碗汁：香醋 1 汤匙、生抽、白糖、淀粉加 3 汤匙清水搅匀。",
+      "锅烧热放油，小火下花椒与干辣椒炒 30 秒出香，下蒜片炒香。",
+      "转大火下白菜帮炒 1 分钟至边缘透明，再下菜叶炒 40 秒至微微塌软。",
+      "沿锅边淋入碗汁并补 1 汤匙香醋，快速翻匀收汁，出锅。"
+    ],
+    "tips": "醋分两次放：一次入锅提香，一次出锅前提酸，酸味才有层次。"
+  },
+  {
+    "title": "松鼠鳜鱼",
+    "cuisine": "苏菜",
+    "tags": [
+      "酸甜",
+      "炸",
+      "宴客",
+      "鲜香"
+    ],
+    "summary": "鳜鱼剞菱形花刀挂糊炸成松鼠形，番茄糖醋汁现浇，外酥里嫩、酸甜挂汁。",
+    "difficulty": 5,
+    "prep_minutes": 40,
+    "cook_minutes": 20,
+    "servings": 4,
+    "calories": 880,
+    "protein": 55,
+    "fat": 40,
+    "carbs": 75,
+    "ingredients": [
+      {
+        "name": "鳜鱼",
+        "amount": "750",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "淀粉",
+        "amount": "150",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "番茄酱",
+        "amount": "4",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "3",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "8",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鳜鱼（约 750 克）去头去骨，保留鱼尾相连，鱼肉从内侧剞 1cm 见方、深至鱼皮的菱形花刀，不切断皮。",
+      "鱼肉用料酒、半茶匙盐、姜葱腌 10 分钟，然后拍干水分，刀缝里也要抹进干淀粉，抖掉余粉。",
+      "油烧至七成热，手提鱼尾让鱼肉花刀先入油，定型后整条滑入，中火炸 4 分钟至金黄卷曲，捞出。",
+      "油温升到八成，复炸 40 秒让外壳更脆，捞出摆盘，鱼头鱼尾一并炸好拼成松鼠形。",
+      "另起锅放番茄酱 4 汤匙、白糖 3 茶匙、香醋 3 汤匙、半茶匙盐与 100 毫升清水，小火熬 2 分钟至起泡浓稠。",
+      "趁热把糖醋汁浇在鱼身上，听到「吱吱」声即成功，撒葱丝上桌。"
+    ],
+    "tips": "花刀要深至皮不破，拍粉时把粉按进缝里，炸出来才会像松鼠毛一样立起。"
+  },
+  {
+    "title": "清炖狮子头",
+    "cuisine": "苏菜",
+    "tags": [
+      "清淡",
+      "鲜香",
+      "炖",
+      "宴客"
+    ],
+    "summary": "五花肉手工粗斩细切，摔打上劲后小火养 90 分钟，肉丸松软如豆腐、汤清见底。",
+    "difficulty": 4,
+    "prep_minutes": 30,
+    "cook_minutes": 90,
+    "servings": 3,
+    "calories": 616,
+    "protein": 32,
+    "fat": 48,
+    "carbs": 14,
+    "ingredients": [
+      {
+        "name": "猪肉末",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "马蹄",
+        "amount": "80",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "小白菜",
+        "amount": "150",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "白胡椒粉",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "猪肉末选三肥七瘦，加 1 茶匙盐、料酒、白胡椒粉、姜末与葱花，顺一个方向搅 3 分钟至起胶。",
+      "马蹄拍碎切成绿豆大小，与鸡蛋、淀粉一起拌入肉馅，再搅 2 分钟。",
+      "肉馅分三次摔打进碗（每次抓起肉团摔回碗中），让肉质更紧实又不散。",
+      "手上蘸水，把肉馅团成 4 个直径 6cm 的大丸子，轻轻在两手间来回倒 5 次排出空气。",
+      "砂锅加 1.2 升冷水，放入丸子，水面必须没过丸子，小火加热到微沸（水面只冒小泡）。",
+      "盖盖小火炖 90 分钟，中途撇去浮沫，起锅前 5 分钟放小白菜烫熟，加盐调味。"
+    ],
+    "tips": "全程只能微沸，水一滚丸子就散；肉馅摔打上劲后炖出来才松而不散。"
+  },
+  {
+    "title": "清蒸大闸蟹",
+    "cuisine": "苏菜",
+    "tags": [
+      "清淡",
+      "鲜香",
+      "蒸",
+      "宴客"
+    ],
+    "summary": "蟹肚朝上蒸十二分钟，紫苏姜片去寒，配姜醋蘸食，蟹黄流油、蟹肉带甜。",
+    "difficulty": 2,
+    "prep_minutes": 10,
+    "cook_minutes": 15,
+    "servings": 2,
+    "calories": 272,
+    "protein": 40,
+    "fat": 8,
+    "carbs": 10,
+    "ingredients": [
+      {
+        "name": "大闸蟹",
+        "amount": "4",
+        "unit": "只",
+        "is_main": true
+      },
+      {
+        "name": "姜",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "活蟹用刷子刷净蟹壳缝隙与蟹脚，用棉线把蟹脚蟹钳捆紧，防止蒸时挣扎掉腿。",
+      "蒸锅水烧开，水里放几片姜；蟹肚朝上摆入蒸屉，每只蟹肚上再压一片姜。",
+      "大火蒸 12 分钟（3 两左右 10 分钟，每增一两加 2 分钟），关火焖 2 分钟。",
+      "姜 30 克剁成细末，加香醋 3 汤匙、生抽 1 汤匙、白糖 1 茶匙调成姜醋汁。",
+      "蟹出锅趁热配姜醋汁食用，先吃蟹黄蟹膏，再拆蟹肉。"
+    ],
+    "tips": "必须肚朝上蒸，蟹黄才不会流出来；蟹性寒，姜醋汁一定要配足。"
+  },
+  {
+    "title": "桂花糖藕",
+    "cuisine": "苏菜",
+    "tags": [
+      "酸甜",
+      "清淡",
+      "煮",
+      "素食"
+    ],
+    "summary": "糯米塞进藕孔小火煮两小时，糖水收到琥珀色，切片浇桂花蜜，软糯拉丝。",
+    "difficulty": 3,
+    "prep_minutes": 40,
+    "cook_minutes": 120,
+    "servings": 4,
+    "calories": 546,
+    "protein": 12,
+    "fat": 2,
+    "carbs": 120,
+    "ingredients": [
+      {
+        "name": "莲藕",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "糯米",
+        "amount": "120",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "冰糖",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "红枣",
+        "amount": "40",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "蜂蜜",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "桂花",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "糯米淘洗后清水泡 2 小时，沥干；莲藕选粗壮老藕，去皮，一端切下 2cm 当盖子。",
+      "把糯米从藕孔一点点灌入，边灌边用筷子捅实，灌到八分满（米会膨胀）。",
+      "盖上藕盖，用牙签斜插固定，防止煮的时候米漏出来。",
+      "藕放入深锅，加冰糖、红枣与没过藕的清水，大火烧开转小火煮 90 分钟。",
+      "加 1 汤匙蜂蜜继续小火煮 30 分钟，汤汁收到剩三分之一、颜色变琥珀色。",
+      "藕捞出放凉切 1cm 厚片，摆盘淋剩余糖汁与蜂蜜，撒桂花即可。"
+    ],
+    "tips": "米只灌八分满，煮胀后刚好填满孔洞；放凉再切，切片才不散。"
+  },
+  {
+    "title": "东坡肉",
+    "cuisine": "浙菜",
+    "tags": [
+      "酱香",
+      "咸鲜",
+      "焖",
+      "宴客"
+    ],
+    "summary": "五花肉方块先焯后焖，黄酒代替水，小火焖两小时收成红亮方肉，入口即化不腻。",
+    "difficulty": 3,
+    "prep_minutes": 20,
+    "cook_minutes": 120,
+    "servings": 4,
+    "calories": 1140,
+    "protein": 30,
+    "fat": 100,
+    "carbs": 30,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "800",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "老抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "200",
+        "unit": "毫升",
+        "is_main": false
+      },
+      {
+        "name": "冰糖",
+        "amount": "60",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大葱",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "2",
+        "unit": "个",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "五花肉选带皮三层肉，切成 5cm 见方大块，冷水下锅加姜片焯 5 分钟，撇净浮沫后捞出冲净。",
+      "砂锅底部铺满葱段与姜片，肉块皮朝下码放，加冰糖、生抽、老抽、八角。",
+      "倒入 200 毫升料酒与 200 毫升清水（液面到肉的三分之二），大火烧开转最小火。",
+      "盖盖焖 60 分钟，翻面使皮朝上，再焖 60 分钟至筷子能轻松插入肉皮。",
+      "开盖转中火收汁 10 分钟，边收边把汤汁淋在肉皮上，收到汁浓红亮。",
+      "肉块移入小盅，浇上原汁，上锅再蒸 15 分钟让味道更融合，即可上桌。"
+    ],
+    "tips": "用黄酒代替大部分水是东坡肉的灵魂；全程小火，火大肉皮会破、油会浑。"
+  },
+  {
+    "title": "西湖醋鱼",
+    "cuisine": "浙菜",
+    "tags": [
+      "酸甜",
+      "清淡",
+      "煮",
+      "宴客"
+    ],
+    "summary": "草鱼片成雌雄两片在微沸水中汆熟，糖醋汁勾薄芡浇上，鱼肉雪白、酸甜带蟹味。",
+    "difficulty": 3,
+    "prep_minutes": 20,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 340,
+    "protein": 40,
+    "fat": 12,
+    "carbs": 18,
+    "ingredients": [
+      {
+        "name": "草鱼",
+        "amount": "600",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "香醋",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "3",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "草鱼宰杀洗净，从背部剖开成腹部相连的两片，鱼身斜剞三刀，用料酒与姜片腌 10 分钟。",
+      "锅中水烧到 90℃ 微沸（不翻滚），加姜片葱段，鱼皮朝上滑入水中，小火汆 5 分钟。",
+      "用筷子扎鱼背最厚处，能轻松穿透即熟，小心捞出摆盘，鱼皮朝上。",
+      "锅中留 200 毫升汆鱼原汤，加生抽 2 汤匙、白糖 3 茶匙、香醋 3 汤匙，小火煮 1 分钟。",
+      "淀粉加 3 汤匙水调匀，淋入锅中勾薄芡，边推边煮到汁微稠发亮。",
+      "把糖醋汁均匀浇在鱼身上，撒姜末与葱花即可。"
+    ],
+    "tips": "汆鱼的水只能微沸，滚水会把鱼肉冲散；糖醋汁要用汆鱼原汤，鲜味才连得上。"
+  },
+  {
+    "title": "龙井虾仁",
+    "cuisine": "浙菜",
+    "tags": [
+      "清淡",
+      "鲜香",
+      "炒",
+      "高蛋白"
+    ],
+    "summary": "虾仁上浆滑油后与龙井茶汤同炒，茶香清雅、虾仁弹嫩，是杭帮菜里的清口担当。",
+    "difficulty": 2,
+    "prep_minutes": 25,
+    "cook_minutes": 5,
+    "servings": 2,
+    "calories": 366,
+    "protein": 45,
+    "fat": 18,
+    "carbs": 6,
+    "ingredients": [
+      {
+        "name": "虾仁",
+        "amount": "350",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "龙井茶",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "虾仁挑净虾线，用 1 茶匙盐抓洗 1 分钟，清水冲净后彻底吸干水分。",
+      "龙井茶用 80℃ 热水 100 毫升泡 2 分钟，茶叶与茶汤分开留用。",
+      "虾仁加蛋清、料酒、5 克淀粉抓匀上浆，冷藏 15 分钟。",
+      "锅烧热放油至四成热，下虾仁滑 30 秒至变白卷曲，立刻捞出沥油。",
+      "锅内留少许底油，下茶叶炒 10 秒出香，倒回虾仁，淋 2 汤匙茶汤与剩余水淀粉，快速翻匀 20 秒出锅。"
+    ],
+    "tips": "茶汤只取 2 汤匙，多了会发涩；虾仁滑油时间宁短勿长，变白就捞。"
+  },
+  {
+    "title": "干菜焖肉",
+    "cuisine": "浙菜",
+    "tags": [
+      "酱香",
+      "咸鲜",
+      "焖",
+      "下饭"
+    ],
+    "summary": "梅干菜吸饱五花肉油脂，肉块焖到酥烂，干菜的陈香与肉香互相成就，超下饭。",
+    "difficulty": 3,
+    "prep_minutes": 25,
+    "cook_minutes": 90,
+    "servings": 3,
+    "calories": 798,
+    "protein": 22,
+    "fat": 70,
+    "carbs": 20,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "梅干菜",
+        "amount": "80",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "冰糖",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "梅干菜温水泡 20 分钟，反复抓洗三遍去沙，挤干水分后切 1cm 碎段。",
+      "五花肉切 3cm 方块，冷水下锅加姜片与料酒焯 5 分钟，捞出冲净沥干。",
+      "锅中不放油，下肉块中小火煸 5 分钟至四面微黄、逼出部分油脂，盛出。",
+      "用锅内余油下冰糖小火炒到融化冒小泡（糖色），倒回肉块翻炒上色。",
+      "下梅干菜炒 2 分钟吸油，加生抽、老抽与 400 毫升热水，大火烧开。",
+      "转小火焖 60 分钟，中途翻动两次，最后大火收汁 8 分钟至汤汁浓稠裹肉。"
+    ],
+    "tips": "梅干菜一定要洗到水清，否则有沙；糖色炒到枣红就下肉，炒过头会发苦。"
+  },
+  {
+    "title": "佛跳墙（简化版）",
+    "cuisine": "闽菜",
+    "tags": [
+      "鲜香",
+      "咸鲜",
+      "炖",
+      "宴客",
+      "补钙"
+    ],
+    "summary": "鸡腿、猪蹄与海味分层码进砂锅，黄酒慢煨两小时，汤色金黄、胶质浓稠，鲜得发黏。",
+    "difficulty": 4,
+    "prep_minutes": 30,
+    "cook_minutes": 120,
+    "servings": 4,
+    "calories": 632,
+    "protein": 52,
+    "fat": 40,
+    "carbs": 16,
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "猪蹄",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "海参",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "鲍鱼",
+        "amount": "4",
+        "unit": "只",
+        "is_main": true
+      },
+      {
+        "name": "干贝",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "香菇",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大葱",
+        "amount": "40",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "枸杞",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "干贝用温水加 1 汤匙料酒泡 30 分钟；香菇泡发切厚片；海参切 3cm 段，鲍鱼刷净表面黑膜并剞十字花刀。",
+      "猪蹄剁块冷水下锅，加姜片与料酒焯 5 分钟，撇净浮沫捞出冲净；鸡腿剁块同样焯水。",
+      "砂锅底部铺葱段姜片，先码猪蹄与鸡腿，再铺香菇、干贝，最上层放鲍鱼与海参。",
+      "加 1.5 升热水与 2 汤匙料酒，大火烧开后转最小火，盖盖慢煨 90 分钟，中途只撇沫不搅拌。",
+      "加 1 茶匙盐调味，继续煨 30 分钟至汤色金黄、猪蹄软糯脱骨。",
+      "出锅前 5 分钟撒枸杞，连砂锅上桌。"
+    ],
+    "tips": "海参鲍鱼一定放最上层，久煮会缩；全程小火，汤面只冒蟹眼泡才不会浑。"
+  },
+  {
+    "title": "沙茶面",
+    "cuisine": "闽菜",
+    "tags": [
+      "鲜香",
+      "咸鲜",
+      "煮",
+      "一人食"
+    ],
+    "summary": "沙茶酱与花生酱炒香熬成浓汤，面条吸饱沙茶香，配上肉片虾仁，厦门的味道。",
+    "difficulty": 2,
+    "prep_minutes": 15,
+    "cook_minutes": 20,
+    "servings": 2,
+    "calories": 758,
+    "protein": 32,
+    "fat": 30,
+    "carbs": 90,
+    "ingredients": [
+      {
+        "name": "面条",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "沙茶酱",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": true
+      },
+      {
+        "name": "猪里脊",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "虾仁",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "绿豆芽",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花生酱",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "小白菜",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "猪里脊逆纹切薄片，用少许盐与淀粉抓匀腌 10 分钟；虾仁挑线洗净。",
+      "锅中放油，小火下蒜末炒香，加沙茶酱 3 汤匙与花生酱 1 汤匙，慢炒 1 分钟至出红油、香气浓郁。",
+      "倒入 800 毫升热水，加 1 茶匙盐，小火煮 8 分钟成沙茶汤底，边煮边搅防止花生酱沉底。",
+      "另起锅水开下面条煮 3 分钟（按包装时间），捞出过一下凉水保持弹性。",
+      "沙茶汤转中火，下肉片煮 1 分钟，再下虾仁、豆芽与小白菜煮 1 分钟。",
+      "面条装碗，浇上汤与配料，按口味再补一勺沙茶酱。"
+    ],
+    "tips": "沙茶酱一定要用油小火炒过才香；花生酱是让汤变浓稠顺滑的秘密。"
+  },
+  {
+    "title": "蚵仔煎",
+    "cuisine": "闽菜",
+    "tags": [
+      "鲜香",
+      "煎",
+      "夜宵",
+      "一人食"
+    ],
+    "summary": "地瓜粉浆裹住肥美蚵仔，小火煎到边缘焦脆，打一颗蛋、撒一把青菜，淋甜辣酱。",
+    "difficulty": 2,
+    "prep_minutes": 10,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 442,
+    "protein": 18,
+    "fat": 26,
+    "carbs": 34,
+    "ingredients": [
+      {
+        "name": "蚵仔",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "2",
+        "unit": "个",
+        "is_main": true
+      },
+      {
+        "name": "淀粉",
+        "amount": "60",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "小白菜",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "番茄酱",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "蚵仔用淡盐水轻轻抓洗两遍去沙，沥干；小白菜切 4cm 段。",
+      "淀粉加 120 毫升清水与半茶匙盐调成稀粉浆，静置 5 分钟。",
+      "平底锅放 2 汤匙油中火烧热，倒入蚵仔摊平煎 30 秒至边缘微卷。",
+      "淋入粉浆铺满锅底，转小火煎 2 分钟至底部凝固成型、边缘透明。",
+      "打入鸡蛋用铲子划散铺平，撒上小白菜，再煎 1 分钟。",
+      "翻面再煎 1 分钟至两面微焦，出锅切块；番茄酱加白糖与 1 汤匙水煮成甜辣酱淋上。"
+    ],
+    "tips": "粉浆要稀一点，摊得薄才外脆内软；翻面时用大盘子扣住锅口翻，不会破。"
+  },
+  {
+    "title": "剁椒鱼头",
+    "cuisine": "湘菜",
+    "tags": [
+      "香辣",
+      "鲜香",
+      "蒸",
+      "宴客"
+    ],
+    "summary": "鱼头铺满剁椒大火蒸十分钟，最后泼热油激香，鱼肉滑嫩、剁椒咸鲜带辣。",
+    "difficulty": 2,
+    "prep_minutes": 15,
+    "cook_minutes": 15,
+    "servings": 3,
+    "calories": 500,
+    "protein": 50,
+    "fat": 28,
+    "carbs": 12,
+    "ingredients": [
+      {
+        "name": "鱼头",
+        "amount": "1",
+        "unit": "个",
+        "is_main": true
+      },
+      {
+        "name": "剁椒",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "5",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鱼头（约 800 克）从中间劈开不切断，去鳃洗净，用料酒与 1 茶匙盐抹匀腌 10 分钟去腥。",
+      "剁椒冲洗一遍挤干水分，与蒜末、姜末拌匀；盘底铺几片姜与葱段垫底。",
+      "鱼头摊平摆在盘中，把剁椒均匀铺满鱼头表面，淋 1 汤匙生抽。",
+      "蒸锅水大开后放入，大火蒸 10 分钟，关火虚蒸 2 分钟。",
+      "倒掉盘中多余汤汁（留一点），撒葱花，烧 3 汤匙油至冒烟浇在葱花剁椒上。"
+    ],
+    "tips": "剁椒本身很咸，盐要少放；蒸出的头道汤汁腥，倒掉再泼油味道才干净。"
+  },
+  {
+    "title": "口味虾",
+    "cuisine": "湘菜",
+    "tags": [
+      "香辣",
+      "麻辣",
+      "夜宵",
+      "焖"
+    ],
+    "summary": "小龙虾先炸后焖，啤酒代水，豆瓣与香料味层层渗进虾肉，长沙夜宵的头牌。",
+    "difficulty": 3,
+    "prep_minutes": 40,
+    "cook_minutes": 25,
+    "servings": 3,
+    "calories": 584,
+    "protein": 60,
+    "fat": 32,
+    "carbs": 14,
+    "ingredients": [
+      {
+        "name": "小龙虾",
+        "amount": "1000",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "干辣椒",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "郫县豆瓣酱",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "8",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "啤酒",
+        "amount": "330",
+        "unit": "毫升",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "2",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "6",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "小龙虾用刷子逐只刷净腹部，剪去虾头前端（保留虾黄），抽出虾线，背部剪开一刀便于入味。",
+      "处理好的虾用清水冲两遍，沥干水分。",
+      "锅中放 4 汤匙油烧到七成热，下虾大火炸 2 分钟至虾壳变红卷曲，捞出。",
+      "锅内留 2 汤匙油，小火下八角、花椒、干辣椒炒 40 秒，加郫县豆瓣酱与姜蒜末炒 1 分钟出红油。",
+      "倒回小龙虾大火翻炒 2 分钟，让每只虾裹上酱料，倒入 330 毫升啤酒与 1 茶匙糖。",
+      "烧开后转中火加盖焖 12 分钟，开盖大火收汁 5 分钟至汤汁浓稠挂壳。"
+    ],
+    "tips": "虾背剪开一刀，味道才进得去；啤酒既去腥又带麦香，别换成清水。"
+  },
+  {
+    "title": "农家小炒肉",
+    "cuisine": "湘菜",
+    "tags": [
+      "香辣",
+      "下饭",
+      "炒",
+      "家常"
+    ],
+    "summary": "五花肉煸出油再下青尖椒猛火翻炒，辣椒带虎皮、肉片焦香，咸辣直冲米饭。",
+    "difficulty": 1,
+    "prep_minutes": 10,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 552,
+    "protein": 20,
+    "fat": 48,
+    "carbs": 10,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "青尖椒",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大蒜",
+        "amount": "4",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "豆豉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "五花肉切 2mm 薄片（略冻硬更好切），青尖椒斜刀切马耳段，蒜拍碎、姜切末。",
+      "锅烧热不放油，下青椒中火干煸 2 分钟，煸到表面起虎皮斑、变软，盛出。",
+      "锅中放 2 汤匙油，下五花肉片大火煸 3 分钟至边缘卷曲微焦、油分析出。",
+      "下姜蒜与豆豉炒 30 秒出香，倒回青椒大火翻炒 1 分钟。",
+      "加生抽与半茶匙盐，翻匀 20 秒出锅。"
+    ],
+    "tips": "青椒先干煸出虎皮才香；五花肉要煸到微焦，肥而不腻就靠这一步。"
+  },
+  {
+    "title": "腊味合蒸",
+    "cuisine": "湘菜",
+    "tags": [
+      "酱香",
+      "咸鲜",
+      "蒸",
+      "下饭"
+    ],
+    "summary": "腊肉与香干层层码放，加豆豉干椒上锅蒸四十分钟，腊香渗进豆干，咸鲜下饭。",
+    "difficulty": 2,
+    "prep_minutes": 20,
+    "cook_minutes": 40,
+    "servings": 3,
+    "calories": 618,
+    "protein": 30,
+    "fat": 50,
+    "carbs": 12,
+    "ingredients": [
+      {
+        "name": "腊肉",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "豆腐干",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "干辣椒",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "豆豉",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "腊肉用温水刷洗表面，上锅蒸 15 分钟后切 3mm 薄片（先蒸后切不易碎）。",
+      "豆腐干切同厚薄片，沸水焯 1 分钟去豆腥，捞出沥干。",
+      "碗中依次叠放腊肉片与豆干片，肥瘦相间摆成扇形，撒豆豉、干辣椒段与姜丝。",
+      "淋 1 汤匙料酒，上锅大火蒸 25 分钟，让腊肉油渗进豆干。",
+      "出锅倒扣在盘中即可，蒸出的油汁一起浇上。"
+    ],
+    "tips": "腊肉先蒸软再切片，成菜才整齐；豆干吸足腊肉油才是这道菜的精髓。"
+  },
+  {
+    "title": "徽州臭鳜鱼",
+    "cuisine": "徽菜",
+    "tags": [
+      "咸鲜",
+      "酱香",
+      "焖",
+      "宴客"
+    ],
+    "summary": "腌渍鳜鱼煎到两面金黄，加肉末与辣酱小火焖透，闻着发酵香、吃着蒜瓣肉。",
+    "difficulty": 3,
+    "prep_minutes": 20,
+    "cook_minutes": 25,
+    "servings": 3,
+    "calories": 454,
+    "protein": 45,
+    "fat": 26,
+    "carbs": 10,
+    "ingredients": [
+      {
+        "name": "鳜鱼",
+        "amount": "700",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "猪肉末",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "4",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鳜鱼（约 700 克）两面各斜划四刀，用 1 汤匙料酒与姜片腌 10 分钟，鱼身擦干。",
+      "锅烧热用姜片擦锅防粘，放 2 汤匙油，鱼下锅中火煎 4 分钟至底面金黄定型再翻面煎 3 分钟。",
+      "把鱼推到锅边，用底油下猪肉末炒 1 分钟至散开出香，加姜蒜末与干辣椒炒 30 秒。",
+      "加生抽、剩余料酒、白糖与 300 毫升热水，烧开后转小火，用勺把汤汁反复浇在鱼身上。",
+      "盖盖焖 12 分钟，中途翻面一次，最后大火收汁 4 分钟至汤汁浓稠。",
+      "撒葱花出锅，鱼肉应是蒜瓣状一块块分离。"
+    ],
+    "tips": "煎鱼前用姜片擦锅、鱼身擦干，皮才不破；小火焖让鱼肉慢慢吸味，别大火滚。"
+  },
+  {
+    "title": "胡适一品锅",
+    "cuisine": "徽菜",
+    "tags": [
+      "咸鲜",
+      "炖",
+      "宴客",
+      "下饭"
+    ],
+    "summary": "一层白菜一层肉一层豆腐蛋饺码进砂锅，高汤慢炖一小时，层层叠叠越煮越鲜。",
+    "difficulty": 3,
+    "prep_minutes": 30,
+    "cook_minutes": 60,
+    "servings": 4,
+    "calories": 746,
+    "protein": 34,
+    "fat": 50,
+    "carbs": 40,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大白菜",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "北豆腐",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "粉丝",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "香菇",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "2",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "五花肉整块冷水下锅煮 20 分钟至七成熟，捞出切 3mm 薄片；粉丝温水泡软。",
+      "大白菜切大片，沸水焯 30 秒断生；北豆腐切 1cm 厚片，用少许油煎至两面微黄。",
+      "鸡蛋打散摊成薄蛋皮，切成 8cm 方片，包入少许肉末对折成蛋饺。",
+      "砂锅底铺白菜，依次码上粉丝、豆腐、香菇、肉片，最上层摆蛋饺，每层淋少许生抽。",
+      "加 800 毫升热水至食材三分之二高度，加 1 茶匙盐，大火烧开转小火。",
+      "盖盖炖 45 分钟，中途不翻动，只把汤汁舀起浇在顶层，最后连锅上桌。"
+    ],
+    "tips": "一层层码放不要搅动，靠蒸汽把味道串起来；水量别多，白菜会出水。"
+  },
+  {
+    "title": "笋干烧肉",
+    "cuisine": "徽菜",
+    "tags": [
+      "酱香",
+      "咸鲜",
+      "焖",
+      "下饭"
+    ],
+    "summary": "笋干提前泡发吸足肉汁，五花肉烧到微颤，笋香与肉香互相渗透，咸鲜带脆。",
+    "difficulty": 2,
+    "prep_minutes": 30,
+    "cook_minutes": 70,
+    "servings": 3,
+    "calories": 757,
+    "protein": 25,
+    "fat": 65,
+    "carbs": 18,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "竹笋",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "冰糖",
+        "amount": "25",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "竹笋干用温水泡 4 小时至完全回软，中途换水两次，切 4cm 长条后沸水煮 10 分钟去涩。",
+      "五花肉切 3cm 方块，冷水下锅加姜片与料酒焯 5 分钟，捞出冲净。",
+      "锅中放少许油，下冰糖小火炒到融化呈枣红色，倒肉块翻炒上色。",
+      "加生抽、老抽、八角炒匀，倒入没过肉的热水，大火烧开后转小火焖 30 分钟。",
+      "下笋干继续焖 30 分钟至肉软笋入味，最后大火收汁 8 分钟至汤汁浓亮。"
+    ],
+    "tips": "笋干必须泡透并焯水去涩，否则整锅发苦；收汁时勤翻动，糖分容易糊底。"
+  },
+  {
+    "title": "小鸡炖蘑菇",
+    "cuisine": "东北菜",
+    "tags": [
+      "咸鲜",
+      "鲜香",
+      "炖",
+      "宴客"
+    ],
+    "summary": "鸡块煸香后与泡发的榛蘑一同慢炖，粉丝最后下锅吸汤，汤浓肉烂，是东北待客硬菜。",
+    "difficulty": 2,
+    "prep_minutes": 25,
+    "cook_minutes": 50,
+    "servings": 3,
+    "calories": 1363,
+    "protein": 82,
+    "fat": 75,
+    "carbs": 90,
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "香菇",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "粉丝",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大葱",
+        "amount": "40",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "干榛蘑或香菇用温水泡 30 分钟，反复抓洗两遍去沙，泡蘑菇的水过滤留用。",
+      "鸡腿剁 4cm 块，冷水下锅加姜片与 1 汤匙料酒焯 5 分钟，捞出冲净沥干。",
+      "锅中放 3 汤匙油，下鸡块中大火煸 5 分钟至表面微黄、鸡皮出油，加葱段姜片八角炒香。",
+      "烹入 1 汤匙料酒与 2 汤匙生抽，倒泡蘑菇水与 600 毫升热水，烧开后转小火炖 25 分钟。",
+      "下蘑菇继续炖 15 分钟，加 1 茶匙盐调味，汤面保持微沸。",
+      "粉丝用温水泡软后下锅煮 5 分钟至透明吸汤，连锅上桌。"
+    ],
+    "tips": "泡蘑菇的水是鲜味来源，沉淀后取上层清液用；粉丝最后 5 分钟再下，久煮会糊。"
+  },
+  {
+    "title": "锅包肉",
+    "cuisine": "东北菜",
+    "tags": [
+      "酸甜",
+      "炸",
+      "宴客",
+      "下饭"
+    ],
+    "summary": "里脊片挂厚淀粉糊炸两遍起酥，糖醋汁在锅里翻两下就出锅，咬开咔嚓响、酸甜开胃。",
+    "difficulty": 3,
+    "prep_minutes": 25,
+    "cook_minutes": 15,
+    "servings": 3,
+    "calories": 995,
+    "protein": 45,
+    "fat": 55,
+    "carbs": 80,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "淀粉",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "胡萝卜",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大葱",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "香菜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "4",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "4",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "10",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "里脊切 0.5cm 厚、8cm 长的大片，加半茶匙盐与料酒抓匀腌 10 分钟。",
+      "淀粉 150 克加清水 180 毫升调成能缓慢流动的厚糊，静置 10 分钟后倒掉表面清水，只留沉淀的湿淀粉。",
+      "肉片逐片挂上湿淀粉糊，两面抹匀，挂到看不见肉色为止。",
+      "油烧至六成热，肉片逐片下锅炸 2 分钟至定型发白，捞出；油温升到八成复炸 40 秒至金黄酥脆。",
+      "胡萝卜、大葱、姜切细丝，香菜切段；白糖 4 茶匙、香醋 4 汤匙、半茶匙盐加 2 汤匙清水调成糖醋汁。",
+      "锅留少许底油，下葱姜胡萝卜丝炒 20 秒，倒入糖醋汁熬到起大泡，立刻下炸好的肉片与香菜。",
+      "大火快速翻匀 30 秒让糖醋汁裹匀，立即出锅。"
+    ],
+    "tips": "挂糊要用沉淀后的湿淀粉，炸出来才有鳞片状的酥壳；汁一裹匀马上离火，久翻就软。"
+  },
+  {
+    "title": "溜肉段",
+    "cuisine": "东北菜",
+    "tags": [
+      "咸鲜",
+      "炸",
+      "下饭",
+      "家常"
+    ],
+    "summary": "肉段炸到外脆里嫩，与青椒同炒后勾薄芡，咸鲜带一点蒜香，配大米饭最合适。",
+    "difficulty": 2,
+    "prep_minutes": 20,
+    "cook_minutes": 12,
+    "servings": 2,
+    "calories": 769,
+    "protein": 36,
+    "fat": 45,
+    "carbs": 55,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "青椒",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "淀粉",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "生抽",
+        "amount": "1.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "8",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "里脊切 2cm 见方肉段，加料酒、半茶匙盐抓匀腌 10 分钟。",
+      "淀粉加 100 毫升清水调成稠糊，倒入肉段抓匀，让每段都裹上厚糊。",
+      "油烧到六成热，肉段逐个下锅炸 2 分钟至浮起定型，捞出；油温升到八成复炸 30 秒至外壳金黄。",
+      "青椒切菱形块，蒜姜切末；生抽、白糖、半茶匙盐、5 克淀粉加 4 汤匙清水调成芡汁。",
+      "锅留底油下蒜姜末炒香，下青椒炒 40 秒断生，倒入炸好的肉段。",
+      "淋入芡汁快速翻炒至汁变稠挂肉，约 30 秒即可出锅。"
+    ],
+    "tips": "复炸决定外壳脆度；芡汁下锅前要搅匀，淀粉沉底会影响收汁。"
+  },
+  {
+    "title": "猪肉炖粉条",
+    "cuisine": "东北菜",
+    "tags": [
+      "咸鲜",
+      "酱香",
+      "炖",
+      "下饭"
+    ],
+    "summary": "五花肉炖到软烂，白菜清甜化进汤里，粉条吸饱肉汤滑溜溜，一锅就能吃饱。",
+    "difficulty": 1,
+    "prep_minutes": 15,
+    "cook_minutes": 45,
+    "servings": 3,
+    "calories": 970,
+    "protein": 30,
+    "fat": 50,
+    "carbs": 100,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大白菜",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "粉丝",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大葱",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "五花肉切 3cm 块，冷水下锅焯 5 分钟去血沫，捞出冲净。",
+      "锅中放 2 汤匙油，下肉块中火煸 4 分钟至微黄出油，加葱段姜片八角炒香。",
+      "烹入料酒与生抽，加 900 毫升热水，烧开后转小火炖 25 分钟。",
+      "白菜切大片，先下菜帮炖 8 分钟，再下菜叶炖 5 分钟。",
+      "粉丝温水泡软后下锅，煮 6 分钟至透明，加 1 茶匙盐调味，连汤装盆。"
+    ],
+    "tips": "白菜帮和叶分开下锅，帮子炖软了叶子才不会烂成泥。"
+  },
+  {
+    "title": "羊肉泡馍",
+    "cuisine": "西北菜",
+    "tags": [
+      "咸鲜",
+      "鲜香",
+      "煮",
+      "宴客"
+    ],
+    "summary": "羊肉汤熬得清亮，馍掰成黄豆粒大小泡进汤里，配糖蒜与辣酱，越泡越香。",
+    "difficulty": 3,
+    "prep_minutes": 40,
+    "cook_minutes": 120,
+    "servings": 3,
+    "calories": 1000,
+    "protein": 60,
+    "fat": 40,
+    "carbs": 100,
+    "ingredients": [
+      {
+        "name": "羊肉",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "白吉馍",
+        "amount": "2",
+        "unit": "个",
+        "is_main": true
+      },
+      {
+        "name": "粉丝",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "木耳",
+        "amount": "40",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "香菜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大葱",
+        "amount": "40",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "2",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "羊肉切大块，清水浸泡 1 小时去血水，中途换水两次。",
+      "羊肉冷水下锅，加姜片、葱段、料酒焯 5 分钟，撇净浮沫捞出。",
+      "汤锅加 2 升清水，放羊肉、八角、花椒（装料包）、姜片，大火烧开转小火炖 90 分钟至肉酥。",
+      "捞出羊肉切薄片；汤过滤后加 1 茶匙盐调味，保持小火微沸。",
+      "馍掰成黄豆大小的粒（手掰比刀切更易吸汤），粉丝与木耳泡软。",
+      "碗中放馍粒、粉丝、木耳与羊肉片，浇上滚汤没过食材，撒香菜，配糖蒜同食。"
+    ],
+    "tips": "馍要手掰成小粒，边缘毛糙才吸汤；汤必须滚烫浇下去，馍粒才不散。"
+  },
+  {
+    "title": "孜然羊肉串",
+    "cuisine": "西北菜",
+    "tags": [
+      "香辣",
+      "鲜香",
+      "烤",
+      "夜宵",
+      "高蛋白"
+    ],
+    "summary": "羊腿肉肥瘦相间穿串，高温烤到边缘焦脆，撒孜然辣椒面，一口下去满是炭火香。",
+    "difficulty": 2,
+    "prep_minutes": 30,
+    "cook_minutes": 15,
+    "servings": 3,
+    "calories": 693,
+    "protein": 60,
+    "fat": 45,
+    "carbs": 12,
+    "ingredients": [
+      {
+        "name": "羊肉",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "洋葱",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "孜然粉",
+        "amount": "3",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "羊腿肉切 2cm 见方小块，肥瘦分开切；洋葱切丝。",
+      "羊肉加洋葱丝、1 茶匙盐、1 茶匙孜然粉与 2 汤匙油抓匀，冷藏腌 30 分钟。",
+      "竹签提前泡水 20 分钟防烧焦，按「瘦-肥-瘦」顺序每串穿 5 块肉。",
+      "烤箱 220℃ 预热，肉串架在烤网上烤 8 分钟，翻面再烤 6 分钟至边缘焦脆。",
+      "干辣椒炒香后碾碎，与剩余孜然粉混合，出炉趁热撒在肉串上，再补少许盐。"
+    ],
+    "tips": "每串夹一块肥肉，烤时油脂渗出才香；孜然和辣椒面必须出炉后再撒，早撒会烤糊发苦。"
+  },
+  {
+    "title": "新疆手抓饭",
+    "cuisine": "西北菜",
+    "tags": [
+      "咸鲜",
+      "鲜香",
+      "焖",
+      "宴客"
+    ],
+    "summary": "羊肉煸出油后炒胡萝卜与洋葱，加米焖到粒粒油亮，胡萝卜甜、羊肉香全在饭里。",
+    "difficulty": 2,
+    "prep_minutes": 25,
+    "cook_minutes": 45,
+    "servings": 4,
+    "calories": 1155,
+    "protein": 45,
+    "fat": 55,
+    "carbs": 120,
+    "ingredients": [
+      {
+        "name": "羊肉",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大米",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "胡萝卜",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "洋葱",
+        "amount": "150",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "孜然粉",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "4",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "大米淘洗后清水泡 30 分钟，沥干；羊肉切 3cm 块，胡萝卜切粗条，洋葱切丝。",
+      "锅中放 4 汤匙油，下羊肉中大火煸 5 分钟至表面焦黄、油分析出。",
+      "下洋葱丝炒 2 分钟至变软发甜，再下胡萝卜条炒 3 分钟至边缘变软。",
+      "加 1 茶匙盐与孜然粉炒匀，倒入 450 毫升热水，烧开后铺平米与胡萝卜。",
+      "把泡好的米均匀铺在菜上，用筷子戳几个透气孔，水面刚好与米齐平。",
+      "盖盖小火焖 25 分钟，关火再焖 10 分钟，开盖从底部翻拌均匀。"
+    ],
+    "tips": "米铺上去后不要搅动，靠蒸汽焖熟才粒粒分明；水量以刚没过米为准。"
+  },
+  {
+    "title": "大盘鸡",
+    "cuisine": "西北菜",
+    "tags": [
+      "香辣",
+      "酱香",
+      "炖",
+      "宴客",
+      "下饭"
+    ],
+    "summary": "鸡块与土豆在啤酒里炖到软糯，最后拌进宽面，汤汁浓稠香辣，越吃越上头。",
+    "difficulty": 3,
+    "prep_minutes": 30,
+    "cook_minutes": 45,
+    "servings": 4,
+    "calories": 1300,
+    "protein": 70,
+    "fat": 60,
+    "carbs": 120,
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": "600",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "土豆",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "面条",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "青椒",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "洋葱",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "2",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "郫县豆瓣酱",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "啤酒",
+        "amount": "330",
+        "unit": "毫升",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "6",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "4",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鸡腿剁 4cm 块，冷水焯 5 分钟去血沫；土豆切滚刀块泡水，洋葱青椒切块。",
+      "锅中放 4 汤匙油，下鸡块大火煸 5 分钟至表皮微黄，盛出备用。",
+      "锅内留油下八角、花椒、干辣椒炒 30 秒，加郫县豆瓣酱与姜蒜炒 1 分钟出红油。",
+      "倒回鸡块翻炒上色，加生抽与 330 毫升啤酒、200 毫升热水，烧开后小火炖 15 分钟。",
+      "下土豆块继续炖 15 分钟至土豆边缘发糊、汤汁变稠，加洋葱与青椒煮 3 分钟。",
+      "另起锅煮面条 3 分钟后捞出，铺在大盘底部，把鸡块连汤浇在面上拌食。"
+    ],
+    "tips": "土豆炖到边缘化开才能让汤汁自然变稠；面要另煮，直接下锅会糊汤。"
+  },
+  {
+    "title": "兰州牛肉面",
+    "cuisine": "西北菜",
+    "tags": [
+      "咸鲜",
+      "鲜香",
+      "煮",
+      "一人食"
+    ],
+    "summary": "牛腩清汤加白萝卜慢熬，面煮好浇汤撒蒜苗香菜，一清二白三红四绿五黄。",
+    "difficulty": 3,
+    "prep_minutes": 20,
+    "cook_minutes": 90,
+    "servings": 3,
+    "calories": 830,
+    "protein": 40,
+    "fat": 30,
+    "carbs": 100,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "面条",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "白萝卜",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "香菜",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "蒜苗",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "牛腩切 3cm 块，冷水浸泡 1 小时去血水，中途换水两次。",
+      "牛腩冷水下锅焯 5 分钟，撇净浮沫后用温水冲净，避免遇冷收缩发柴。",
+      "汤锅加 2 升清水、牛腩、姜片、花椒八角（装料包），大火烧开转小火炖 70 分钟。",
+      "白萝卜切 0.5cm 薄片，最后 20 分钟下锅同煮至透明，加 1 茶匙盐调味。",
+      "干辣椒碾成辣椒面，浇 2 汤匙烧到冒烟的热油做成红油辣子。",
+      "面条沸水煮 3 分钟（拉面更佳），捞入碗中，浇滚汤与牛肉萝卜，撒蒜苗香菜，按口味加辣子。"
+    ],
+    "tips": "汤要清就不能大火滚，全程小火保持微沸；萝卜后下才清甜不烂。"
+  },
+  {
+    "title": "肉夹馍",
+    "cuisine": "西北菜",
+    "tags": [
+      "酱香",
+      "咸鲜",
+      "焖",
+      "一人食",
+      "下饭"
+    ],
+    "summary": "五花肉用冰糖老卤焖到入口即化，剁碎夹进烤脆的白吉馍，浇一勺卤汁才够味。",
+    "difficulty": 3,
+    "prep_minutes": 25,
+    "cook_minutes": 90,
+    "servings": 4,
+    "calories": 1080,
+    "protein": 35,
+    "fat": 60,
+    "carbs": 100,
+    "ingredients": [
+      {
+        "name": "猪五花肉",
+        "amount": "500",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "白吉馍",
+        "amount": "4",
+        "unit": "个",
+        "is_main": true
+      },
+      {
+        "name": "青椒",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "2",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "冰糖",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "五花肉切 5cm 大块，冷水下锅加姜片料酒焯 5 分钟，捞出冲净。",
+      "砂锅放少许油，下冰糖小火炒成枣红糖色，倒肉块翻裹上色。",
+      "加生抽、老抽、八角、姜片与 1 升热水，烧开后转小火焖 70 分钟至筷子能轻松插入。",
+      "卤好的肉捞出略剁碎（保留颗粒感），拌入 2 汤匙卤汁与青椒碎。",
+      "白吉馍从侧面剖开三分之二，放入平底锅小火烙 2 分钟至两面微脆。",
+      "把肉馅塞满馍中，再淋一勺卤汁即可。"
+    ],
+    "tips": "肉要现剁现夹，浇卤汁是灵魂；馍烙脆了才不会被汁泡烂。"
+  },
+  {
+    "title": "青椒肉丝",
+    "cuisine": "家常菜",
+    "tags": [
+      "咸鲜",
+      "快手",
+      "下饭",
+      "家常",
+      "炒"
+    ],
+    "summary": "肉丝上浆滑炒保持嫩滑，青椒大火快炒留脆，十分钟搞定的下饭经典。",
+    "difficulty": 1,
+    "prep_minutes": 10,
+    "cook_minutes": 6,
+    "servings": 2,
+    "calories": 304,
+    "protein": 26,
+    "fat": 16,
+    "carbs": 14,
+    "ingredients": [
+      {
+        "name": "猪里脊",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "青椒",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2.5",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "里脊顺纹切片再切 0.3cm 细丝，加料酒、半汤匙生抽、淀粉抓黏，封 1 茶匙油腌 10 分钟。",
+      "青椒去籽切细丝，蒜姜切末。",
+      "锅烧热放 2 汤匙油，四成热下肉丝快速划散，变白立刻盛出（约 30 秒）。",
+      "锅内留底油下姜蒜末炒香，转大火下青椒丝炒 40 秒至断生仍翠绿。",
+      "倒回肉丝，加半汤匙生抽与半茶匙盐，翻炒 20 秒出锅。"
+    ],
+    "tips": "青椒别炒太久，断生就够；肉丝滑到变白马上盛出，回锅再合炒才嫩。"
+  },
+  {
+    "title": "酸辣土豆丝",
+    "cuisine": "家常菜",
+    "tags": [
+      "酸辣",
+      "快手",
+      "素食",
+      "家常",
+      "炒"
+    ],
+    "summary": "土豆丝切好泡水去淀粉，大火爆炒三十秒沿锅边淋醋，脆爽带酸，配米饭一绝。",
+    "difficulty": 1,
+    "prep_minutes": 15,
+    "cook_minutes": 5,
+    "servings": 2,
+    "calories": 311,
+    "protein": 6,
+    "fat": 15,
+    "carbs": 38,
+    "ingredients": [
+      {
+        "name": "土豆",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "青椒",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "4",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2.5",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "土豆去皮切 2mm 薄片再切细丝，放进清水里抓洗两遍，泡 10 分钟去表面淀粉。",
+      "土豆丝捞出彻底沥干（带水下锅会溅油且不脆），青椒切丝，蒜切片，干辣椒剪段。",
+      "锅烧到冒烟放油，小火下花椒与干辣椒炒 30 秒出香，下蒜片爆香。",
+      "转最大火倒入土豆丝，快速翻炒 40 秒，沿锅边淋 1 汤匙香醋。",
+      "下青椒丝与半茶匙盐炒 20 秒，出锅前再点 1 汤匙香醋，翻两下立刻装盘。"
+    ],
+    "tips": "土豆丝必须泡水去淀粉才脆；醋分两次沿锅边淋，酸香才冲。"
+  },
+  {
+    "title": "干煸四季豆",
+    "cuisine": "家常菜",
+    "tags": [
+      "香辣",
+      "下饭",
+      "家常",
+      "炒"
+    ],
+    "summary": "四季豆先煸到起皱发软，再用肉末与芽菜炒香，干香微辣，一定要煸熟才安全。",
+    "difficulty": 2,
+    "prep_minutes": 10,
+    "cook_minutes": 12,
+    "servings": 2,
+    "calories": 360,
+    "protein": 14,
+    "fat": 24,
+    "carbs": 22,
+    "ingredients": [
+      {
+        "name": "四季豆",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "猪肉末",
+        "amount": "80",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "干辣椒",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "花椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "4",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "4",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "四季豆撕去两侧老筋，掰成 6cm 段，洗净后彻底擦干。",
+      "锅中放 3 汤匙油，中火下四季豆煸 6 分钟，勤翻动至表皮起皱、颜色变深、豆身变软。",
+      "把豆推到一边，用锅内油下猪肉末炒 2 分钟至酥香出油。",
+      "加干辣椒、花椒与蒜末炒 30 秒出香，与豆角一起翻炒均匀。",
+      "加生抽与半茶匙盐，大火翻炒 1 分钟让味道裹匀，出锅。"
+    ],
+    "tips": "四季豆必须煸到表皮起皱完全熟透，半生的豆角含皂苷，吃了容易不适。"
+  },
+  {
+    "title": "蚂蚁上树",
+    "cuisine": "家常菜",
+    "tags": [
+      "香辣",
+      "下饭",
+      "家常",
+      "炒"
+    ],
+    "summary": "粉丝泡软后与肉末豆瓣同炒，肉末粘在粉丝上像蚂蚁爬树，咸辣滑溜超下饭。",
+    "difficulty": 2,
+    "prep_minutes": 15,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 574,
+    "protein": 16,
+    "fat": 22,
+    "carbs": 78,
+    "ingredients": [
+      {
+        "name": "粉丝",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "猪肉末",
+        "amount": "100",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "郫县豆瓣酱",
+        "amount": "1.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "3",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "8",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "小葱",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "粉丝用温水泡 15 分钟至能弯曲但仍有韧性，剪成 20cm 长段，沥干。",
+      "锅中放 2 汤匙油，下猪肉末中火炒 2 分钟至散开变酥、微微焦香。",
+      "加姜蒜末与郫县豆瓣酱，小火炒 40 秒出红油。",
+      "倒入 200 毫升热水与 1 汤匙生抽烧开，下粉丝用筷子抖散，中火煮 3 分钟至汤汁被吸干。",
+      "淋 1 汤匙明油翻匀防粘，撒葱花出锅。"
+    ],
+    "tips": "粉丝泡到能弯不断就好，泡太软一炒就烂；收汁时用筷子抖散，别用铲子压。"
+  },
+  {
+    "title": "可乐鸡翅",
+    "cuisine": "家常菜",
+    "tags": [
+      "酸甜",
+      "咸鲜",
+      "快手",
+      "家常",
+      "下饭"
+    ],
+    "summary": "鸡翅煎出金黄脆皮，倒可乐焖到汤汁浓稠挂壳，甜咸油亮，小孩子最爱。",
+    "difficulty": 1,
+    "prep_minutes": 10,
+    "cook_minutes": 25,
+    "servings": 2,
+    "calories": 448,
+    "protein": 28,
+    "fat": 24,
+    "carbs": 30,
+    "ingredients": [
+      {
+        "name": "鸡翅中",
+        "amount": "10",
+        "unit": "个",
+        "is_main": true
+      },
+      {
+        "name": "可乐",
+        "amount": "330",
+        "unit": "毫升",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "10",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "芝麻",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鸡翅两面各划两刀，冷水下锅加姜片与料酒焯 3 分钟，捞出擦干水分。",
+      "锅中放 1 汤匙油，鸡翅皮朝下中小火煎 5 分钟至金黄，翻面再煎 3 分钟。",
+      "加生抽、老抽与姜片翻匀，倒入 330 毫升可乐（液面到鸡翅三分之二）。",
+      "大火烧开转中小火焖 12 分钟，中途翻面一次。",
+      "开盖转大火收汁 4 分钟，边收边翻动，收到汤汁浓稠裹住鸡翅。",
+      "撒白芝麻出锅，趁热吃皮最脆；剩下的浓汁可以拌饭。"
+    ],
+    "tips": "可乐本身含糖，收汁时容易糊，最后几分钟要不停翻动。"
+  },
+  {
+    "title": "蒜蓉西兰花",
+    "cuisine": "家常菜",
+    "tags": [
+      "清淡",
+      "快手",
+      "素食",
+      "低卡",
+      "减脂"
+    ],
+    "summary": "西兰花焯水锁住翠绿，蒜末爆香后大火快炒，爽脆清甜，减脂期的常备菜。",
+    "difficulty": 1,
+    "prep_minutes": 8,
+    "cook_minutes": 5,
+    "servings": 2,
+    "calories": 240,
+    "protein": 10,
+    "fat": 16,
+    "carbs": 14,
+    "ingredients": [
+      {
+        "name": "西兰花",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大蒜",
+        "amount": "6",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "蚝油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "淀粉",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "2.5",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "西兰花切小朵，用淡盐水泡 10 分钟去虫卵，冲净沥干。",
+      "水烧开加半茶匙盐与几滴油，西兰花下锅焯 60 秒，捞出立刻过凉水保持翠绿脆感。",
+      "大蒜切末，蚝油、淀粉加 3 汤匙清水调成芡汁。",
+      "锅中放油，小火下蒜末炒 40 秒至微黄出香。",
+      "下西兰花大火翻炒 30 秒，淋入芡汁翻炒至汁薄薄挂住，加盐调味出锅。"
+    ],
+    "tips": "焯水加盐加油能保住翠绿；蒜末小火炒到微黄最香，炒焦就发苦。"
+  },
+  {
+    "title": "凉拌黄瓜",
+    "cuisine": "家常菜",
+    "tags": [
+      "酸辣",
+      "清淡",
+      "凉拌",
+      "快手",
+      "低卡"
+    ],
+    "summary": "黄瓜拍裂更吸味，撒盐杀水后拌蒜末醋汁，冰镇十分钟，脆爽解腻。",
+    "difficulty": 1,
+    "prep_minutes": 10,
+    "cook_minutes": 0,
+    "servings": 2,
+    "calories": 146,
+    "protein": 4,
+    "fat": 10,
+    "carbs": 10,
+    "ingredients": [
+      {
+        "name": "黄瓜",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "大蒜",
+        "amount": "4",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "香醋",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "香油",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "辣椒油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "黄瓜洗净，用刀面拍裂后切 3cm 段，加半茶匙盐抓匀腌 10 分钟，倒掉渗出的水。",
+      "大蒜拍碎切末，与香醋、生抽、白糖、香油、辣椒油调成料汁。",
+      "料汁倒入黄瓜中拌匀，冷藏 10 分钟让味道渗入。",
+      "食用前再拌一次，装盘即可。"
+    ],
+    "tips": "黄瓜拍裂比刀切更容易吸汁；杀出的水一定倒掉，拌出来才不会稀。"
+  },
+  {
+    "title": "银耳莲子羹",
+    "cuisine": "家常菜",
+    "tags": [
+      "清淡",
+      "煮",
+      "素食",
+      "补钙"
+    ],
+    "summary": "银耳泡发撕小朵慢炖出胶，加莲子红枣与冰糖，汤稠滑润，秋冬润燥的甜汤。",
+    "difficulty": 1,
+    "prep_minutes": 30,
+    "cook_minutes": 60,
+    "servings": 4,
+    "calories": 330,
+    "protein": 8,
+    "fat": 2,
+    "carbs": 70,
+    "ingredients": [
+      {
+        "name": "银耳",
+        "amount": "20",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "莲子",
+        "amount": "50",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "红枣",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "冰糖",
+        "amount": "60",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "枸杞",
+        "amount": "5",
+        "unit": "克",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "银耳冷水泡 30 分钟至完全发开，剪去黄色根部，撕成指甲盖大小的小朵（越小越易出胶）。",
+      "莲子温水泡 20 分钟，去掉中间的莲心以免发苦；红枣洗净去核。",
+      "银耳与 1.5 升清水入锅，大火烧开后转小火炖 40 分钟，中途搅动两次防粘底。",
+      "下莲子与红枣继续小火炖 20 分钟，汤变稠、能挂勺即可。",
+      "加冰糖煮 5 分钟至融化，关火前撒枸杞焖 3 分钟。"
+    ],
+    "tips": "银耳撕得越小越容易出胶；冰糖最后放，早放会影响出胶。"
+  },
+  {
+    "title": "蛋炒饭",
+    "cuisine": "家常菜",
+    "tags": [
+      "咸鲜",
+      "快手",
+      "一人食",
+      "家常",
+      "炒"
+    ],
+    "summary": "隔夜饭粒粒分明，蛋液先炒散再与饭同炒，锅气足、颗颗裹住蛋香。",
+    "difficulty": 1,
+    "prep_minutes": 8,
+    "cook_minutes": 6,
+    "servings": 2,
+    "calories": 554,
+    "protein": 20,
+    "fat": 26,
+    "carbs": 60,
+    "ingredients": [
+      {
+        "name": "大米",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "鸡蛋",
+        "amount": "2",
+        "unit": "个",
+        "is_main": true
+      },
+      {
+        "name": "小葱",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "胡萝卜",
+        "amount": "50",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "大米煮成偏硬的饭，摊凉后冷藏 2 小时以上（隔夜饭最佳），用手把饭粒搓散。",
+      "鸡蛋打散加少许盐，胡萝卜切小丁，小葱切葱花。",
+      "锅烧热放 2 汤匙油，倒蛋液炒到半凝固，用铲子划成小块盛出。",
+      "锅内补 1 汤匙油，下胡萝卜丁炒 1 分钟，倒入米饭大火翻炒 2 分钟，用铲背压散结块。",
+      "倒回鸡蛋，加盐与生抽，继续大火翻炒 1 分钟至饭粒跳动，撒葱花出锅。"
+    ],
+    "tips": "饭要冷且干，锅要够热，蛋液半凝固就盛出，回锅后才会嫩。"
+  },
+  {
+    "title": "葱油拌面",
+    "cuisine": "家常菜",
+    "tags": [
+      "咸鲜",
+      "快手",
+      "早餐",
+      "一人食",
+      "素食"
+    ],
+    "summary": "小葱小火熬到焦褐出香，酱油糖汁一拌，面条油亮，最简单的上海味道。",
+    "difficulty": 1,
+    "prep_minutes": 5,
+    "cook_minutes": 15,
+    "servings": 2,
+    "calories": 642,
+    "protein": 16,
+    "fat": 26,
+    "carbs": 86,
+    "ingredients": [
+      {
+        "name": "面条",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "小葱",
+        "amount": "80",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "生抽",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "老抽",
+        "amount": "0.5",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "白糖",
+        "amount": "2",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "6",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "小葱洗净彻底晾干，葱白切段、葱绿切长段分开。",
+      "冷锅倒 6 汤匙油，先下葱白，最小火慢熬 8 分钟至葱白变金黄。",
+      "下葱绿继续小火熬 5 分钟至葱段变成深褐焦脆，捞出葱段留油。",
+      "葱油中加生抽、老抽、白糖，小火煮 1 分钟至糖化开，关火成葱油汁。",
+      "面条沸水煮 3 分钟至断生，捞出沥干（留 2 汤匙面汤）。",
+      "面条加 2 汤匙葱油汁与少许面汤拌匀，撒焦葱段即可。"
+    ],
+    "tips": "全程小火慢熬，葱一变深褐马上捞出，焦黑的葱会发苦。"
+  },
+  {
+    "title": "番茄牛腩",
+    "cuisine": "家常菜",
+    "tags": [
+      "酸甜",
+      "咸鲜",
+      "炖",
+      "下饭",
+      "家常"
+    ],
+    "summary": "牛腩炖到软烂，番茄炒出红沙再同炖，汤汁浓稠酸甜，浇饭能吃两碗。",
+    "difficulty": 2,
+    "prep_minutes": 20,
+    "cook_minutes": 90,
+    "servings": 3,
+    "calories": 614,
+    "protein": 42,
+    "fat": 38,
+    "carbs": 26,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "amount": "600",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "番茄",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "洋葱",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "姜",
+        "amount": "15",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "番茄酱",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "生抽",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "料酒",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "八角",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食用油",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "牛腩切 3cm 块，冷水泡 30 分钟去血水；冷水下锅加姜片与料酒焯 5 分钟，撇沫后捞出冲净。",
+      "番茄顶部划十字，沸水烫 40 秒去皮，两个切块、两个切碎；洋葱切丝。",
+      "锅中放 2 汤匙油，下洋葱丝炒 2 分钟至软，加番茄碎与番茄酱小火炒 5 分钟至出红沙。",
+      "下牛腩块翻炒 2 分钟裹上番茄酱汁，加生抽、八角与 1.2 升热水，烧开后转小火炖 60 分钟。",
+      "下番茄块继续炖 20 分钟至牛腩软烂、汤汁浓稠，加 1 茶匙盐调味。",
+      "开盖中火收汁 5 分钟，汤汁能挂勺即可关火。"
+    ],
+    "tips": "番茄分两次下：先炒碎的出红沙做底味，后放块状的保留口感。"
+  },
+  {
+    "title": "罗宋汤",
+    "cuisine": "西餐",
+    "tags": [
+      "酸甜",
+      "咸鲜",
+      "炖",
+      "宴客"
+    ],
+    "summary": "牛腩与番茄甜菜根同炖，最后加卷心菜煮软，汤浓酸甜带牛肉香，配面包最合适。",
+    "difficulty": 2,
+    "prep_minutes": 25,
+    "cook_minutes": 75,
+    "servings": 4,
+    "calories": 735,
+    "protein": 45,
+    "fat": 35,
+    "carbs": 60,
+    "ingredients": [
+      {
+        "name": "牛腩",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "土豆",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "番茄",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "胡萝卜",
+        "amount": "150",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "洋葱",
+        "amount": "150",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大白菜",
+        "amount": "200",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "番茄酱",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "黄油",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "黑胡椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "牛腩切 3cm 块，冷水下锅焯 5 分钟去血沫，捞出冲净。",
+      "锅中放黄油小火融化，下洋葱丝炒 3 分钟至变软透明，加番茄块与番茄酱炒 5 分钟出红沙。",
+      "下牛腩翻炒 2 分钟，加 1.5 升热水烧开，转小火炖 45 分钟。",
+      "土豆、胡萝卜切滚刀块下锅，继续炖 20 分钟至牛腩软烂、土豆边角微化。",
+      "大白菜切大片下锅煮 8 分钟，加盐与黑胡椒调味，汤汁浓稠即可。"
+    ],
+    "tips": "番茄一定要炒出红沙再加水，汤色才红亮；卷心菜最后放，久煮会发酸。"
+  },
+  {
+    "title": "番茄肉酱意面",
+    "cuisine": "西餐",
+    "tags": [
+      "酸甜",
+      "咸鲜",
+      "煮",
+      "一人食",
+      "高蛋白"
+    ],
+    "summary": "牛肉末与番茄小火熬成浓稠肉酱，意面留一点面汤同拌，酱汁挂面不散。",
+    "difficulty": 2,
+    "prep_minutes": 15,
+    "cook_minutes": 35,
+    "servings": 3,
+    "calories": 855,
+    "protein": 45,
+    "fat": 35,
+    "carbs": 90,
+    "ingredients": [
+      {
+        "name": "意大利面",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "牛肉末",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "番茄",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "洋葱",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "番茄酱",
+        "amount": "3",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "4",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "橄榄油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "芝士",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "黑胡椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "番茄去皮切小丁，洋葱与蒜切末；意面按包装时间少煮 1 分钟，捞出留 1 碗面汤。",
+      "锅中放橄榄油，下洋葱末与蒜末小火炒 3 分钟至软甜。",
+      "下牛肉末中火炒 4 分钟至变色出油、颗粒分明，加番茄酱炒 1 分钟。",
+      "倒入番茄丁，加 1 茶匙盐与黑胡椒，小火熬 15 分钟至酱汁浓稠、番茄完全化开。",
+      "把意面倒入肉酱锅中，加 3 汤匙面汤翻拌 1 分钟，让酱汁均匀裹住面条。",
+      "装盘撒芝士碎与现磨黑胡椒即可。"
+    ],
+    "tips": "面汤里的淀粉能让酱汁挂住面条；肉酱要熬到出油、颜色变深才够香。"
+  },
+  {
+    "title": "咖喱鸡饭",
+    "cuisine": "西餐",
+    "tags": [
+      "咸鲜",
+      "微辣",
+      "煮",
+      "一人食",
+      "下饭"
+    ],
+    "summary": "鸡腿肉与土豆胡萝卜在咖喱汁里煮到绵软，浇在热米饭上，浓郁微辣一碗满足。",
+    "difficulty": 1,
+    "prep_minutes": 15,
+    "cook_minutes": 30,
+    "servings": 3,
+    "calories": 1145,
+    "protein": 45,
+    "fat": 45,
+    "carbs": 140,
+    "ingredients": [
+      {
+        "name": "鸡腿",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "土豆",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "胡萝卜",
+        "amount": "150",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "洋葱",
+        "amount": "150",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "咖喱块",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "大米",
+        "amount": "250",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "食用油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "大米煮成米饭备用；鸡腿去骨切 3cm 块，加少许盐腌 10 分钟。",
+      "土豆、胡萝卜切滚刀块，洋葱切丝。",
+      "锅中放 2 汤匙油，下洋葱丝炒 2 分钟至软，加鸡块炒 3 分钟至表面变白。",
+      "下土豆与胡萝卜翻炒 2 分钟，加 700 毫升热水，烧开后转中小火煮 15 分钟至土豆能用筷子插入。",
+      "关火后放入咖喱块，搅拌至完全化开，再开小火煮 5 分钟至汤汁浓稠。",
+      "米饭盛入深盘，浇上咖喱鸡即可。"
+    ],
+    "tips": "咖喱块必须关火后再放，边搅边化才不结块；小火收 5 分钟汤汁才浓稠挂饭。"
+  },
+  {
+    "title": "凯撒沙拉",
+    "cuisine": "西餐",
+    "tags": [
+      "清淡",
+      "凉拌",
+      "减脂",
+      "高蛋白",
+      "低卡"
+    ],
+    "summary": "罗马生菜配煎鸡胸与烤面包丁，柠檬蒜香酱汁现拌，清爽有饱腹感。",
+    "difficulty": 1,
+    "prep_minutes": 15,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 478,
+    "protein": 35,
+    "fat": 22,
+    "carbs": 35,
+    "ingredients": [
+      {
+        "name": "生菜",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "鸡胸肉",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "面包",
+        "amount": "2",
+        "unit": "片",
+        "is_main": false
+      },
+      {
+        "name": "芝士",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "橄榄油",
+        "amount": "2",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "柠檬",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "大蒜",
+        "amount": "2",
+        "unit": "瓣",
+        "is_main": false
+      },
+      {
+        "name": "黑胡椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "鸡胸肉片成 1.5cm 厚，用盐与黑胡椒腌 10 分钟；面包切 1.5cm 丁。",
+      "平底锅放 1 汤匙橄榄油，面包丁小火煎 4 分钟至四面金黄酥脆，盛出。",
+      "同一锅补少许油，鸡胸中火每面煎 3 分钟至表面金黄、中心温度 75℃，取出静置 5 分钟后切片。",
+      "生菜洗净后用冰水泡 5 分钟更脆，彻底沥干撕成入口大小。",
+      "酱汁：剩余橄榄油、柠檬汁、蒜末、少许盐与黑胡椒搅匀至乳化。",
+      "生菜拌入酱汁，铺上鸡胸片、面包丁与芝士碎，现磨黑胡椒即可。"
+    ],
+    "tips": "生菜必须甩干水，否则酱汁挂不住；鸡胸煎完静置 5 分钟再切，肉汁才不会流失。"
+  },
+  {
+    "title": "香煎三文鱼",
+    "cuisine": "西餐",
+    "tags": [
+      "清淡",
+      "鲜香",
+      "煎",
+      "高蛋白",
+      "减脂"
+    ],
+    "summary": "三文鱼皮朝下煎到酥脆，内里保留粉嫩，配黄油柠檬汁与芦笋，十五分钟的高蛋白餐。",
+    "difficulty": 2,
+    "prep_minutes": 10,
+    "cook_minutes": 10,
+    "servings": 2,
+    "calories": 588,
+    "protein": 45,
+    "fat": 40,
+    "carbs": 12,
+    "ingredients": [
+      {
+        "name": "三文鱼",
+        "amount": "400",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "芦笋",
+        "amount": "200",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "柠檬",
+        "amount": "1",
+        "unit": "个",
+        "is_main": false
+      },
+      {
+        "name": "黄油",
+        "amount": "20",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "橄榄油",
+        "amount": "1",
+        "unit": "汤匙",
+        "is_main": false
+      },
+      {
+        "name": "黑胡椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "三文鱼用厨房纸彻底吸干，两面撒盐与黑胡椒，室温放 10 分钟。",
+      "平底锅烧热放橄榄油，鱼皮朝下入锅，中火煎 4 分钟不要翻动，看到侧面熟色上升到三分之二。",
+      "翻面再煎 90 秒，加黄油与柠檬片，用勺把融化的黄油反复浇在鱼肉上。",
+      "鱼肉出锅静置 3 分钟；同一锅下芦笋煎 3 分钟至翠绿带焦痕，加少许盐。",
+      "装盘，挤柠檬汁并撒少许黑胡椒，鱼肉中心应是粉嫩不透明的状态。"
+    ],
+    "tips": "鱼皮一定要擦干再下锅，全程别急着翻面，皮才会脆而不粘。"
+  },
+  {
+    "title": "奶油蘑菇汤",
+    "cuisine": "西餐",
+    "tags": [
+      "清淡",
+      "鲜香",
+      "煮",
+      "早餐"
+    ],
+    "summary": "口蘑炒到出水收干，加面粉黄油炒成糊再冲入牛奶，打细后加淡奶油，浓滑顺口。",
+    "difficulty": 2,
+    "prep_minutes": 10,
+    "cook_minutes": 25,
+    "servings": 3,
+    "calories": 540,
+    "protein": 15,
+    "fat": 40,
+    "carbs": 30,
+    "ingredients": [
+      {
+        "name": "口蘑",
+        "amount": "300",
+        "unit": "克",
+        "is_main": true
+      },
+      {
+        "name": "洋葱",
+        "amount": "100",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "黄油",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "面粉",
+        "amount": "30",
+        "unit": "克",
+        "is_main": false
+      },
+      {
+        "name": "牛奶",
+        "amount": "300",
+        "unit": "毫升",
+        "is_main": false
+      },
+      {
+        "name": "淡奶油",
+        "amount": "100",
+        "unit": "毫升",
+        "is_main": false
+      },
+      {
+        "name": "黑胡椒",
+        "amount": "0.5",
+        "unit": "茶匙",
+        "is_main": false
+      },
+      {
+        "name": "食盐",
+        "amount": "1",
+        "unit": "茶匙",
+        "is_main": false
+      }
+    ],
+    "steps": [
+      "口蘑切薄片，洋葱切细末，切得薄一些更容易炒出香味。",
+      "锅中放 15 克黄油，下洋葱末小火炒 3 分钟至透明，加口蘑片中火炒 6 分钟至出水再收干、边缘微黄。",
+      "补剩余黄油融化，撒入面粉小火炒 2 分钟至无干粉、微微发黄。",
+      "分三次倒入牛奶，每次都搅到完全融合再加下一次，避免结块。",
+      "小火煮 8 分钟至汤变浓稠，用料理机打细（留几片蘑菇最后放）。",
+      "倒回锅中加淡奶油、盐与黑胡椒，小火加热 2 分钟即可。"
+    ],
+    "tips": "牛奶一定要分次加并持续搅拌；打细后别再大火滚，否则奶油会分层。"
+  }
+]

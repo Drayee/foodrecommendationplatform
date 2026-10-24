@@ -1,0 +1,25 @@
+# 寻味 · 美食推荐平台 —— 运行环境
+# 安装：pip install -r requirements.txt
+# 说明：核心链路只依赖这 8 个包；下面“可选”段落里的包不装也能跑（对应功能自动降级）。
+
+# ---- Web 框架 ----
+Django>=6.0,<6.2
+
+# ---- 数据与检索 ----
+numpy>=2.0            # RAG 向量运算、协同过滤矩阵
+requests>=2.31        # 网络搜索 / 菜谱抓取
+beautifulsoup4>=4.12  # HTML 解析
+lxml>=5.0             # bs4 的高性能解析后端
+
+# ---- LLM 客户端（OpenAI 兼容网关：通义 / DeepSeek / vLLM / Ollama）----
+openai>=1.40
+
+# ---- 测试 ----
+pytest>=8.0
+pytest-django>=4.8
+sniffio>=1.3          # 环境里 anyio 的 pytest 插件需要；缺失会让 pytest 启动即崩
+
+# ---- 可选（不装则自动降级）----
+# redis>=5.0          # 配置 REDIS_URL 后启用 Redis 缓存/会话
+# PyMySQL>=1.1        # DB_ENGINE=mysql 时使用
+# sentence-transformers>=3.0   # 想换成本地语义向量模型时启用（默认用内置 hashing TF-IDF）
