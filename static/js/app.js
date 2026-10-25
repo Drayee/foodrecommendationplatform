@@ -229,7 +229,7 @@
                 if (target === 'home' && !feed.value.length) loadFeed();
                 if (target === 'home' && !hot.value.length) loadHot();
                 if (target === 'nearby') { near.init().then(() => { near.openMap(); near.autoLocate(); }); }
-                if (target === 'profile') { loadProfile(); loadFavorites(); }
+                if (target === 'profile') { loadProfile(); loadFavorites(); near.loadPlaceFavorites(); }
                 if (target === 'assistant') scrollChat();
             }
 
@@ -584,6 +584,8 @@
                 nbNavigate: near.navigate,
                 nbFocus: near.focusOnMap,
                 nbOpenMap: near.openMap,
+                nbLoadPlaceFavorites: near.loadPlaceFavorites,
+                nbRemoveFavorite: near.removeFavorite,
                 /* 方法 */
                 go, loadFeed, loadHot, switchScene, doSearch, runSearch, setMode, quickSearch,
                 browseCuisine, goSearchWithSort, openRecipe, toggleFavorite, toggleRate, submitRating,

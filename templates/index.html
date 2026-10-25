@@ -502,6 +502,36 @@
                 <p class="muted" v-else>还没有收藏，去首页逛逛吧。</p>
             </div>
 
+            <div class="panel" v-if="user.authenticated">
+                <h2>收藏的店 <small>([[ nb.placeFavorites.length ]])</small></h2>
+                <div class="nearby-list" v-if="nb.placeFavorites.length">
+                    <article class="place-card" v-for="p in nb.placeFavorites" :key="'pf' + p.poi_id"
+                             @click="nbOpenPlace(p)">
+                        <div class="place-cover" :style="placeCover(p)">
+                            <span v-if="!p.photos || !p.photos.length" class="place-emoji">[[ placeEmoji(p) ]]</span>
+                        </div>
+                        <div class="place-main">
+                            <div class="place-title-row">
+                                <h3>[[ p.name ]]</h3>
+                                <span class="place-dist" v-if="p.distance_text">[[ p.distance_text ]]</span>
+                            </div>
+                            <p class="place-sub">
+                                <span class="tag-type" v-if="p.type_label">[[ p.type_label ]]</span>
+                                <span v-if="p.rating">★ [[ p.rating ]]</span>
+                                <span v-if="p.cost">人均 ¥[[ p.cost ]]</span>
+                            </p>
+                            <p class="place-addr">[[ p.address ]]</p>
+                            <div class="place-actions">
+                                <button class="ghost-btn tiny" @click.stop="nbOpenPlace(p)">详情</button>
+                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'car')">🚗 导航</button>
+                                <button class="ghost-btn tiny" @click.stop="nbRemoveFavorite(p.poi_id)">取消收藏</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <p class="muted" v-else>还没有收藏店铺，去「附近」逛逛吧。</p>
+            </div>
+
             <div class="panel" v-if="!user.authenticated">
                 <h2>登录后解锁</h2>
                 <p>收藏菜谱、记录口味、获得个性化推荐。</p>

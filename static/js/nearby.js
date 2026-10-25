@@ -66,6 +66,7 @@
 
             tips: [],
             showTips: false,
+            placeFavorites: [],
 
             detail: null,
             detailLoading: false,
@@ -488,6 +489,30 @@
             }
         }
 
+        /* ---------------- 我收藏的店 ---------------- */
+        async function loadPlaceFavorites() {
+            if (!boot.isAuthenticated) {
+                nb.placeFavorites = [];
+                return;
+            }
+            try {
+                nb.placeFavorites = (await unwrap(http.get('/favorites/'))) || [];
+            } catch (err) {
+                nb.placeFavorites = [];
+            }
+        }
+
+        async function removeFavorite(poiId) {
+            try {
+                await unwrap(http.post(`/${poiId}/favorite/`, {}));
+                nb.placeFavorites = nb.placeFavorites.filter((p) => p.poi_id !== poiId);
+                if (nb.detail && nb.detail.poi_id === poiId) nb.isFavorite = false;
+                nb.message = '已取消收藏';
+            } catch (err) {
+                nb.message = `操作失败：${err.message}`;
+            }
+        }
+
         /* ---------------- 导航 / 叫车 ---------------- */
         function navigate(place, mode) {
             if (!place) return;
@@ -537,6 +562,8 @@
             navigate,
             focusOnMap,
             openMap,
+            loadPlaceFavorites,
+            removeFavorite,
         };
     }
 
