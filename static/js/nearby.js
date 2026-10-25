@@ -67,6 +67,7 @@
             tips: [],
             showTips: false,
             placeFavorites: [],
+            myReviews: [],
 
             detail: null,
             detailLoading: false,
@@ -513,6 +514,18 @@
             }
         }
 
+        async function loadMyReviews() {
+            if (!boot.isAuthenticated) {
+                nb.myReviews = [];
+                return;
+            }
+            try {
+                nb.myReviews = (await unwrap(http.get('/reviews/mine/'))) || [];
+            } catch (err) {
+                nb.myReviews = [];
+            }
+        }
+
         /* ---------------- 导航 / 叫车 ---------------- */
         function navigate(place, mode) {
             if (!place) return;
@@ -563,6 +576,7 @@
             focusOnMap,
             openMap,
             loadPlaceFavorites,
+            loadMyReviews,
             removeFavorite,
         };
     }

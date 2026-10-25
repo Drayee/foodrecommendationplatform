@@ -229,7 +229,7 @@
                 if (target === 'home' && !feed.value.length) loadFeed();
                 if (target === 'home' && !hot.value.length) loadHot();
                 if (target === 'nearby') { near.init().then(() => { near.openMap(); near.autoLocate(); }); }
-                if (target === 'profile') { loadProfile(); loadFavorites(); near.loadPlaceFavorites(); }
+                if (target === 'profile') { loadProfile(); loadFavorites(); near.loadPlaceFavorites(); near.loadMyReviews(); }
                 if (target === 'assistant') scrollChat();
             }
 
@@ -428,6 +428,25 @@
                 sendQuestion();
             }
 
+            /** 「附近吃什么」：没定位就先定位，再带着坐标提问 */
+            async function askNearby() {
+                view.value = 'assistant';
+                syncHash('/assistant');
+                if (!near.nb.located) {
+                    showToast('正在获取位置…');
+                    try {
+                        await near.init();
+                        await near.autoLocate();
+                    } catch (err) {
+                        /* 定位失败也继续问，助手会引导用户去附近页 */
+                    }
+                }
+                question.value = near.nb.located
+                    ? '我在这个位置附近，走路 10 分钟内有什么好吃的？推荐 3 家并说明理由。'
+                    : '附近有什么好吃的？';
+                sendQuestion();
+            }
+
             function sendQuestion() {
                 const q = (question.value || '').trim();
                 if (!q || thinking.value) return;
@@ -585,11 +604,12 @@
                 nbFocus: near.focusOnMap,
                 nbOpenMap: near.openMap,
                 nbLoadPlaceFavorites: near.loadPlaceFavorites,
+                nbLoadMyReviews: near.loadMyReviews,
                 nbRemoveFavorite: near.removeFavorite,
                 /* 方法 */
                 go, loadFeed, loadHot, switchScene, doSearch, runSearch, setMode, quickSearch,
                 browseCuisine, goSearchWithSort, openRecipe, toggleFavorite, toggleRate, submitRating,
-                submitComment, askAssistant, sendQuestion, loadProfile, loadFavorites, togglePref,
+                submitComment, askAssistant, askNearby, sendQuestion, loadProfile, loadFavorites, togglePref,
                 savePref, showToast, renderMarkdown, formatTime,
                 coverStyle: UI.coverStyle, dishEmoji: UI.dishEmoji,
                 placeCover, placeEmoji,

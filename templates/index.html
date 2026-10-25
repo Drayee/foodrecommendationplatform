@@ -408,6 +408,7 @@
                         <li @click="askAssistant('麻婆豆腐怎么做？关键步骤是什么？')">👩‍🍳 讲清关键步骤</li>
                         <li @click="askAssistant('减脂期晚餐吃什么？热量控制在 500 大卡以内')">🥗 营养与热量搭配</li>
                         <li @click="askAssistant('川菜有什么代表作？')">🗺️ 菜系知识问答</li>
+                        <li @click="askNearby">📍 附近有什么好吃的（自动定位）</li>
                     </ul>
                     <div class="side-status">
                         <div><span class="dot" :class="status.llm.ready ? 'ok' : 'warn'"></span>大模型 [[ status.llm.ready ? '已连接' : '未配置（检索模式）' ]]</div>
@@ -530,6 +531,26 @@
                     </article>
                 </div>
                 <p class="muted" v-else>还没有收藏店铺，去「附近」逛逛吧。</p>
+            </div>
+
+            <div class="panel" v-if="user.authenticated">
+                <h2>我的打卡 <small>([[ nb.myReviews.length ]])</small></h2>
+                <ul class="review-list" v-if="nb.myReviews.length">
+                    <li v-for="r in nb.myReviews" :key="'mr' + r.id">
+                        <div class="c-avatar">[[ (r.place_name || '店')[0] ]]</div>
+                        <div class="c-body">
+                            <div class="c-head">
+                                <b>[[ r.place_name ]]</b>
+                                <span>[[ formatTime(r.created_at) ]] · [[ r.rating ]] 星<span v-if="r.cost"> · 人均 ¥[[ r.cost ]]</span></span>
+                            </div>
+                            <p v-if="r.content">[[ r.content ]]</p>
+                            <p class="mini-tags" v-if="r.dishes && r.dishes.length">
+                                <span v-for="d in r.dishes" :key="d" class="mini-tag">[[ d ]]</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="muted" v-else>还没有打卡记录，去「附近」给吃过的店打个卡。</p>
             </div>
 
             <div class="panel" v-if="!user.authenticated">

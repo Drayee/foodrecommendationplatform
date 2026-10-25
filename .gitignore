@@ -42,3 +42,8 @@ htmlcov/
 *.swp
 .DS_Store
 Thumbs.db
+
+# ---- 演示材料临时产物（保留交付物：docs/*.pptx、docs/assets/*.png、build_ppt 脚本）----
+build_ppt/tmp_*
+build_ppt/min.pptx
+build_ppt/*.pdf

@@ -387,6 +387,18 @@ class TestApi:
         body = client.get("/api/v1/places/favorites/").json()
         assert body["code"] == 0 and len(body["data"]) == 1
 
+    def test_my_reviews_lists_own(self, client):
+        user = User.objects.create_user("checker", password="x")
+        client.force_login(user)
+        PlaceReview.objects.create(user=user, poi_id="P7", place_name="砂锅店", rating=5, content="很香")
+        body = client.get("/api/v1/places/reviews/mine/").json()
+        assert body["code"] == 0
+        assert len(body["data"]) == 1
+        assert body["data"][0]["place_name"] == "砂锅店"
+
+    def test_my_reviews_requires_login(self, client):
+        assert client.get("/api/v1/places/reviews/mine/").status_code == 401
+
     def test_review_post_and_get(self, client):
         user = User.objects.create_user("reviewer", password="x")
         client.force_login(user)

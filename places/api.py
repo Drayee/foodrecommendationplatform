@@ -327,6 +327,18 @@ def my_favorites(request):
     return _ok([r.to_dict() for r in rows])
 
 
+@require_GET
+@login_required
+def my_reviews(request):
+    """我的打卡记录（含店铺名、评分、推荐菜、人均）。"""
+    rows = (
+        PlaceReview.objects.filter(user=request.user, is_hidden=False)
+        .select_related("user")
+        .order_by("-created_at")[:100]
+    )
+    return _ok([r.to_dict() for r in rows])
+
+
 # ---------------------------------------------------------------------------
 # 打卡评价
 # ---------------------------------------------------------------------------

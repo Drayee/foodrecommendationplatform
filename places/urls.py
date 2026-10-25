@@ -17,6 +17,7 @@ urlpatterns = [
     path("tips/", api.tips, name="tips"),
     # 用户资产（放在 <poi_id> 之前，避免被吞）
     path("favorites/", api.my_favorites, name="my_favorites"),
+    path("reviews/mine/", api.my_reviews, name="my_reviews"),
     path("track/", api.track, name="track"),
     # POI 详情与互动
     path("<str:poi_id>/", api.detail, name="detail"),
