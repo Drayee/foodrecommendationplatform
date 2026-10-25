@@ -77,6 +77,24 @@ python manage.py runserver
 
 ---
 
+## 🐳 容器化部署
+
+```bash
+cp .env.example .env          # 至少填 DB_PASSWORD；有高德/LLM 就一并填
+docker compose up -d --build
+docker compose exec web python manage.py seed_data
+docker compose exec web python manage.py build_index
+# 打开 http://127.0.0.1:8000/
+```
+
+- 生产用 **gunicorn**（3 worker × 4 thread），容器内含 `/health/` HEALTHCHECK
+- PostgreSQL 独立容器 + 数据卷；`web` 首次启动自动 `migrate`
+- Ollama 跑在宿主机时用 `host.docker.internal`（compose 已配 `extra_hosts`）；跑在容器里就改成服务名
+- 镜像只装 `requirements.txt` + `requirements-prod.txt`（gunicorn / psycopg），开发依赖不进镜像
+- 不想用 Docker 也可以直接 `python manage.py runserver`，两种方式共用同一份 `.env`
+
+---
+
 ## ⚙️ 关键配置
 
 | 变量 | 作用 | 默认 |

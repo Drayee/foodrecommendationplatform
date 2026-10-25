@@ -632,6 +632,9 @@
                 nbLoadPlaceFavorites: near.loadPlaceFavorites,
                 nbLoadMyReviews: near.loadMyReviews,
                 nbRemoveFavorite: near.removeFavorite,
+                nbDistPercent: near.distPercent,
+                nbOpenPhoto: near.openPhoto,
+                nbClosePhoto: near.closePhoto,
                 /* 方法 */
                 go, loadFeed, loadHot, switchScene, doSearch, runSearch, setMode, quickSearch,
                 browseCuisine, goSearchWithSort, openRecipe, toggleFavorite, toggleRate, submitRating,

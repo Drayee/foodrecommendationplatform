@@ -617,6 +617,12 @@
             </header>
 
             <div class="modal-body">
+                <div class="photo-strip" v-if="nb.detail.photos && nb.detail.photos.length">
+                    <img v-for="(ph, i) in nb.detail.photos" :key="'ph' + i" :src="ph"
+                         class="photo-thumb" loading="lazy" alt="店铺照片"
+                         @click="nbOpenPhoto(ph)">
+                </div>
+
                 <div class="detail-facts">
                     <span v-if="nb.detail.rating" class="fact">★ [[ nb.detail.rating ]]</span>
                     <span v-if="nb.detail.cost" class="fact">人均 ¥[[ nb.detail.cost ]]</span>
@@ -639,6 +645,14 @@
                     打卡评价
                     <small>共 [[ nb.reviewStats.count ]] 条 · 均分 [[ nb.reviewStats.avg_rating || '—' ]] · [[ nb.reviewStats.favorited ]] 人收藏</small>
                 </h3>
+
+                <div class="rating-dist" v-if="nb.reviewStats.count">
+                    <div class="dist-row" v-for="star in [5, 4, 3, 2, 1]" :key="'ds' + star">
+                        <span class="dist-label">[[ star ]] 星</span>
+                        <div class="dist-track"><i :style="{ width: nbDistPercent(star) + '%' }"></i></div>
+                        <span class="dist-count">[[ (nb.reviewStats.distribution && nb.reviewStats.distribution[star]) || 0 ]]</span>
+                    </div>
+                </div>
 
                 <div class="review-form" v-if="user.authenticated">
                     <div class="review-stars">
@@ -675,6 +689,11 @@
                 <p class="muted" v-else>还没有人打卡，来做第一个。</p>
             </div>
         </div>
+    </div>
+
+    <div class="lightbox" v-if="nb.lightbox" @click="nbClosePhoto">
+        <img :src="nb.lightbox" alt="照片预览">
+        <span class="lightbox-close">✕</span>
     </div>
 
     <div class="toast" v-if="toast"><span>[[ toast ]]</span></div>

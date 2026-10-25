@@ -83,6 +83,7 @@
             mapReady: false,
             mapError: '',
             activePoi: '',
+            lightbox: '',
 
             config: {
                 js_key: '',
@@ -437,6 +438,23 @@
         function closeDetail() {
             nb.detail = null;
             nb.activePoi = '';
+            nb.lightbox = '';
+        }
+
+        /** 评分分布条宽度（百分比） */
+        function distPercent(star) {
+            const dist = (nb.reviewStats && nb.reviewStats.distribution) || {};
+            const total = Object.values(dist).reduce((a, b) => a + (Number(b) || 0), 0);
+            if (!total) return 0;
+            return Math.round(((Number(dist[String(star)]) || 0) / total) * 100);
+        }
+
+        function openPhoto(url) {
+            nb.lightbox = url || '';
+        }
+
+        function closePhoto() {
+            nb.lightbox = '';
         }
 
         async function toggleFavorite() {
@@ -578,6 +596,9 @@
             loadPlaceFavorites,
             loadMyReviews,
             removeFavorite,
+            distPercent,
+            openPhoto,
+            closePhoto,
         };
     }
 

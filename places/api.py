@@ -262,14 +262,20 @@ def detail(request, poi_id: str):
         .select_related("user")
         .order_by("-created_at")[:20]
     )
-    agg = PlaceReview.objects.filter(poi_id=poi_id, is_hidden=False).aggregate(
-        n=Count("id"), avg=Avg("rating")
-    )
+    qs = PlaceReview.objects.filter(poi_id=poi_id, is_hidden=False)
+    agg = qs.aggregate(n=Count("id"), avg=Avg("rating"))
+    # 评分分布（1~5 星各多少条），前端画成柱状条
+    distribution = {str(i): 0 for i in range(1, 6)}
+    for row in qs.values("rating").annotate(n=Count("id")):
+        key = str(int(row["rating"] or 0))
+        if key in distribution:
+            distribution[key] = row["n"]
     result["reviews"] = [r.to_dict() for r in reviews]
     result["review_stats"] = {
         "count": agg["n"] or 0,
         "avg_rating": round(agg["avg"] or 0, 2),
         "favorited": PlaceFavorite.objects.filter(poi_id=poi_id).count(),
+        "distribution": distribution,
     }
     if request.user.is_authenticated:
         result["is_favorite"] = PlaceFavorite.objects.filter(user=request.user, poi_id=poi_id).exists()
