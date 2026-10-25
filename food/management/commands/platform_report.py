@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import statistics
 import time
+from datetime import timedelta
 
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
@@ -111,4 +112,88 @@ class Command(BaseCommand):
         except Exception as exc:
             self.stdout.write(self.style.WARNING(f"  状态读取失败：{exc}"))
 
+        self._report_nearby(top_n, line)
+
         self.stdout.write(self.style.SUCCESS("报告结束"))
+
+    # ------------------------------------------------------------------
+    # 附近美食（places 侧观测）
+    # ------------------------------------------------------------------
+    def _report_nearby(self, top_n: int, line) -> None:
+        """附近搜索量、降级/缓存健康度、关键词榜、Key 池与用户资产。"""
+        from django.utils import timezone
+
+        from places import keypool
+        from places.models import PlaceFavorite, PlaceReview, PlaceSearchLog
+
+        self.stdout.write(line("══ 附近美食 ══"))
+        try:
+            today = timezone.localdate()
+            week_start = timezone.now() - timedelta(days=7)
+            logs = PlaceSearchLog.objects.all()
+            today_logs = logs.filter(created_at__date=today)
+            week_logs = logs.filter(created_at__gte=week_start)
+
+            def _gate(qs) -> str:
+                n = qs.count()
+                if not n:
+                    return "0 次｜（今日暂无搜索）"
+                agg = qs.aggregate(avg=Avg("latency_ms"))
+                degraded = qs.filter(degraded=True).count()
+                cached = qs.filter(cached=True).count()
+                return (
+                    f"{n} 次｜平均耗时 {round(agg['avg'] or 0, 1)}ms"
+                    f"｜降级率 {degraded / n:.0%}｜缓存命中率 {cached / n:.0%}"
+                )
+
+            self.stdout.write(f"  今日 {_gate(today_logs)}")
+            self.stdout.write(f"  近 7 天 {_gate(week_logs)}")
+            self.stdout.write(f"  累计 {logs.count()} 次搜索｜日志表 place_search_log")
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  搜索日志读取失败：{exc}"))
+
+        try:
+            self.stdout.write(f"── 热门搜索关键词 Top {top_n} ──")
+            rows = (
+                PlaceSearchLog.objects.exclude(query="")
+                .values("query")
+                .annotate(n=Count("id"))
+                .order_by("-n")[:top_n]
+            )
+            rows = list(rows)
+            if not rows:
+                self.stdout.write("  （暂无带关键词的搜索）")
+            for idx, row in enumerate(rows, start=1):
+                self.stdout.write(f"  {idx:>2}. 「{row['query'][:20]}」 {row['n']} 次")
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  关键词榜读取失败：{exc}"))
+
+        try:
+            stats = keypool.pool_stats()
+            web, js = stats.get("web", {}), stats.get("js", {})
+            self.stdout.write(
+                f"  Key 池（web）总 {web.get('total', 0)}｜可用 {web.get('available', 0)}"
+                f"｜冷却 {web.get('cooling', 0)}"
+            )
+            self.stdout.write(
+                f"  Key 池（js） 总 {js.get('total', 0)}｜可用 {js.get('available', 0)}"
+                f"｜冷却 {js.get('cooling', 0)}"
+            )
+            cooling = [k for k in (web.get("keys") or []) if k.get("status") == "cooling"]
+            for item in cooling[:5]:
+                self.stdout.write(
+                    f"    · {item.get('masked', '')} 冷却剩余 {item.get('cooldown_remaining', 0)}s"
+                    f"（{item.get('last_error') or '未记录原因'}）"
+                )
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  Key 池状态读取失败：{exc}"))
+
+        try:
+            fav = PlaceFavorite.objects.count()
+            checkins = PlaceReview.objects.count()
+            avg_rating = PlaceReview.objects.aggregate(avg=Avg("rating"))["avg"] or 0
+            self.stdout.write(
+                f"  收藏店铺 {fav} 个｜打卡 {checkins} 条｜平均打卡评分 {round(avg_rating, 2)}"
+            )
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  用户资产读取失败：{exc}"))

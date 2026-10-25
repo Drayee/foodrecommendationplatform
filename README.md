@@ -41,7 +41,7 @@
 | LLM | Ollama `qwen3:14b` | OpenAI 兼容接口，可换任意网关 |
 | 地图 | 高德开放平台 | Web 服务 Key（REST）+ JS API Key（地图）+ 安全密钥 |
 | 前端 | Vue 3 全局构建 | 手写组件 + 暖色设计系统，无打包步骤 |
-| 测试 | pytest + pytest-django | 196 项，含降级/并发/方言守卫 |
+| 测试 | pytest + pytest-django | 217 项（+ 4 个 subtest），含降级/并发/方言守卫 |
 
 ---
 
@@ -87,7 +87,7 @@ python manage.py migrate
 python manage.py collectstatic --noinput
 
 gunicorn RAGDjange.wsgi:application \
-  --bind 0.0.0.0:8000 --workers 3 --threads 4 --timeout 120 \
+  --bind 127.0.0.1:8000 --workers 3 --threads 4 --timeout 120 \
   --access-logfile - --error-logfile -
 ```
 
@@ -162,22 +162,44 @@ FoodRecommendationPlatform/
 ## 🧪 测试
 
 ```bash
-python -m pytest -q            # 196 项
+python -m pytest -q            # 217 项 + 4 个 subtest
 python manage.py test          # Django runner 等价
 ```
 
+> `pytest.ini` 已带 `-q`，命令行再带一个 `-q` 即为双 `-q`，不会再打印 `217 passed` 汇总行；
+> 想看汇总用 `python -m pytest`，看用例清单用 `python -m pytest --collect-only -q`（按文件给数量，当前合计 217）。
+
 覆盖重点：坐标转换精度、Key 池冷却与轮询、POI 归一化与降级、五路排序单调性、
 推荐冷启动与 MMR、RAG 混合检索与维度熔断、PG 方言守卫（禁裸 SQL/硬编码 DSN）。
+
+> 同一台机器上**并发**跑多个 `pytest`（各自创建 `test_food_platform`）会把 PostgreSQL 连接打到上限
+> （默认 `max_connections=100`），表现为 `UndefinedTable` / `too many clients` 之类的偶发错误；串行重跑即可。
 
 ---
 
 ## ⚠️ 已知限制
 
-- 高德 POI 的 `tag` / `business_hours` 覆盖率依赖商户数据，部分为空属正常；
+- **单个 JS API Key 不自动轮换**：地图 SDK 一个页面只加载一次脚本，JS 池主要用于多环境分发，不是「失败自动换 Key」；
+- **地图首屏依赖外网** `webapi.amap.com`：离线或被墙时地图空白，前端自动降级为列表模式（功能可用、可视化不可用）；
+- **本地 Ollama `qwen3:14b` 首 token 慢**：8GB 显存下是 CPU/GPU 混合推理，首 token 数秒到数十秒，前端已用 SSE 流式缓解；
+- **POI 的 `tag` / `business_hours` 覆盖率**依赖商户数据，部分为空属正常；
 - 高德检索结果**不做长期落库**（会过期），仅 10 分钟缓存；用户资产（收藏/打卡）才持久化；
-- 单个 JS API Key 无自动轮换（地图 SDK 单页只加载一次），JS 池主要用于多环境分发；
-- 首屏地图依赖外网 `webapi.amap.com`，离线时自动降级为列表模式；
-- 本地 Ollama 14B 在 8GB 显存上为 CPU/GPU 混合推理，首 token 较慢，前端已用 SSE 流式缓解。
+- **gunicorn + systemd 只能跑在 Linux/WSL2**：Windows 原生无 `fcntl`/systemd，本机生产按
+  [docs/DEPLOY.md](docs/DEPLOY.md) 附录 A 处理（WSL2 或 `waitress`）；`runserver` 仅适合演示；
+- 助手流式回答依赖反代关闭响应缓冲（nginx `proxy_buffering off`），换 IIS/其他反代要自己确认 SSE 不被攒批；
+- Key 池状态是**进程内**的：gunicorn 多 worker 各持一份冷却表，「某把 Key 已冷却」的判定在 worker 之间有分钟级时差。
+
+---
+
+## 📚 相关文档
+
+| 文档 | 内容 |
+| --- | --- |
+| [docs/API.md](docs/API.md) | REST 接口全貌：附近美食、菜谱与推荐、AI 助手 SSE、错误码 |
+| [docs/DEPLOY.md](docs/DEPLOY.md) | 本机生产部署：PostgreSQL 建库、gunicorn + systemd、nginx 反代、静态资源、日志轮转、备份恢复、升级与排错 |
+| [GLOSSARY.md](GLOSSARY.md) | 领域词汇表：POI / GCJ-02 / Key 池 / 降级 / RRF / MMR / 内容画像 / 引用 等术语的准确定义与字段落点 |
+| [docs/CONTRACTS.md](docs/CONTRACTS.md) | 模块间接口契约（改签名先改这里） |
+| [docs/agents/](docs/agents/) | 团队协作配置：issue tracker、triage 标签、domain docs 布局 |
 
 ---
 

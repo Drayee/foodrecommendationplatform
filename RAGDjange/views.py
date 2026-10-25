@@ -38,16 +38,34 @@ def login_html(request):
 
 
 def index_html(request):
+    """渲染单页壳。
+
+    首屏上下文必须以 **合法 JSON** 注入（`boot_json`），不能用 `{{ x|safe }}` 直接拼
+    Python repr —— 后者是单引号，会让整段 `<script>` 语法错误，导致 `window.__BOOT__`
+    未定义、前端把用户当成未登录。
+    """
     from food.models import Cuisine, Tag
 
-    context = {
-        "user_name": request.user.get_username() if request.user.is_authenticated else "",
-        "is_authenticated": request.user.is_authenticated,
+    user = request.user
+    boot = {
+        "page": "home",
+        "recipeId": 0,
+        "keyword": "",
+        "isAuthenticated": bool(user.is_authenticated),
+        "userName": user.get_username() if user.is_authenticated else "",
+        "llmReady": assistant.llm_ready(),
+        "demoMode": bool(getattr(settings, "DEMO_VERIFY_CODE", False)),
         "cuisines": list(Cuisine.objects.all().values("id", "name", "icon")),
-        "tastes": list(Tag.objects.filter(kind="taste").values("id", "name")[:12]),
-        "llm_ready": assistant.llm_ready(),
-        "demo_mode": getattr(settings, "DEMO_VERIFY_CODE", False),
+        "tags": list(Tag.objects.filter(kind="taste").values("id", "name")[:12]),
+    }
+    context = {
+        **boot,
+        "boot_json": json.dumps(boot, ensure_ascii=False),
         "static_version": getattr(settings, "STATIC_VERSION", ""),
+        "cuisines": boot["cuisines"],
+        "tags": boot["tags"],
+        "llm_ready": boot["llmReady"],
+        "demo_mode": boot["demoMode"],
     }
     return render(request, "index.html", context)
 

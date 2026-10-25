@@ -215,6 +215,8 @@ LLM = {
     "TIMEOUT": env_int("LLM_TIMEOUT", 60),
     "MAX_TOKENS": env_int("LLM_MAX_TOKENS", 1500),
     "ENABLED": env_bool("LLM_ENABLED", True),
+    # 流式回答前先吐一句「正在查附近的店…」，避免本地 14B 模型首 token 等几十秒时界面空白
+    "PREAMBLE": env_bool("LLM_PREAMBLE", True),
 }
 
 # --------------------------------------------------------------------------

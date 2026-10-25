@@ -5,6 +5,8 @@
 """
 from __future__ import annotations
 
+import json
+
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import redirect, render
@@ -13,16 +15,36 @@ from food.models import Cuisine, Recipe, Tag
 
 
 def _base_context(request, page: str, **extra) -> dict:
+    """组装单页首屏上下文。
+
+    `boot_json` 必须是合法 JSON（`json.dumps`），模板里用 `{{ boot_json|safe }}` 注入；
+    早期用 `{{ cuisines|safe }}` 拼 Python repr（单引号）会让整段脚本语法错误，
+    导致 `window.__BOOT__` 未定义、前端误判未登录。这里统一走 JSON。
+    """
     user = request.user
-    context = {
+    cuisines = list(Cuisine.objects.values("id", "name", "icon", "slug"))
+    tags = list(Tag.objects.values("id", "name", "kind")[:40])
+    boot = {
         "page": page,
-        "is_authenticated": user.is_authenticated,
-        "user_name": user.get_username() if user.is_authenticated else "",
+        "recipeId": extra.get("recipe_id", 0) or 0,
+        "keyword": extra.get("keyword", "") or "",
+        "isAuthenticated": bool(user.is_authenticated),
+        "userName": user.get_username() if user.is_authenticated else "",
+        "llmReady": _llm_ready(),
+        "demoMode": bool(getattr(settings, "DEMO_VERIFY_CODE", False)),
+        "cuisines": cuisines,
+        "tags": tags,
+    }
+    context = {
+        **boot,
+        "boot_json": json.dumps(boot, ensure_ascii=False),
+        "is_authenticated": boot["isAuthenticated"],
+        "user_name": boot["userName"],
         "user_id": user.id if user.is_authenticated else 0,
-        "cuisines": list(Cuisine.objects.values("id", "name", "icon", "slug")),
-        "tags": list(Tag.objects.values("id", "name", "kind")[:40]),
-        "llm_ready": _llm_ready(),
-        "demo_mode": getattr(settings, "DEMO_VERIFY_CODE", False),
+        "cuisines": cuisines,
+        "tags": tags,
+        "llm_ready": boot["llmReady"],
+        "demo_mode": boot["demoMode"],
         "static_version": getattr(settings, "STATIC_VERSION", ""),
     }
     context.update(extra)

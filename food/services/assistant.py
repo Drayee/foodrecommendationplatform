@@ -12,6 +12,12 @@
     stream_answer(...) -> AnswerStream   可迭代出文本分片，消费后读 .citations
     answer_once(...)   -> dict           非流式，便于测试与后台任务
     llm_ready() / llm_status() / index_status()
+
+首字延迟
+    小显存机器上模型首 token 可能要 60~160s。`AnswerStream` 在 LLM 决策前先 yield 一句过程提示
+    （`正在查附近的店…` / `正在翻菜谱库…`），分片类型为 `PreambleChunk(str)`，正文同步写入
+    `.preamble`，不污染 `.answer`（落库的对话内容仍然是纯正文）。
+    `settings.LLM["PREAMBLE"] = False` 可整体关掉，行为回到原样。
 """
 from __future__ import annotations
 
@@ -58,6 +64,60 @@ EMAIL_PROMPT = """你是「寻味」平台的美食邮件助手，负责把菜�
 3. 正文控制在 600 字以内，配色暖色系，标题用 <h2>；
 4. 只有用户明确说「发送」「可以」时，才调用 send_email；否则只输出 HTML 预览并询问收件邮箱。
 """
+
+# ---------------------------------------------------------------------------
+# 首字延迟兜底：LLM 决策前的过程提示
+# ---------------------------------------------------------------------------
+# 小显存机器上 qwen3:14b 首 token 可能要 60~160s，先吐一句过程提示，用户不至于面对空白。
+# 关键词只做粗分类（用户措辞千变万化，猜太细反而误判），真正的意图仍由模型 + 工具决定。
+NEARBY_HINTS = ("附近", "周边", "周围", "走路", "下班", "吃什么", "最近", "这边")
+PREAMBLE_NEARBY = "正在查附近的店…"
+PREAMBLE_DEFAULT = "正在翻菜谱库…"
+
+
+class PreambleChunk(str):
+    """过程提示分片。
+
+    仍是 `str`（SSE 序列化、前端展示与普通分片一致），但 `isinstance(chunk, PreambleChunk)`
+    为真、`chunk.kind == "preamble"`，包装层想区分时不必再看内容。
+    """
+
+    kind = "preamble"
+
+
+def _preamble_enabled() -> bool:
+    """`settings.LLM["PREAMBLE"]` 默认开；显式关掉后行为回到「一句不说，直接等模型」。"""
+    cfg = getattr(settings, "LLM", {}) or {}
+    value = cfg.get("PREAMBLE", True)
+    if isinstance(value, str):
+        return value.strip().lower() not in {"0", "false", "no", "off", ""}
+    return bool(value)
+
+
+def _has_location(location: dict | None) -> bool:
+    try:
+        lng = float((location or {}).get("lng") or 0)
+        lat = float((location or {}).get("lat") or 0)
+    except (TypeError, ValueError):
+        return False
+    if lng == 0 and lat == 0:
+        return False
+    return -180 <= lng <= 180 and -90 <= lat <= 90
+
+
+def nearby_intent(question: str) -> bool:
+    """粗判「附近意图」：命中关键词集合即算，配合坐标才提示「查附近的店」。"""
+    text = (question or "").strip()
+    return bool(text) and any(word in text for word in NEARBY_HINTS)
+
+
+def build_preamble(question: str, location: dict | None = None) -> str:
+    """返回过程提示文案；关掉开关时返回空串。"""
+    if not _preamble_enabled():
+        return ""
+    if nearby_intent(question) and _has_location(location):
+        return PREAMBLE_NEARBY
+    return PREAMBLE_DEFAULT
 
 
 # ---------------------------------------------------------------------------
@@ -289,6 +349,9 @@ class AnswerStream:
         self.tool_calls: list[dict] = []
         self.degraded = False
         self.answer = ""
+        # 过程提示（首个分片）：不进 self.answer，落库的对话正文因此保持干净
+        self.preamble = ""
+        self.preamble_ms = 0.0
         self.latency_ms = 0.0
         self._started = time.perf_counter()
 
@@ -310,6 +373,13 @@ class AnswerStream:
 
     # -- 内部种子 ---------------------------------------------------------
     def _run(self) -> Iterator[str]:
+        # 先吐过程提示：LLM 决策（含工具轮）之前，避免前端长时间空白
+        hint = build_preamble(self.question, self.location)
+        if hint:
+            self.preamble = hint
+            self.preamble_ms = round((time.perf_counter() - self._started) * 1000, 1)
+            yield PreambleChunk(hint)
+
         hits = retrieve(self.question)
         self.citations = _citations_from_hits(hits)
         context = _hits_to_context(hits)
@@ -374,7 +444,9 @@ def answer_once(
     )
     text = "".join(stream)
     return {
-        "answer": text,
+        # 过程提示单独回传，answer 只放正文（同步接口没有「空白等待」问题）
+        "answer": stream.answer or text,
+        "preamble": stream.preamble,
         "citations": stream.citations,
         "tool_calls": stream.tool_calls,
         "degraded": stream.degraded,

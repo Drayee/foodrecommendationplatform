@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import math
 from datetime import timedelta
 
 import pytest
@@ -181,13 +182,19 @@ class TestNormalize:
 # 服务层：缓存 / 降级 / 排序
 # ---------------------------------------------------------------------------
 class FakeClient:
+    """高德客户端替身：记录调用参数，便于断言「传给高德的是什么」。"""
+
     def __init__(self, pois=None, error: AmapError | None = None):
         self.pois = pois or []
         self.error = error
         self.calls = 0
+        self.positions: list[tuple] = []
+        self.last_kwargs: dict = {}
 
     def around(self, *args, **kwargs):
         self.calls += 1
+        self.positions.append(tuple(args[:2]))
+        self.last_kwargs = dict(kwargs)
         if self.error:
             raise self.error
         return {"pois": self.pois, "_key_label": "amap#1", "_latency_ms": 12.0}
@@ -439,3 +446,333 @@ class TestApi:
     def test_key_reset_requires_staff(self, client):
         resp = client.post("/api/v1/places/keys/reset/")
         assert resp.status_code == 403
+
+
+# ---------------------------------------------------------------------------
+# 坐标：边界纬度与往返精度
+# ---------------------------------------------------------------------------
+class TestCoordBoundary:
+    @pytest.mark.parametrize("lat", [0.8293, 0.83, 0.9, 55.8, 55.8271])
+    def test_wgs84_to_gcj02_survives_boundary_latitudes(self, lat):
+        """境内框的南北边界上必须仍然能算（cos/sqrt 不炸）且真的偏移。"""
+        lng, out_lat = coord.wgs84_to_gcj02(103.0, lat)
+        assert math.isfinite(lng) and math.isfinite(out_lat)
+        assert -180 <= lng <= 180 and -90 <= out_lat <= 90
+        assert (lng, out_lat) != (103.0, lat), "境内边界纬度不应退化成恒等变换"
+
+    def test_boundary_outside_china_is_identity(self):
+        assert coord.out_of_china(103.0, 55.9) is True
+        assert coord.out_of_china(103.0, 55.8) is False
+        assert coord.wgs84_to_gcj02(103.0, 55.9) == (103.0, 55.9)
+
+    @pytest.mark.parametrize(
+        "point",
+        [
+            (103.0012, 29.9875),      # 雅安
+            (116.397428, 39.90923),   # 北京
+            (120.0, 55.8),            # 北边界附近
+            (113.264385, 23.129112),  # 广州
+            (87.6, 43.8),             # 乌鲁木齐
+        ],
+    )
+    def test_gcj02_to_wgs84_roundtrip_within_10m(self, point):
+        wlng, wlat = coord.gcj02_to_wgs84(*point)
+        back = coord.wgs84_to_gcj02(wlng, wlat)
+        assert coord.haversine_m(back[0], back[1], point[0], point[1]) < 10
+
+    def test_southern_boundary_roundtrip_bug_is_pinned(self):
+        """已知缺陷（钉住现状）：紧贴南边界（lat ≲ 0.8347）时逆解落到境内框外，
+        回程 `wgs84_to_gcj02` 走境外恒等分支，往返误差约 150m。
+
+        这里断言「当前就错这么多」，一旦被修好本用例会失败并提示更新。
+        """
+        point = (103.0, 0.83)
+        back = coord.wgs84_to_gcj02(*coord.gcj02_to_wgs84(*point))
+        assert 100 < coord.haversine_m(back[0], back[1], point[0], point[1]) < 300
+
+
+# ---------------------------------------------------------------------------
+# 高德错误码分类（amap_check / Key 池共用逻辑）
+# ---------------------------------------------------------------------------
+class TestAmapErrorClassification:
+    @pytest.mark.parametrize("infocode", sorted(keypool.QUOTA_INFOCODES))
+    def test_quota_infocodes_flagged(self, infocode):
+        assert AmapError("配额", infocode).is_quota_error is True
+        assert AmapError("配额", infocode).is_no_key is False
+
+    def test_qps_and_no_key_codes(self):
+        assert AmapError("QPS 超限", "10021").is_quota_error is False
+        assert AmapError("未配置 Key", "NO_KEY").is_no_key is True
+        assert AmapError("服务已禁用", "DISABLED").is_no_key is True
+        assert AmapError("网络失败", "NETWORK").is_no_key is False
+
+    def test_keypool_codes_agree_with_error_classification(self):
+        """Key 池的冷却分类必须与 AmapError 的判断保持一致，否则会长期误伤 Key。"""
+        quota_by_pool = keypool.QUOTA_INFOCODES
+        quota_by_error = {c for c in quota_by_pool | keypool.QPS_INFOCODES if AmapError("x", c).is_quota_error}
+        assert quota_by_error == set(quota_by_pool)
+        assert not any(AmapError("x", c).is_quota_error for c in keypool.QPS_INFOCODES)
+
+    def test_amap_check_hints_cover_common_quota_codes(self):
+        """`manage.py amap_check` 的关键错误码必须有中文释义：运维靠它判断「换 Key」还是「等次日」。
+
+        注：10019 / 10020 / 10030 目前没有释义（已在测试报告里作为缺陷记录），
+        这里只钉住最常撞到的日配额与 QPS 码，避免测试把「缺释义」当成合法状态固化。
+        """
+        from places.management.commands.amap_check import INFOCODE_HINTS
+
+        assert {"10003", "10029", "10021"} <= set(INFOCODE_HINTS)
+        assert all(isinstance(v, str) and v.strip() for v in INFOCODE_HINTS.values())
+        # 释义表里出现的高德码必须能被池子的分类逻辑识别（否则会漏冷却）
+        unknown = set(INFOCODE_HINTS) - keypool.QUOTA_INFOCODES - keypool.QPS_INFOCODES
+        assert unknown <= {"10000", "10001", "10005", "10006", "10007", "10008", "10012"}
+
+
+# ---------------------------------------------------------------------------
+# 接口：附近搜索的缓存与入参钳制
+# ---------------------------------------------------------------------------
+class TestNearbyParams:
+    PARAMS = {"lng": 103.0012, "lat": 29.9875, "coord": "gcj02"}
+
+    def _fake(self, monkeypatch, pois=None):
+        fake = FakeClient(pois if pois is not None else [_poi("P1", "近店", 103.0013, 29.9876)])
+        monkeypatch.setattr(service, "get_client", lambda: fake)
+        return fake
+
+    def test_second_request_hits_cache(self, client, monkeypatch):
+        fake = self._fake(monkeypatch)
+        params = {**self.PARAMS, "radius": 3000}
+        first = client.get("/api/v1/places/nearby/", params).json()["data"]
+        second = client.get("/api/v1/places/nearby/", params).json()["data"]
+        assert first["cached"] is False
+        assert second["cached"] is True
+        assert fake.calls == 1, "命中缓存时不应再请求高德"
+        assert PlaceCache.objects.count() == 1
+        assert PlaceCache.objects.first().hit_count >= 1
+        assert [i["name"] for i in second["items"]] == [i["name"] for i in first["items"]]
+
+    def test_expired_cache_refetches(self, client, monkeypatch):
+        fake = self._fake(monkeypatch)
+        params = {**self.PARAMS, "radius": 3000}
+        assert client.get("/api/v1/places/nearby/", params).json()["data"]["cached"] is False
+        PlaceCache.objects.update(expires_at=timezone.now() - timedelta(seconds=1))
+        data = client.get("/api/v1/places/nearby/", params).json()["data"]
+        assert data["cached"] is False
+        assert fake.calls == 2
+
+    def test_radius_clamped_to_max(self, client, monkeypatch):
+        fake = self._fake(monkeypatch)
+        data = client.get("/api/v1/places/nearby/", {**self.PARAMS, "radius": 999999}).json()["data"]
+        assert data["radius"] == 50000
+        assert fake.last_kwargs["radius"] == 50000, "钳制必须发生在请求高德之前"
+
+    def test_radius_floor_and_default(self, client, monkeypatch):
+        fake = self._fake(monkeypatch)
+        low = client.get("/api/v1/places/nearby/", {**self.PARAMS, "radius": 10}).json()["data"]
+        assert low["radius"] == 100
+        default = client.get("/api/v1/places/nearby/", dict(self.PARAMS)).json()["data"]
+        assert default["radius"] == 3000
+
+    def test_page_clamped_to_bounds(self, client, monkeypatch):
+        fake = self._fake(monkeypatch)
+        high = client.get("/api/v1/places/nearby/", {**self.PARAMS, "page": 900}).json()["data"]
+        assert high["page"] == 100
+        assert fake.last_kwargs["page"] == 100
+        zero = client.get("/api/v1/places/nearby/", {**self.PARAMS, "page": 0}).json()["data"]
+        assert zero["page"] == 1
+
+    def test_coord_gcj02_skips_conversion(self, client, monkeypatch):
+        fake = self._fake(monkeypatch)
+        data = client.get("/api/v1/places/nearby/", self.PARAMS).json()["data"]
+        assert fake.positions[-1] == pytest.approx((103.0012, 29.9875))
+        assert data["center"] == pytest.approx({"lng": 103.0012, "lat": 29.9875})
+
+    def test_coord_defaults_to_wgs84_and_converts(self, client, monkeypatch):
+        fake = self._fake(monkeypatch)
+        data = client.get("/api/v1/places/nearby/", {"lng": 103.0, "lat": 29.98}).json()["data"]
+        sent = fake.positions[-1]
+        assert sent != pytest.approx((103.0, 29.98))
+        assert 50 < coord.haversine_m(sent[0], sent[1], 103.0, 29.98) < 800
+        assert data["center"] == pytest.approx({"lng": sent[0], "lat": sent[1]})
+
+
+# ---------------------------------------------------------------------------
+# 接口：输入提示
+# ---------------------------------------------------------------------------
+class FakeTipsClient:
+    def __init__(self, tips):
+        self.tips = tips
+        self.calls: list[tuple] = []
+
+    def inputtips(self, keywords, city="", lng=None, lat=None):
+        self.calls.append((keywords, city, lng, lat))
+        return {"tips": self.tips}
+
+
+class TestTipsApi:
+    def test_tips_parses_dedups_and_forwards_params(self, client, monkeypatch):
+        fake = FakeTipsClient(
+            [
+                {"name": "老码头火锅", "district": "雨城区", "address": "西大街 88 号",
+                 "location": "103.002410,29.988320", "typecode": "050117"},
+                {"name": "老码头火锅", "district": "雨城区"},   # 重名去重
+                {"name": "   "},                              # 空名丢弃
+                {"name": "砂锅居"},
+                "bad-item",                                   # 非 dict 忽略
+            ]
+        )
+        monkeypatch.setattr(service, "get_client", lambda: fake)
+        body = client.get(
+            "/api/v1/places/tips/", {"q": "火锅", "city": "雅安", "lng": 103.0012, "lat": 29.9875}
+        ).json()
+        assert body["code"] == 0
+        data = body["data"]
+        assert data["degraded"] is False
+        assert [i["name"] for i in data["items"]] == ["老码头火锅", "砂锅居"]
+        assert data["items"][0]["typecode"] == "050117"
+        assert data["items"][1]["district"] == ""
+        assert fake.calls == [("火锅", "雅安", 103.0012, 29.9875)]
+
+    def test_tips_requires_keyword(self, client):
+        for params in ({}, {"q": "   "}, {"keywords": ""}):
+            body = client.get("/api/v1/places/tips/", params).json()
+            assert body["code"] == 1
+            assert "关键词" in body["msg"]
+
+
+# ---------------------------------------------------------------------------
+# 接口：详情页评分分布
+# ---------------------------------------------------------------------------
+class FakeDetailClient:
+    def __init__(self, poi: dict | None):
+        self.poi = poi
+        self.calls = 0
+
+    def detail(self, poi_id: str):
+        self.calls += 1
+        if not self.poi:
+            return {"pois": []}
+        return {"pois": [dict(self.poi, id=poi_id)]}
+
+
+class TestDetailApi:
+    def test_review_distribution_counts_each_star(self, client, monkeypatch):
+        monkeypatch.setattr(
+            service, "get_client",
+            lambda: FakeDetailClient(_poi("P-D", "砂锅居", 103.0013, 29.9876, rating="4.2", cost="45")),
+        )
+        for idx, rating in enumerate((5, 4, 4)):
+            user = User.objects.create_user(f"diner{idx}", password="x")
+            PlaceReview.objects.create(user=user, poi_id="P-D", place_name="砂锅居", rating=rating, content="好吃")
+
+        body = client.get("/api/v1/places/P-D/").json()
+        assert body["code"] == 0
+        data = body["data"]
+        assert data["place"]["name"] == "砂锅居"
+        stats = data["review_stats"]
+        assert stats["count"] == 3
+        assert stats["avg_rating"] == 4.33
+        assert stats["distribution"] == {"1": 0, "2": 0, "3": 0, "4": 2, "5": 1}
+        assert len(data["reviews"]) == 3
+        assert stats["favorited"] == 0
+
+    def test_hidden_reviews_excluded_and_view_tracked(self, client, monkeypatch):
+        monkeypatch.setattr(
+            service, "get_client",
+            lambda: FakeDetailClient(_poi("P-D2", "面馆", 103.0013, 29.9876)),
+        )
+        user = User.objects.create_user("picker", password="x")
+        PlaceReview.objects.create(user=user, poi_id="P-D2", place_name="面馆", rating=5, is_hidden=True)
+        PlaceReview.objects.create(user=user, poi_id="P-D2", place_name="面馆", rating=3)
+        PlaceFavorite.objects.create(user=user, poi_id="P-D2", name="面馆")
+        client.force_login(user)
+
+        data = client.get("/api/v1/places/P-D2/").json()["data"]
+        stats = data["review_stats"]
+        assert stats["count"] == 1
+        assert stats["distribution"] == {"1": 0, "2": 0, "3": 1, "4": 0, "5": 0}
+        assert stats["avg_rating"] == 3.0
+        assert stats["favorited"] == 1
+        assert data["is_favorite"] is True
+        assert PlaceInteraction.objects.filter(poi_id="P-D2", action="view").exists()
+
+
+# ---------------------------------------------------------------------------
+# 接口：打卡 / 埋点
+# ---------------------------------------------------------------------------
+class TestCheckinApi:
+    def test_checkin_requires_login(self, client):
+        resp = client.post(
+            "/api/v1/places/P-CK/checkin/",
+            data=json.dumps({"place_name": "砂锅居"}),
+            content_type="application/json",
+        )
+        assert resp.status_code == 401
+        assert resp.json()["code"] == 401
+        assert PlaceReview.objects.count() == 0
+
+    def test_checkin_writes_review_and_track(self, client):
+        user = User.objects.create_user("checker", password="x")
+        client.force_login(user)
+        body = client.post(
+            "/api/v1/places/P-CK/checkin/",
+            data=json.dumps({"place_name": "砂锅居", "rating": 4, "cost": 45}),
+            content_type="application/json",
+        ).json()
+        assert body["code"] == 0
+        assert body["data"] == {"checked_in": True}
+
+        review = PlaceReview.objects.get(user=user, poi_id="P-CK")
+        assert review.place_name == "砂锅居"
+        assert review.rating == 4
+        assert review.content == ""      # 打卡不写评价正文
+        assert review.cost == 45
+
+        track = PlaceInteraction.objects.get(poi_id="P-CK", action="checkin")
+        assert track.weight == 2.5
+        assert track.place_name == "砂锅居"
+        assert track.user_id == user.id
+
+    def test_checkin_defaults_when_body_empty(self, client):
+        user = User.objects.create_user("checker2", password="x")
+        client.force_login(user)
+        body = client.post(
+            "/api/v1/places/P-CK2/checkin/", data=json.dumps({}), content_type="application/json"
+        ).json()
+        assert body["code"] == 0
+        review = PlaceReview.objects.get(poi_id="P-CK2")
+        assert review.rating == 5            # 缺省 5 星
+        assert review.place_name == "这家店"  # 缺省店名兜底
+
+
+class TestTrackApi:
+    def test_supported_actions_recorded_with_weights(self, client):
+        for action in ("view", "route", "click"):
+            body = client.post(
+                "/api/v1/places/track/",
+                data=json.dumps({"action": action, "poi_id": "P-TR", "name": "小面馆"}),
+                content_type="application/json",
+            ).json()
+            assert body["code"] == 0
+            assert body["msg"] == "已记录"
+
+        rows = list(PlaceInteraction.objects.filter(poi_id="P-TR"))
+        assert len(rows) == 3
+        assert {r.action: r.weight for r in rows} == {"view": 1.0, "route": 2.0, "click": 1.0}
+        assert all(r.session_key for r in rows), "匿名埋点也要写会话键，便于热度归因"
+
+    def test_unknown_or_missing_action_rejected(self, client):
+        for payload in (
+            {"action": "share", "poi_id": "P-TR"},
+            {"action": "", "poi_id": "P-TR"},
+            {"poi_id": "P-TR"},
+        ):
+            body = client.post(
+                "/api/v1/places/track/", data=json.dumps(payload), content_type="application/json"
+            ).json()
+            assert body["code"] == 1
+            assert "行为" in body["msg"]
+        assert PlaceInteraction.objects.filter(poi_id="P-TR").count() == 0
+
+    def test_track_rejects_get(self, client):
+        assert client.get("/api/v1/places/track/").status_code == 405

@@ -9,6 +9,9 @@
 
 排序 `smart` 的五个信号（权重见 settings.AMAP["SORT_WEIGHTS"]）
     距离衰减 · 评分 · 人均与预算匹配 · 口味偏好命中 · 近期热度
+
+观测：每次首页搜索在返回前写一条 `PlaceSearchLog`（翻页不写、失败静默），
+主键以 `search_id` 随响应返回，便于按 id 追日志。
 """
 from __future__ import annotations
 
@@ -28,7 +31,7 @@ from django.utils import timezone
 
 from places import coord
 from places.amap import AmapError, get_client
-from places.models import PlaceCache, PlaceInteraction
+from places.models import PlaceCache, PlaceInteraction, PlaceSearchLog
 
 logger = logging.getLogger("places.service")
 
@@ -171,8 +174,12 @@ def normalize_poi(raw: dict, origin: tuple[float, float] | None = None) -> Place
 # ---------------------------------------------------------------------------
 # 缓存
 # ---------------------------------------------------------------------------
-def cache_key(lng: float, lat: float, radius: int, keywords: str, types: str) -> str:
-    raw = f"{coord.grid_key(lng, lat, 3)}|{radius}|{(keywords or '').strip()}|{types or FOOD_TYPES}"
+def cache_key(lng: float, lat: float, radius: int, keywords: str, types: str, page: int = 1) -> str:
+    """缓存键必须带 page —— 高德不同页返回不同 POI，早期漏了它导致第 2 页命中第 1 页缓存。"""
+    raw = (
+        f"{coord.grid_key(lng, lat, 3)}|{radius}|{(keywords or '').strip()}"
+        f"|{types or FOOD_TYPES}|{int(page)}"
+    )
     return hashlib.md5(raw.encode("utf-8")).hexdigest()
 
 
@@ -345,6 +352,53 @@ def rank_places(
 
 
 # ---------------------------------------------------------------------------
+# 观测：附近搜索日志
+# ---------------------------------------------------------------------------
+def _log_search(
+    *,
+    user=None,
+    session_key: str = "",
+    query: str = "",
+    type_preset: str = "all",
+    radius: int = 0,
+    lng: float = 0.0,
+    lat: float = 0.0,
+    result_count: int = 0,
+    degraded: bool = False,
+    cached: bool = False,
+    latency_ms: float = 0.0,
+    key_label: str = "",
+    page: int = 1,
+) -> int | None:
+    """写一条 `PlaceSearchLog`，返回主键（失败返回 None）。
+
+    - 只记 `page == 1`：翻页不产生新的高德请求，记下来只会虚增搜索量；
+    - 任何异常都在这里吞掉：观测数据永远不能影响搜索主流程。
+    """
+    if int(page or 1) != 1:
+        return None
+    try:
+        row = PlaceSearchLog.objects.create(
+            user=user if getattr(user, "is_authenticated", False) else None,
+            session_key=str(session_key or "")[:64],
+            query=str(query or "")[:60],
+            type_preset=str(type_preset or "all")[:20],
+            radius=int(radius or 0),
+            lng=round(float(lng or 0), 6),
+            lat=round(float(lat or 0), 6),
+            result_count=int(result_count or 0),
+            degraded=bool(degraded),
+            cached=bool(cached),
+            latency_ms=round(float(latency_ms or 0), 1),
+            key_label=str(key_label or "")[:30],
+        )
+        return row.pk
+    except Exception as exc:  # pragma: no cover - 日志表不该阻塞搜索
+        logger.debug("附近搜索日志写入失败（已忽略）：%s", exc)
+        return None
+
+
+# ---------------------------------------------------------------------------
 # 对外：附近搜索
 # ---------------------------------------------------------------------------
 def nearby(
@@ -360,8 +414,14 @@ def nearby(
     budget: float | None = None,
     taste_terms: Iterable[str] | None = None,
     use_cache: bool = True,
+    user=None,
+    session_key: str = "",
 ) -> dict:
-    """周边美食搜索（入参坐标为 GCJ-02）。"""
+    """周边美食搜索（入参坐标为 GCJ-02）。
+
+    `user` / `session_key` 仅用于 `PlaceSearchLog` 归因，缺省也能正常搜索。
+    返回里带 `search_id`（本次日志主键，只记首页，失败时为 None）。
+    """
     cfg = getattr(settings, "AMAP", {}) or {}
     radius = int(radius or cfg.get("DEFAULT_RADIUS", 3000))
     radius = max(100, min(radius, int(cfg.get("MAX_RADIUS", 50000))))
@@ -371,7 +431,7 @@ def nearby(
     keywords = (keywords or "").strip()[:60]
 
     started = time.perf_counter()
-    key = cache_key(lng, lat, radius, keywords, types)
+    key = cache_key(lng, lat, radius, keywords, types, page)
     cached = _get_cache(key) if use_cache else None
 
     if cached is not None:
@@ -384,6 +444,22 @@ def nearby(
             for item in items:
                 item.source = "amap"
         ranked = rank_places(items, radius=radius, sort=sort, budget=budget, taste_terms=taste_terms)
+        latency_ms = round((time.perf_counter() - started) * 1000, 1)
+        search_id = _log_search(
+            user=user,
+            session_key=session_key,
+            query=keywords,
+            type_preset=type_preset,
+            radius=radius,
+            lng=lng,
+            lat=lat,
+            result_count=len(ranked),
+            degraded=bool(cached.degraded),
+            cached=True,
+            latency_ms=latency_ms,
+            key_label=cached.key_label or "",
+            page=page,
+        )
         return {
             "items": [p.to_dict() for p in ranked],
             "total": len(ranked),
@@ -396,7 +472,9 @@ def nearby(
             "cached": True,
             "degraded": bool(cached.degraded),
             "provider": "fixture" if cached.degraded else "amap",
-            "latency_ms": round((time.perf_counter() - started) * 1000, 1),
+            "key_label": cached.key_label or "",
+            "latency_ms": latency_ms,
+            "search_id": search_id,
             "message": "离线样例数据" if cached.degraded else "",
         }
 
@@ -437,6 +515,22 @@ def nearby(
     _store_cache(key, lng, lat, radius, keywords, types, payload, degraded=degraded, key_label=key_label)
 
     ranked = rank_places(items, radius=radius, sort=sort, budget=budget, taste_terms=taste_terms)
+    latency_ms = round((time.perf_counter() - started) * 1000, 1)
+    search_id = _log_search(
+        user=user,
+        session_key=session_key,
+        query=keywords,
+        type_preset=type_preset,
+        radius=radius,
+        lng=lng,
+        lat=lat,
+        result_count=len(ranked),
+        degraded=degraded,
+        cached=False,
+        latency_ms=latency_ms,
+        key_label=key_label,
+        page=page,
+    )
     return {
         "items": [p.to_dict() for p in ranked],
         "total": len(ranked),
@@ -450,7 +544,8 @@ def nearby(
         "degraded": degraded,
         "provider": provider,
         "key_label": key_label,
-        "latency_ms": round((time.perf_counter() - started) * 1000, 1),
+        "latency_ms": latency_ms,
+        "search_id": search_id,
         "message": message,
     }
 

@@ -213,6 +213,9 @@ def nearby(request):
         sort=sort,
         budget=budget,
         taste_terms=_taste_terms(request.user),
+        user=request.user if request.user.is_authenticated else None,
+        # 只读已有 session_key，不给匿名请求额外落会话
+        session_key=request.session.session_key or "",
     )
     result["center_wgs84"] = {"lng": coord.gcj02_to_wgs84(lng, lat)[0], "lat": coord.gcj02_to_wgs84(lng, lat)[1]}
     result["key_pool"] = {
@@ -262,11 +265,13 @@ def detail(request, poi_id: str):
         .select_related("user")
         .order_by("-created_at")[:20]
     )
+    # 评价列表展示全部（含只打卡不评分的），但**评分聚合只统计真正打星的**
     qs = PlaceReview.objects.filter(poi_id=poi_id, is_hidden=False)
-    agg = qs.aggregate(n=Count("id"), avg=Avg("rating"))
+    rated = qs.filter(is_rating=True)
+    agg = rated.aggregate(n=Count("id"), avg=Avg("rating"))
     # 评分分布（1~5 星各多少条），前端画成柱状条
     distribution = {str(i): 0 for i in range(1, 6)}
-    for row in qs.values("rating").annotate(n=Count("id")):
+    for row in rated.values("rating").annotate(n=Count("id")):
         key = str(int(row["rating"] or 0))
         if key in distribution:
             distribution[key] = row["n"]
@@ -276,6 +281,7 @@ def detail(request, poi_id: str):
         "avg_rating": round(agg["avg"] or 0, 2),
         "favorited": PlaceFavorite.objects.filter(poi_id=poi_id).count(),
         "distribution": distribution,
+        "checkin_count": qs.filter(is_rating=False).count(),
     }
     if request.user.is_authenticated:
         result["is_favorite"] = PlaceFavorite.objects.filter(user=request.user, poi_id=poi_id).exists()
@@ -357,9 +363,9 @@ def reviews(request, poi_id: str):
             .select_related("user")
             .order_by("-created_at")[:50]
         )
-        agg = PlaceReview.objects.filter(poi_id=poi_id, is_hidden=False).aggregate(
-            n=Count("id"), avg=Avg("rating")
-        )
+        agg = PlaceReview.objects.filter(
+            poi_id=poi_id, is_hidden=False, is_rating=True
+        ).aggregate(n=Count("id"), avg=Avg("rating"))
         return _ok(
             {
                 "items": [r.to_dict() for r in rows],
@@ -409,7 +415,7 @@ def reviews(request, poi_id: str):
 @require_POST
 @login_required
 def checkin(request, poi_id: str):
-    """到店打卡（不写评价，只记录到访）。"""
+    """到店打卡（不写评价，只记录到访；不计入店铺评分聚合）。"""
     data = _body(request)
     name = str(data.get("place_name") or data.get("name") or "")[:120]
     PlaceReview.objects.create(
@@ -417,6 +423,7 @@ def checkin(request, poi_id: str):
         poi_id=poi_id[:40],
         place_name=name or "这家店",
         rating=_int(data.get("rating"), 5) or 5,
+        is_rating=False,
         content="",
         cost=_float(data.get("cost"), 0) or 0,
     )

@@ -53,12 +53,25 @@
   "total": 25, "center": {"lng": 103.0012, "lat": 29.9875},
   "radius": 3000, "cached": false, "degraded": false, "provider": "amap",
   "latency_ms": 702.3, "key_pool": {"available": 4, "total": 4},
+  "search_id": 1288,
   "center_wgs84": {"lng": 103.0009, "lat": 29.9874}
 }}
 ```
 
+新增字段 `search_id`：本次搜索在 `place_search_log` 表中的主键，按它可直接定位这一条调用明细
+（耗时、是否降级、是否命中缓存、用了哪个 Key）。写入失败或 `page > 1` 时为 `null`。
+
 降级行为：无 Key / 配额耗尽 / 网络异常时返回 `degraded: true`、`provider: "fixture"`，
 `items[].source = "fixture"`，`message` 说明原因，**HTTP 仍为 200**。
+
+### 搜索观测（`place_search_log`）
+每次 `nearby/` **首页**请求都会写一条 `PlaceSearchLog`（翻页不写，避免虚增搜索量；写失败静默跳过，
+不影响搜索本身）。落库字段：`user`（未登录为空）、`session_key`、`query`、`type_preset`、`radius`、
+`lng`/`lat`（GCJ-02）、`result_count`、`degraded`、`cached`、`latency_ms`、`key_label`、`created_at`。
+
+- 后台只读查看：`/admin/places/placesearchlog/`（不提供新增与编辑）；
+- 报表：`python manage.py platform_report` 的「附近美食」段落输出今日/近 7 天搜索量、平均耗时、
+  降级率、缓存命中率、热门关键词 Top N、Key 池健康度与收藏/打卡量。
 
 ### `GET regeo/`
 逆地理编码（`lng`/`lat`/`coord`）→ 省市区、商圈、最近 POI。失败时 `degraded: true`。
@@ -148,6 +161,11 @@ data: {"type":"token","text":"兰"}
 data: {"type":"citations","items":[{"recipe_id":67,"title":"麻婆豆腐","relevance":1.0}]}
 data: {"type":"done","latency_ms":1832.4,"tool_calls":1}
 ```
+
+首字延迟：模型首 token 可能很慢，因此第一个 `token` 事件常常是**过程提示**
+（命中附近意图且带坐标时 `正在查附近的店…`，其余 `正在翻菜谱库…`，8~16 字）。
+它只是过程提示，不属于正文 `answer`，也不会写进会话记录。想退回「一句不说、直接等模型」，
+把 `settings.LLM["PREAMBLE"]` 设为 `False` 即可。
 
 ---
 
