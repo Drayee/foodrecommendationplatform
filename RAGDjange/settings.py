@@ -273,6 +273,13 @@ AMAP = {
     "WEB_KEYS": env_list("AMAP_WEB_KEYS") or ([env("AMAP_WEB_KEY")] if env("AMAP_WEB_KEY") else []),
     "JS_KEY": env("AMAP_JS_KEY", ""),
     "JS_KEYS": env_list("AMAP_JS_KEYS") or ([env("AMAP_JS_KEY")] if env("AMAP_JS_KEY") else []),
+    # JS Key 与安全密钥是**逐 Key 配对**的（2021-12 之后申请的 JS Key 必须带 jscode），
+    # 这里用 "key:code,key:code" 的形式描述；缺省时回落到单个 SECURITY_CODE。
+    "JS_PAIRS": [
+        {"key": pair.split(":", 1)[0].strip(), "security_code": pair.split(":", 1)[1].strip()}
+        for pair in env_list("AMAP_JS_PAIRS")
+        if ":" in pair and pair.split(":", 1)[0].strip()
+    ],
     "SECURITY_CODE": env("AMAP_SECURITY_CODE", ""),
     "ENABLED": env_bool("AMAP_ENABLED", True),
     "TIMEOUT": env_int("AMAP_TIMEOUT", 8),

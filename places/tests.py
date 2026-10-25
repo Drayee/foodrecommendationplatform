@@ -313,14 +313,35 @@ class TestService:
 # ---------------------------------------------------------------------------
 class TestApi:
     def test_config_exposes_js_key_and_lists(self, client, settings):
-        settings.AMAP = {**settings.AMAP, "JS_KEY": "js-test-key", "JS_KEYS": ["js-test-key"]}
+        settings.AMAP = {
+            **settings.AMAP,
+            "JS_KEY": "js-test-key",
+            "JS_KEYS": ["js-test-key"],
+            "JS_PAIRS": [],
+            "SECURITY_CODE": "js-test-code",
+        }
         keypool.reset_pools()
         body = client.get("/api/v1/places/config/").json()
         assert body["code"] == 0
         data = body["data"]
         assert data["js_key"] == "js-test-key"
+        assert data["security_code"] == "js-test-code"
         assert data["default_radius"] > 0
         assert len(data["sorts"]) == 5
+        keypool.reset_pools()
+
+    def test_config_returns_js_pairs_with_security_code(self, client, settings):
+        pairs = [
+            {"key": "k-alpha", "security_code": "code-alpha"},
+            {"key": "k-beta", "security_code": "code-beta"},
+        ]
+        settings.AMAP = {**settings.AMAP, "JS_PAIRS": pairs, "JS_KEYS": ["k-alpha", "k-beta"]}
+        keypool.reset_pools()
+        data = client.get("/api/v1/places/config/").json()["data"]
+        assert data["js_pairs"] == pairs
+        assert data["js_key"] == "k-alpha"
+        assert data["security_code"] == "code-alpha"
+        assert data["key_pool"]["js_total"] == 2
         keypool.reset_pools()
 
     def test_nearby_requires_coordinates(self, client):

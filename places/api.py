@@ -121,15 +121,23 @@ def _taste_terms(user) -> list[str]:
 # ---------------------------------------------------------------------------
 @require_GET
 def config(request):
-    """前端启动配置：JS Key（池）、默认半径、品类、当前 Key 池健康度。"""
+    """前端启动配置：JS Key 组合（key + 配对安全密钥）、默认半径、品类、当前 Key 池健康度。"""
     cfg = getattr(settings, "AMAP", {}) or {}
     js_pool = keypool.get_pool("js")
     web_pool = keypool.get_pool("amap")
+
+    # JS Key 必须与安全密钥成对下发：前端切 Key 时安全密钥也要跟着切
+    js_pairs = [p for p in (cfg.get("JS_PAIRS") or []) if p.get("key")]
+    if not js_pairs:
+        for key in (cfg.get("JS_KEYS") or []):
+            js_pairs.append({"key": key, "security_code": cfg.get("SECURITY_CODE", "")})
+
     return _ok(
         {
-            "js_key": js_pool.keys[0] if js_pool.keys else "",
-            "js_keys": js_pool.keys,
-            "security_code": cfg.get("SECURITY_CODE", ""),
+            "js_key": js_pairs[0]["key"] if js_pairs else "",
+            "js_keys": [p["key"] for p in js_pairs],
+            "js_pairs": js_pairs,
+            "security_code": js_pairs[0]["security_code"] if js_pairs else cfg.get("SECURITY_CODE", ""),
             "enabled": bool(cfg.get("ENABLED", True)) and web_pool.has_keys,
             "default_radius": int(cfg.get("DEFAULT_RADIUS", 3000)),
             "max_radius": int(cfg.get("MAX_RADIUS", 50000)),
@@ -145,7 +153,7 @@ def config(request):
             "key_pool": {
                 "web_total": len(web_pool),
                 "web_available": web_pool.available(),
-                "js_total": len(js_pool),
+                "js_total": len(js_pairs),
             },
         }
     )

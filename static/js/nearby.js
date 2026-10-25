@@ -108,21 +108,60 @@
             return r >= 1000 ? `${(r / 1000).toFixed(r % 1000 ? 1 : 0)}km` : `${r}m`;
         });
 
-        /* ---------------- 高德 JS API ---------------- */
-        function loadAMap() {
-            if (window.AMap) return Promise.resolve(window.AMap);
-            if (scriptPromise) return scriptPromise;
-            const key = nb.config.js_key;
-            if (!key) return Promise.reject(new Error('未配置高德 JS API Key'));
-            window._AMapSecurityConfig = { securityJsCode: nb.config.security_code || '' };
-            scriptPromise = new Promise((resolve, reject) => {
+        /* ---------------- 高德 JS API（多 Key 轮换） ---------------- */
+        const JS_PAIR_STORAGE = 'xunwei.amap.jsPair';
+
+        function jsPairs() {
+            const pairs = (nb.config.js_pairs || []).filter((p) => p && p.key);
+            if (pairs.length) return pairs;
+            // 兼容只有单 Key + 单一安全密钥的旧配置
+            if (nb.config.js_key) {
+                return [{ key: nb.config.js_key, security_code: nb.config.security_code || '' }];
+            }
+            return [];
+        }
+
+        function injectAmapScript(pair) {
+            return new Promise((resolve, reject) => {
+                window._AMapSecurityConfig = { securityJsCode: pair.security_code || '' };
                 const script = document.createElement('script');
-                script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(key)}&plugin=AMap.Scale,AMap.ToolBar`;
+                script.dataset.amap = '1';
+                script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(pair.key)}&plugin=AMap.Scale,AMap.ToolBar`;
                 script.async = true;
                 script.onload = () => (window.AMap ? resolve(window.AMap) : reject(new Error('高德地图对象缺失')));
-                script.onerror = () => reject(new Error('高德地图脚本加载失败（检查 JS Key / 网络）'));
+                script.onerror = () => reject(new Error('高德地图脚本加载失败（Key 配额/域名白名单/网络）'));
                 document.head.appendChild(script);
             }).catch((err) => {
+                // 失败时摘掉脚本，避免脏节点影响下一个 Key 重试
+                document.querySelectorAll('script[data-amap="1"]').forEach((el) => el.remove());
+                throw err;
+            });
+        }
+
+        async function loadAMap() {
+            if (window.AMap) return window.AMap;
+            if (scriptPromise) return scriptPromise;
+
+            const pairs = jsPairs();
+            if (!pairs.length) throw new Error('未配置高德 JS API Key');
+
+            const start = Number(sessionStorage.getItem(JS_PAIR_STORAGE) || 0) % pairs.length;
+            scriptPromise = (async () => {
+                let lastError = new Error('高德地图加载失败');
+                for (let i = 0; i < pairs.length; i += 1) {
+                    const idx = (start + i) % pairs.length;
+                    try {
+                        const amap = await injectAmapScript(pairs[idx]);
+                        sessionStorage.setItem(JS_PAIR_STORAGE, String(idx));
+                        nb.jsPairIndex = idx;
+                        return amap;
+                    } catch (err) {
+                        lastError = err;
+                        console.warn(`[amap] JS Key #${idx + 1} 加载失败，尝试下一个：`, err.message);
+                    }
+                }
+                throw lastError;
+            })().catch((err) => {
                 scriptPromise = null;
                 throw err;
             });
@@ -195,9 +234,13 @@
             });
 
             if (nb.items.length) {
-                const pts = nb.items.slice(0, 40).map((p) => [p.lng, p.lat]);
-                if (nb.lng && nb.lat) pts.push([nb.lng, nb.lat]);
-                instance.setFitView(pts.map((p) => ({ position: p })), false, [60, 60, 60, 60]);
+                // setFitView 只接受覆盖物数组或经纬度边界，传错会抛错 —— 单独兜住，绝不影响列表
+                try {
+                    instance.setFitView(amapMarkers, false, [60, 60, 60, 60]);
+                } catch (err) {
+                    console.warn('[amap] setFitView 失败，忽略：', err && err.message);
+                    if (nb.lng && nb.lat) instance.setCenter([nb.lng, nb.lat]);
+                }
             } else if (nb.lng && nb.lat) {
                 instance.setCenter([nb.lng, nb.lat]);
             }
@@ -314,12 +357,17 @@
                 nb.message = data.message || '';
                 nb.fromCache = !!data.cached;
                 if (data.key_pool) nb.keyPool = data.key_pool;
-                await renderMarkers();
             } catch (err) {
+                // 保留上一次的列表，避免一次抖动把页面清空
                 nb.message = `搜索失败：${err.message}`;
-                nb.items = [];
             } finally {
                 nb.loading = false;
+            }
+            // 地图渲染与列表彻底解耦：地图挂了不影响数据展示
+            try {
+                await renderMarkers();
+            } catch (err) {
+                nb.mapError = nb.mapError || err.message || '地图标记渲染失败';
             }
         }
 

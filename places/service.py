@@ -112,6 +112,20 @@ def _type_label(raw: dict) -> str:
     return tail
 
 
+def _clean_hours(raw) -> str:
+    """高德的 open_time / opentime2 偶尔重复（`09:00-22:00 09:00-22:00`），这里按段去重。"""
+    text = str(raw or "").strip()
+    if not text:
+        return ""
+    seen: set[str] = set()
+    out: list[str] = []
+    for part in text.split():
+        if part not in seen:
+            seen.add(part)
+            out.append(part)
+    return " ".join(out)
+
+
 def normalize_poi(raw: dict, origin: tuple[float, float] | None = None) -> Place | None:
     """把高德原始 POI 转成平台统一结构；坐标缺失则丢弃。"""
     if not isinstance(raw, dict):
@@ -145,7 +159,7 @@ def normalize_poi(raw: dict, origin: tuple[float, float] | None = None) -> Place
         cost=_to_float(biz.get("cost"), 0.0),
         tel=str(raw.get("tel") or biz.get("tel") or ""),
         photos=_first_photo(raw),
-        business_hours=str(biz.get("open_time") or biz.get("opentime2") or ""),
+        business_hours=_clean_hours(biz.get("open_time") or biz.get("opentime2")),
         tag=str(raw.get("tag") or ""),
         city=str(raw.get("cityname") or ""),
         district=str(raw.get("adname") or ""),
