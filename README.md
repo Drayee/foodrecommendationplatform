@@ -16,7 +16,9 @@
 - **地图可视化**：高德 JS API 2.0，标记点 + 信息窗体 + 自动视野适配，脚本失败自动退化为列表模式
 - **导航 / 叫车**：高德 URI 唤起（驾车/步行/打车），不消耗服务端配额
 - **收藏与打卡**：收藏店铺快照、到店打卡评价（评分/推荐菜/人均）、店铺维度聚合均分
+- **AI 联动**：带定位问「附近吃什么」，助手自动调用 `nearby_foods` 工具，用真实店铺数据作答
 - **Key 池**：多 Key 轮询，配额（10003/10029）与 QPS（10021）分类冷却，全池耗尽自动降级为离线样例
+- **Key 体检**：`manage.py amap_check` 绕过池逐把探测（ip/place/regeo），给出错误码释义
 
 ### 菜谱与推荐
 - **菜谱库**：62 道真实菜谱 / 12 菜系 / 34 标签 / 132 食材，含用量、步骤、营养估算
@@ -61,6 +63,7 @@ cp .env.example .env
 python manage.py migrate
 python manage.py seed_data          # 62 道菜 / 8 演示用户 / 143 评分 / 208 行为
 python manage.py build_index        # RAG 索引（99 块 / 1024 维）
+python manage.py amap_check         # 体检高德 Key：逐把探测可用性与配额状态
 
 # 4) 起服务
 python manage.py runserver
@@ -80,7 +83,8 @@ python manage.py runserver
 | --- | --- | --- |
 | `AMAP_WEB_KEYS` | Web 服务 Key **池**（逗号分隔） | 空（降级离线） |
 | `AMAP_JS_KEYS` | JS API Key 池 | 空（地图不可用） |
-| `AMAP_SECURITY_CODE` | JS 安全密钥（2021-12 后申请必填） | 空 |
+| `AMAP_JS_PAIRS` | `key:安全密钥,key:安全密钥`（JS Key 与 jscode **成对**绑定） | 空 |
+| `AMAP_SECURITY_CODE` | 单 Key 场景的兼容写法 | 空 |
 | `AMAP_QUOTA_COOLDOWN` | 配额类错误的冷却秒数 | `21600`（6h） |
 | `AMAP_CACHE_TTL` | POI 缓存 TTL | `600` |
 | `AMAP_DEFAULT_RADIUS` | 默认搜索半径 | `3000` |
@@ -106,6 +110,7 @@ python manage.py runserver
 | GET/POST | `<poi_id>/reviews/` | 评价列表 / 发布打卡 |
 | POST | `<poi_id>/checkin/` | 快速打卡 |
 | GET | `keys/` | Key 池状态（脱敏；staff 可见明细） |
+| POST | `keys/reset/` | 清除 Key 冷却（staff） |
 
 ### 菜谱与助手 `/api/v1/`
 `meta/` `recipes/` `recipes/<id>/` `recipes/<id>/rate|favorite|comments|similar/`

@@ -75,8 +75,8 @@
         assistantSync: (question, sessionId, useTools) =>
             unwrap(http.post('/assistant/chat/sync/', { question, session_id: sessionId, use_tools: !!useTools })),
 
-        /** SSE 流式对话：返回 abort 函数 */
-        assistantStream(question, sessionId, handlers) {
+        /** SSE 流式对话：返回 abort 函数。location={lng,lat} 用于「附近吃什么」 */
+        assistantStream(question, sessionId, handlers, location) {
             const controller = new AbortController();
             const { onToken, onCitations, onMeta, onDone, onError } = handlers || {};
 
@@ -84,7 +84,13 @@
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question, session_id: sessionId, use_tools: true }),
+                body: JSON.stringify({
+                    question,
+                    session_id: sessionId,
+                    use_tools: true,
+                    lng: (location && location.lng) || 0,
+                    lat: (location && location.lat) || 0,
+                }),
                 signal: controller.signal,
             })
                 .then(async (resp) => {

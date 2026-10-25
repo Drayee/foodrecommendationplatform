@@ -517,11 +517,16 @@ def assistant_chat(request):
     if not question:
         return _err("问题不能为空")
     session_key = (data.get("session_id") or "").strip() or _session_key(request)
+    location = {
+        "lng": _float(data.get("lng"), 0.0),
+        "lat": _float(data.get("lat"), 0.0),
+    }
     stream = assistant.stream_answer(
         question=question,
         session_key=session_key,
         user=request.user if request.user.is_authenticated else None,
         use_tools=bool(data.get("use_tools", True)),
+        location=location,
     )
     response = StreamingHttpResponse(_sse_stream(stream), content_type="text/event-stream")
     response["Cache-Control"] = "no-cache"
@@ -537,12 +542,14 @@ def assistant_chat_sync(request):
     if not question:
         return _err("问题不能为空")
     session_key = (data.get("session_id") or "").strip() or _session_key(request)
+    location = {"lng": _float(data.get("lng"), 0.0), "lat": _float(data.get("lat"), 0.0)}
     return _ok(
         assistant.answer_once(
             question,
             session_key=session_key,
             user=request.user if request.user.is_authenticated else None,
             use_tools=bool(data.get("use_tools", False)),
+            location=location,
         )
     )
 

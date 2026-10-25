@@ -118,6 +118,57 @@ def web_search_recipes(query: str = "", limit: int = 5) -> str:
     return json.dumps(result, ensure_ascii=False)
 
 
+def nearby_foods(
+    lng: float = 0,
+    lat: float = 0,
+    keyword: str = "",
+    radius: int = 1500,
+    limit: int = 5,
+    sort: str = "smart",
+) -> str:
+    """查询用户当前位置附近的餐饮店（高德 POI），用于回答「附近吃什么」。"""
+    from places import service
+
+    try:
+        lng_f, lat_f = float(lng or 0), float(lat or 0)
+    except (TypeError, ValueError):
+        return json.dumps({"error": "坐标格式不正确"}, ensure_ascii=False)
+    if not (-180 <= lng_f <= 180 and -90 <= lat_f <= 90) or (lng_f == 0 and lat_f == 0):
+        return json.dumps(
+            {"error": "缺少有效定位坐标；请提示用户先在「附近」页授权定位，或让其告知所在位置"},
+            ensure_ascii=False,
+        )
+
+    try:
+        result = service.nearby(
+            lng_f,
+            lat_f,
+            radius=max(200, min(int(radius or 1500), 5000)),
+            keywords=(keyword or "").strip()[:30],
+            sort=sort if sort in {"smart", "distance", "rating", "cost_asc"} else "smart",
+            use_cache=True,
+        )
+    except Exception as exc:  # pragma: no cover - 工具层兜底
+        logger.warning("附近美食工具失败：%s", exc)
+        return json.dumps({"error": f"附近搜索失败：{exc}"}, ensure_ascii=False)
+
+    keep = ("poi_id", "name", "type_label", "address", "distance_m", "distance_text",
+            "rating", "cost", "business_hours", "tel", "tag", "score")
+    items = [{k: v for k, v in item.items() if k in keep} for item in result["items"][: max(1, min(int(limit), 10))]]
+    return json.dumps(
+        {
+            "center": result["center"],
+            "radius": result["radius"],
+            "count": len(items),
+            "degraded": result["degraded"],
+            "provider": result["provider"],
+            "items": items,
+            "note": "离线样例数据，仅供演示" if result["degraded"] else "",
+        },
+        ensure_ascii=False,
+    )
+
+
 def platform_stats() -> str:
     """平台运营数据概览。"""
     from django.db.models import Avg, Count, Sum
@@ -237,6 +288,28 @@ TOOL_REGISTRY: dict[str, dict[str, Any]] = {
                         "limit": {"type": "integer", "description": "条数"},
                     },
                     "required": ["query"],
+                },
+            },
+        },
+    },
+    "nearby_foods": {
+        "func": nearby_foods,
+        "schema": {
+            "type": "function",
+            "function": {
+                "name": "nearby_foods",
+                "description": "查询用户当前位置附近的餐饮店（高德 POI），用于回答「附近有什么好吃的」「走路能到的小馆子」等问题",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "lng": {"type": "number", "description": "用户位置经度（GCJ-02）"},
+                        "lat": {"type": "number", "description": "用户位置纬度（GCJ-02）"},
+                        "keyword": {"type": "string", "description": "关键词，如 火锅 / 面馆 / 咖啡"},
+                        "radius": {"type": "integer", "description": "搜索半径（米），默认 1500，最大 5000"},
+                        "limit": {"type": "integer", "description": "返回条数，默认 5"},
+                        "sort": {"type": "string", "description": "排序：smart（综合）/ distance（最近）/ rating（评分）"},
+                    },
+                    "required": ["lng", "lat"],
                 },
             },
         },

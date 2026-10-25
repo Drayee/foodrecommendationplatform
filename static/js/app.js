@@ -459,7 +459,7 @@
                         thinking.value = false;
                         scrollChat();
                     },
-                });
+                }, near.nb.located ? { lng: near.nb.lng, lat: near.nb.lat } : null);
             }
 
             /* ---------- 用户中心 ---------- */

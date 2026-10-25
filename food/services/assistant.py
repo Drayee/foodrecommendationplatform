@@ -40,7 +40,13 @@ SYSTEM_PROMPT = """你是「寻味」美食推荐平台的 AI 美食助手，名
 - 涉及步骤时用有序列表，把「火候/时间/关键动作」写清楚；
 - 末尾用「参考：」列出你实际用到的菜谱名，不要编造来源。
 
-你可以调用的工具：按关键词检索菜谱、查菜谱详情、个性化推荐、联网搜索菜谱线索、查平台统计、发邮件。
+你可以调用的工具：按关键词检索菜谱、查菜谱详情、个性化推荐、**查询附近餐厅**（nearby_foods）、联网搜索菜谱线索、查平台统计、发邮件。
+
+当用户问「附近」「周边」「走路能到」「附近有什么好吃的」「下班吃点什么」这类问题时：
+- 优先调用 nearby_foods 拿真实店铺数据，再据此回答，不要凭空推荐店名或编造距离；
+- 若当前会话没有位置坐标，直接告诉用户「点一下『附近』页的定位，我就能看到你在哪」；
+- 推荐店铺时给出「店名（品类｜距离｜评分｜人均）」，并说明推荐理由与营业时间。
+
 只有当站内资料确实不够时才联网搜索；只有在用户明确要求时才发送邮件。
 """
 
@@ -209,6 +215,8 @@ def _tool_round(messages: list[dict], max_rounds: int = 2) -> tuple[list[dict], 
                 tools=tool_schemas(),
                 tool_choice="auto",
                 temperature=0.2,
+                # 这一阶段只需要模型吐出 tool_calls，不需要长文本；限流能显著缩短首字延迟
+                max_tokens=300,
             )
         except Exception as exc:
             logger.info("工具调用阶段跳过：%s", exc)
@@ -239,10 +247,17 @@ def _tool_round(messages: list[dict], max_rounds: int = 2) -> tuple[list[dict], 
     return messages, calls
 
 
-def _build_messages(question: str, context: str, history: list[dict], mode: str) -> list[dict]:
+def _build_messages(question: str, context: str, history: list[dict], mode: str, location: dict | None = None) -> list[dict]:
     system = EMAIL_PROMPT if mode == "email" else SYSTEM_PROMPT
     if context:
         system = system + "\n\n【检索到的菜谱资料】\n" + context
+    if location and location.get("lng") and location.get("lat"):
+        system += (
+            f"\n\n【用户当前位置】经度 {location['lng']:.6f}，纬度 {location['lat']:.6f}（GCJ-02 高德坐标系）。"
+            "可以直接用这组坐标调用 nearby_foods 查询附近餐厅。"
+        )
+    else:
+        system += "\n\n【用户当前位置】未知。若用户询问附近餐厅，先请其在「附近」页完成定位。"
     msgs = [{"role": "system", "content": system}]
     msgs.extend(history[-6:])
     msgs.append({"role": "user", "content": question})
@@ -255,12 +270,21 @@ def _build_messages(question: str, context: str, history: list[dict], mode: str)
 class AnswerStream:
     """可迭代文本分片；消费结束后 ``citations`` / ``tool_calls`` / ``degraded`` 可用。"""
 
-    def __init__(self, question: str, session_key: str, user, use_tools: bool = True, mode: str = "chat"):
+    def __init__(
+        self,
+        question: str,
+        session_key: str,
+        user,
+        use_tools: bool = True,
+        mode: str = "chat",
+        location: dict | None = None,
+    ):
         self.question = question
         self.session_key = session_key
         self.user = user
         self.use_tools = use_tools
         self.mode = mode
+        self.location = location or {}
         self.citations: list[dict] = []
         self.tool_calls: list[dict] = []
         self.degraded = False
@@ -299,7 +323,7 @@ class AnswerStream:
             return
 
         client = get_client()
-        messages = _build_messages(self.question, context, history, self.mode)
+        messages = _build_messages(self.question, context, history, self.mode, self.location)
 
         if self.use_tools:
             messages, calls = _tool_round(messages)
@@ -322,15 +346,32 @@ def stream_answer(
     user=None,
     use_tools: bool = True,
     mode: str = "chat",
+    location: dict | None = None,
 ) -> AnswerStream:
-    return AnswerStream(question=question, session_key=session_key, user=user, use_tools=use_tools, mode=mode)
+    """`location` 为 GCJ-02 坐标（{"lng":..., "lat":...}），用于「附近吃什么」类问题。"""
+    return AnswerStream(
+        question=question,
+        session_key=session_key,
+        user=user,
+        use_tools=use_tools,
+        mode=mode,
+        location=location,
+    )
 
 
 # ---------------------------------------------------------------------------
 # 对外：同步
 # ---------------------------------------------------------------------------
-def answer_once(question: str, session_key: str = "sync", user=None, use_tools: bool = False) -> dict:
-    stream = stream_answer(question, session_key=session_key, user=user, use_tools=use_tools)
+def answer_once(
+    question: str,
+    session_key: str = "sync",
+    user=None,
+    use_tools: bool = False,
+    location: dict | None = None,
+) -> dict:
+    stream = stream_answer(
+        question, session_key=session_key, user=user, use_tools=use_tools, location=location
+    )
     text = "".join(stream)
     return {
         "answer": text,
