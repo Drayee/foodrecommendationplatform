@@ -116,6 +116,9 @@ def rich(slide, x, y, w, h, segments, size=11, spacing=1.3, align=PP_ALIGN.LEFT,
 
 def shadow_on(shape, blur=9, dist=4, alpha=11000):
     spPr = shape._element.spPr
+    # shadow.inherit = False 已经写入一个空的 a:effectLst，先清掉避免重复元素
+    for el in spPr.findall(qn("a:effectLst")):
+        spPr.remove(el)
     xml = (
         '<a:effectLst xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
         f'<a:outerShdw blurRad="{int(blur * 12700)}" dist="{int(dist * 12700)}" '
@@ -208,7 +211,7 @@ def footer(slide, page, total=16):
 def head(slide, kicker, title, sub=None, page=1):
     """内容页页眉。"""
     rect(slide, 0.62, 0.56, 0.075, 0.62, ORANGE, shape=MSO_SHAPE.RECTANGLE)
-    tx(slide, 0.85, 0.5, 9.4, 0.5, title, size=25, bold=True, color=INK)
+    tx(slide, 0.85, 0.48, 9.4, 0.66, title, size=25, bold=True, color=INK, spacing=1.05)
     tx(slide, 10.2, 0.6, 2.52, 0.3, kicker, size=9.5, bold=True, color=ORANGE_D, align=PP_ALIGN.RIGHT)
     if sub:
         tx(slide, 0.87, 1.06, 11.6, 0.34, sub, size=11, color=GRAY)
@@ -411,13 +414,13 @@ def slide_goals(prs, page):
     for i, (letter, title, sub, body, accent) in enumerate(goals):
         col, row = i % 2, i // 2
         x = 0.62 + col * 6.12
-        y = 1.62 + row * 1.94
-        rect(s, x, y, 5.94, 1.74, WHITE, line=LINE, radius=0.06, shadow=True)
-        rect(s, x, y, 0.06, 1.74, accent, shape=MSO_SHAPE.RECTANGLE)
+        y = 1.6 + row * 1.99
+        rect(s, x, y, 5.94, 1.84, WHITE, line=LINE, radius=0.06, shadow=True)
+        rect(s, x, y, 0.06, 1.84, accent, shape=MSO_SHAPE.RECTANGLE)
         circle_num(s, x + 0.28, y + 0.24, 0.4, letter, fill=accent, size=13)
         tx(s, x + 0.86, y + 0.22, 2.0, 0.34, title, size=15, bold=True, color=INK)
         tx(s, x + 0.86, y + 0.58, 4.3, 0.3, sub, size=10, bold=True, color=accent)
-        tx(s, x + 0.3, y + 0.96, 5.3, 0.7, body, size=9.8, color=GRAY, spacing=1.3)
+        tx(s, x + 0.3, y + 0.95, 5.4, 0.82, body, size=9.5, color=GRAY, spacing=1.3)
 
     rect(s, 0.62, 5.62, 12.06, 0.95, CARD, radius=0.05)
     rich(s, 0.92, 5.78, 11.4, 0.7,
@@ -520,7 +523,7 @@ def slide_places(prs, page):
 def slide_rag(prs, page):
     s = blank(prs)
     head(s, "05 / ALGORITHM", "算法一：RAG 混合检索（向量 + 词法 + RRF）",
-         "目标不是炫技，而是在「不下载任何模型」的前提下，拿到接近语义检索的召回质量。", page)
+         "目标不是炫技：在「不下载任何模型」的前提下拿到可用的语义召回。实测 62 道菜 → 99 个检索块 / 1024 维 / 293ms。", page)
 
     steps = [
         ("① 切分", "chunker", "按段落/句子切 420 字、80 重叠\n优先不切断步骤\nchunk_id = recipe:12:0"),
@@ -620,10 +623,10 @@ def slide_quality(prs, page):
         ["外网断开", "websearch 读取本地 fixtures 并标记", "演示链路不断"],
         ["数据库方言差异", "PG 守卫测试：禁裸 SQL、禁硬编码 DSN", "换库不改代码"],
     ]
-    table(s, 0.62, 3.2, [3.3, 4.7, 4.06], rows, row_h=0.52, header_h=0.38, body_size=9.3, head_size=10)
+    table(s, 0.62, 3.18, [3.3, 4.7, 4.06], rows, row_h=0.49, header_h=0.38, body_size=9.3, head_size=10)
 
-    rect(s, 0.62, 6.42, 12.06, 0.42, CARD, radius=0.04)
-    rich(s, 0.86, 6.5, 11.6, 0.3,
+    rect(s, 0.62, 6.5, 12.06, 0.38, CARD, radius=0.04)
+    rich(s, 0.86, 6.56, 11.6, 0.28,
          [[("契约驱动并行　", ORANGE_D, True, 9.5),
            ("docs/CONTRACTS.md 固定全部函数签名 + 目录级写权限表，6 人同时改代码零冲突；序列化只走 Recipe.to_card() / to_detail() 单一出口。",
             INK_SOFT, False, 9.5)]], spacing=1.15)
@@ -667,25 +670,24 @@ def slide_ui(prs, page):
 
     shots = [
         ("ui-login.png", "登录页", "邮箱验证码登录，游客模式一键体验；左侧品牌区讲清三个卖点。", 1.732),
-        ("ui-home.png", "发现页 · 推荐流", "自然语言搜索框 + 场景快捷标签 + 大家都在吃 + 按菜系逛 + 本周热门。", 1.732),
+        ("ui-home.png", "发现页 · 推荐流", "自然语言搜索 + 场景标签 + 大家都在吃 + 按菜系逛 + 本周热门。", 1.732),
         ("ui-nearby.png", "附近页 · 门店列表 + 地图", "四级定位到商圈，25 家 3km 内门店，左侧列表右侧地图联动。", 1.732),
     ]
     x = 0.62
     for fname, title, desc, ratio in shots:
         path = ASSETS / fname
-        rect(s, x, 1.56, 3.94, 3.5, WHITE, line=LINE, radius=0.05, shadow=True)
+        rect(s, x, 1.56, 3.94, 3.36, WHITE, line=LINE, radius=0.05, shadow=True)
         pic = s.shapes.add_picture(str(path), I(x + 0.08), I(1.64), width=I(3.78))
         h = 3.78 / ratio
-        # 裁掉超出的底部（图片按宽度等比，高度可能超出卡片）
-        if 1.64 + h > 4.9:
-            crop = (h - (4.9 - 1.64)) / h
-            pic.crop_bottom = crop
-        tx(s, x + 0.18, 5.14, 3.6, 0.34, title, size=11.5, bold=True, color=INK)
-        tx(s, x + 0.18, 5.46, 3.6, 0.6, desc, size=8.8, color=GRAY, spacing=1.28)
+        # 图片按宽度等比，若超卡片内高再裁掉底部
+        if 1.64 + h > 4.84:
+            pic.crop_bottom = (h - (4.84 - 1.64)) / h
+        tx(s, x + 0.18, 4.98, 3.6, 0.32, title, size=11.5, bold=True, color=INK)
+        tx(s, x + 0.18, 5.3, 3.66, 0.5, desc, size=8.8, color=GRAY, spacing=1.26)
         x += 4.14
 
-    rect(s, 0.62, 5.82, 12.06, 0.95, CARD, radius=0.05)
-    rich(s, 0.92, 5.96, 11.5, 0.7,
+    rect(s, 0.62, 5.92, 12.06, 0.86, CARD, radius=0.05)
+    rich(s, 0.92, 6.06, 11.5, 0.62,
          [[("演示脚本　", ORANGE_D, True, 10),
            ("登录 → 语义搜「20 分钟快手菜」→ 打开详情看推荐理由与相似菜 → 切「附近」看地图与五路排序 → "
             "收藏 + 打卡 → 问助手「附近吃什么」，它直接调 POI 工具回答。", INK_SOFT, False, 9.5)]],
@@ -735,10 +737,10 @@ def slide_challenges(prs, page):
         ["本地 14B 模型首 token 慢", "SSE 流式输出 + 工具调用替代长上下文", "首字可见时间显著下降，交互不阻塞"],
         ["坐标系混用导致标记偏移", "入参 WGS-84 自动转 GCJ-02，响应 center 恒为 GCJ-02", "地图标记与列表位置零偏移"],
     ]
-    table(s, 0.62, 1.62, [3.5, 4.5, 4.06], rows, row_h=0.82, header_h=0.4, body_size=9.2, head_size=10)
+    table(s, 0.62, 1.6, [3.5, 4.5, 4.06], rows, row_h=0.78, header_h=0.4, body_size=9.2, head_size=10)
 
-    rect(s, 0.62, 6.28, 12.06, 0.5, CARD_ALT, radius=0.04, line=LINE)
-    rich(s, 0.88, 6.38, 11.5, 0.3,
+    rect(s, 0.62, 6.42, 12.06, 0.42, CARD_ALT, radius=0.04, line=LINE)
+    rich(s, 0.88, 6.5, 11.5, 0.28,
          [[("一句话总结　", TEAL, True, 9.5),
            ("我们花的力气，八成不在「把功能做出来」，而在「让功能在什么都缺的时候还能用」。", INK_SOFT, False, 9.5)]],
          spacing=1.15)
