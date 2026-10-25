@@ -187,7 +187,9 @@
             const prefSaved = ref(false);
 
             /* ---------- 附近美食（独立模块） ---------- */
-            const near = window.FoodNearby.createNearby(boot);
+            const near = window.FoodNearby.createNearby(boot, {
+                toast: (text, ms) => showToast(text, ms || 2200),
+            });
 
             /* ---------- 计算属性 ---------- */
             const detailEmoji = computed(() => UI.dishEmoji(detail.value && detail.value.title));
@@ -615,13 +617,21 @@
                 nb: near.nb,
                 nbHasItems: near.hasItems,
                 nbDistLabel: near.distLabel,
+                nbSearchingLabel: near.searchingLabel,
+                nbShowGuide: near.showGuide,
+                nbShowEmpty: near.showEmptyResult,
+                nbDegradedText: near.degradedText,
                 nbInit: near.init,
                 nbLocate: near.locateByGPS,
                 nbLocateIp: near.locateByIP,
+                nbUseDefaultCenter: near.useDefaultCenter,
                 nbSearch: near.search,
                 nbSetRadius: near.setRadius,
+                nbApplyFilter: near.applyFilter,
+                nbRetrySearch: near.retrySearch,
                 nbOnInput: near.onKeywordInput,
                 nbPickTip: near.pickTip,
+                nbRecenter: near.recenter,
                 nbOpenPlace: near.openPlace,
                 nbCloseDetail: near.closeDetail,
                 nbToggleFavorite: near.toggleFavorite,
@@ -629,12 +639,22 @@
                 nbNavigate: near.navigate,
                 nbFocus: near.focusOnMap,
                 nbOpenMap: near.openMap,
+                nbToggleMapMode: near.toggleMapMode,
+                nbUseListMode: near.useListMode,
+                nbUseMapMode: near.useMapMode,
+                nbRetryMap: near.retryMap,
+                nbToggleSheet: near.toggleSheet,
+                nbSheetStart: near.sheetTouchStart,
+                nbSheetMove: near.sheetTouchMove,
+                nbSheetEnd: near.sheetTouchEnd,
                 nbLoadPlaceFavorites: near.loadPlaceFavorites,
                 nbLoadMyReviews: near.loadMyReviews,
                 nbRemoveFavorite: near.removeFavorite,
                 nbDistPercent: near.distPercent,
                 nbOpenPhoto: near.openPhoto,
                 nbClosePhoto: near.closePhoto,
+                nbNextPhoto: near.nextPhoto,
+                nbPrevPhoto: near.prevPhoto,
                 /* 方法 */
                 go, loadFeed, loadHot, switchScene, doSearch, runSearch, setMode, quickSearch,
                 browseCuisine, goSearchWithSort, openRecipe, toggleFavorite, toggleRate, submitRating,

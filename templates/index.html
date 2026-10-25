@@ -129,6 +129,9 @@
                     </span>
                 </button>
                 <button class="ghost-btn tiny" @click="nbLocateIp">IP 定位</button>
+                <button class="ghost-btn tiny map-toggle" @click="nbToggleMapMode">
+                    [[ nb.mapMode === 'list' ? '🗺️ 显示地图' : '📋 列表模式' ]]
+                </button>
 
                 <div class="nearby-search">
                     <input v-model="nb.keyword" @input="nbOnInput" @keyup.enter="nbSearch"
@@ -152,13 +155,13 @@
                         [[ r >= 1000 ? (r / 1000) + 'km' : r + 'm' ]]
                     </button>
                 </div>
-                <select v-model="nb.type" @change="nbSearch">
+                <select v-model="nb.type" @change="nbApplyFilter">
                     <option v-for="t in nb.config.types" :key="t.key" :value="t.key">[[ t.label ]]</option>
                 </select>
-                <select v-model="nb.sort" @change="nbSearch">
+                <select v-model="nb.sort" @change="nbApplyFilter">
                     <option v-for="s in nb.config.sorts" :key="s.key" :value="s.key">[[ s.label ]]</option>
                 </select>
-                <select v-model="nb.budget" @change="nbSearch">
+                <select v-model="nb.budget" @change="nbApplyFilter">
                     <option value="">不限人均</option>
                     <option value="20">人均 ≤ 20</option>
                     <option value="40">人均 ≤ 40</option>
@@ -172,56 +175,109 @@
                 </span>
             </div>
 
-            <div class="nearby-alert" v-if="nb.degraded">⚠️ [[ nb.message ]]</div>
+            <div class="nearby-alert" v-if="nb.degraded">
+                <div class="alert-main">⚠️ [[ nbDegradedText ]]</div>
+                <div class="alert-sub">数据为离线样例，不代表真实店铺（距离 / 评分 / 电话仅供演示）。</div>
+                <button class="ghost-btn tiny" :disabled="nb.loading" @click="nbRetrySearch">
+                    [[ nb.loading ? '重试中…' : '🔄 重试联网搜索' ]]
+                </button>
+            </div>
 
-            <div class="nearby-body">
-                <div class="nearby-list">
-                    <article class="place-card" v-for="(p, i) in nb.items" :key="p.poi_id"
-                             :class="{ active: nb.activePoi === p.poi_id }" @click="nbOpenPlace(p)">
-                        <div class="place-cover" :style="placeCover(p)">
-                            <span v-if="!p.photos.length" class="place-emoji">[[ placeEmoji(p) ]]</span>
-                            <span class="place-rank">[[ i + 1 ]]</span>
-                        </div>
-                        <div class="place-main">
-                            <div class="place-title-row">
-                                <h3>[[ p.name ]]</h3>
-                                <span class="place-dist">[[ p.distance_text ]]</span>
-                            </div>
-                            <p class="place-sub">
-                                <span class="tag-type">[[ p.type_label ]]</span>
-                                <span v-if="p.rating">★ [[ p.rating ]]</span>
-                                <span v-if="p.cost">人均 ¥[[ p.cost ]]</span>
-                                <span v-if="p.business_hours" class="hours">🕒 [[ p.business_hours ]]</span>
-                            </p>
-                            <p class="place-addr">[[ p.address || p.district ]]</p>
-                            <div class="place-tags" v-if="p.tag">
-                                <span v-for="t in p.tag.split(',')" :key="t" class="mini-tag">[[ t ]]</span>
-                            </div>
-                            <div class="place-actions">
-                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'car')">🚗 导航</button>
-                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'walk')">🚶 步行</button>
-                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'taxi')">🚕 叫车</button>
-                                <button class="ghost-btn tiny" @click.stop="nbOpenPlace(p)">详情</button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <div class="empty" v-if="!nb.items.length && !nb.loading">
-                        <p class="empty-emoji">🗺️</p>
-                        <p>[[ nb.located ? '这个范围内没搜到餐饮店，试试放大范围或换关键词' : '先点上方定位，或直接输入地址搜索' ]]</p>
-                    </div>
-                    <div class="skeleton-grid" v-if="nb.loading">
-                        <div class="skeleton-card" v-for="n in 4" :key="'nb' + n"></div>
-                    </div>
-                </div>
-
-                <div class="nearby-map">
+            <div class="nearby-body" :class="{ 'map-off': nb.mapMode === 'list' }">
+                <div class="nearby-map" v-show="nb.mapMode === 'map'">
                     <div id="amap-container"></div>
+
+                    <!-- 中心点切换的视觉反馈 -->
+                    <div class="map-center-badge" v-if="nb.located && !nb.mapError">
+                        <i :class="{ pulse: nb.pulseVisible }"></i>
+                        <span v-if="nb.pulseVisible">已切换到该位置，正在重新搜索…</span>
+                        <span v-else>搜索中心[[ nb.centerAt ? ' · ' + nb.centerAt : '' ]]</span>
+                    </div>
+
                     <div class="map-fallback" v-if="nb.mapError">
                         <p>🗺️ 地图不可用：[[ nb.mapError ]]</p>
                         <p class="muted">列表与距离数据不受影响，可继续查看详情与导航。</p>
+                        <div class="map-fallback-actions">
+                            <button class="primary-btn small" @click="nbRetryMap">重新加载地图</button>
+                            <button class="ghost-btn tiny" @click="nbUseListMode">改用列表模式</button>
+                        </div>
                     </div>
                     <div class="map-hint" v-else-if="!nb.mapReady">地图加载中…</div>
+                    <div class="map-tip" v-else>点地图任意位置，或拖动「搜索中心」标记换位置</div>
+                </div>
+
+                <div class="map-collapsed" v-if="nb.mapMode === 'list'">
+                    <span>📋 列表模式 · 地图已折叠（省流量 / 地图故障时的备用视图）</span>
+                    <button class="ghost-btn tiny" @click="nbUseMapMode">🗺️ 显示地图</button>
+                </div>
+
+                <div class="nearby-list-wrap"
+                     :class="{ up: nb.sheetUp, dragging: nb.sheetDragging }"
+                     :style="nb.sheetDrag === null ? null : { transform: 'translateY(' + nb.sheetDrag + 'px)' }">
+                    <div class="sheet-head"
+                         @touchstart="nbSheetStart" @touchmove="nbSheetMove" @touchend="nbSheetEnd" @touchcancel="nbSheetEnd"
+                         @click="nbToggleSheet">
+                        <span class="sheet-handle"></span>
+                        <span class="sheet-title">附近 [[ nb.items.length ]] 家店 · [[ nbDistLabel ]] 内</span>
+                        <span class="sheet-arrow">[[ nb.sheetUp ? '收起 ▾' : '上滑展开 ▴' ]]</span>
+                    </div>
+
+                    <div class="nearby-list">
+                        <article class="place-card" v-for="(p, i) in nb.items" :key="p.poi_id"
+                                 :data-poi="p.poi_id"
+                                 :class="{ active: nb.activePoi === p.poi_id }" @click="nbOpenPlace(p)">
+                            <div class="place-cover" :style="placeCover(p)">
+                                <span v-if="!p.photos.length" class="place-emoji">[[ placeEmoji(p) ]]</span>
+                                <span class="place-rank">[[ i + 1 ]]</span>
+                            </div>
+                            <div class="place-main">
+                                <div class="place-title-row">
+                                    <h3>[[ p.name ]]</h3>
+                                    <span class="place-dist">[[ p.distance_text ]]</span>
+                                </div>
+                                <p class="place-sub">
+                                    <span class="tag-type">[[ p.type_label ]]</span>
+                                    <span v-if="p.rating">★ [[ p.rating ]]</span>
+                                    <span v-if="p.cost">人均 ¥[[ p.cost ]]</span>
+                                    <span v-if="p.business_hours" class="hours">🕒 [[ p.business_hours ]]</span>
+                                </p>
+                                <p class="place-addr">[[ p.address || p.district ]]</p>
+                                <div class="place-tags" v-if="p.tag">
+                                    <span v-for="t in p.tag.split(',')" :key="t" class="mini-tag">[[ t ]]</span>
+                                </div>
+                                <div class="place-actions">
+                                    <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'car')">🚗 导航</button>
+                                    <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'walk')">🚶 步行</button>
+                                    <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'taxi')">🚕 叫车</button>
+                                    <button class="ghost-btn tiny" @click.stop="nbOpenPlace(p)">详情</button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 未定位：引导卡，而不是空白列表 -->
+                        <div class="locate-guide" v-if="nbShowGuide">
+                            <span class="guide-emoji">📍</span>
+                            <h3>先告诉我你在哪儿</h3>
+                            <p>授权定位后，按你的位置搜周围店铺；也可以直接点地图任意位置手动选点。</p>
+                            <div class="guide-actions">
+                                <button class="primary-btn small" @click="nbLocate">点这里定位</button>
+                                <button class="ghost-btn tiny" @click="nbUseDefaultCenter">先用默认位置（雅安）</button>
+                            </div>
+                            <p class="guide-err" v-if="nb.geoError">定位提示：[[ nb.geoError ]]</p>
+                        </div>
+
+                        <div class="searching-line" v-if="nb.loading">
+                            <span class="spin"></span>[[ nbSearchingLabel ]]
+                        </div>
+                        <div class="skeleton-grid" v-if="nb.loading">
+                            <div class="skeleton-card" v-for="n in 4" :key="'nb' + n"></div>
+                        </div>
+
+                        <div class="empty" v-if="nbShowEmpty">
+                            <p class="empty-emoji">🗺️</p>
+                            <p>这个范围内没搜到餐饮店，试试放大范围、换关键词，或点地图换个位置。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -603,7 +659,7 @@
     </footer>
 
     <!-- ============ 店铺详情（附近） ============ -->
-    <div class="modal-mask" v-if="nb.detail" @click.self="nbCloseDetail">
+    <div class="modal-mask shop-sheet" v-if="nb.detail" @click.self="nbCloseDetail">
         <div class="modal">
             <header class="modal-head">
                 <div class="modal-title-wrap">
@@ -620,7 +676,7 @@
                 <div class="photo-strip" v-if="nb.detail.photos && nb.detail.photos.length">
                     <img v-for="(ph, i) in nb.detail.photos" :key="'ph' + i" :src="ph"
                          class="photo-thumb" loading="lazy" alt="店铺照片"
-                         @click="nbOpenPhoto(ph)">
+                         @click="nbOpenPhoto(ph, i)">
                 </div>
 
                 <div class="detail-facts">
@@ -692,25 +748,20 @@
     </div>
 
     <div class="lightbox" v-if="nb.lightbox" @click="nbClosePhoto">
-        <img :src="nb.lightbox" alt="照片预览">
-        <span class="lightbox-close">✕</span>
+        <img :src="nb.lightbox" alt="照片预览" @click.stop>
+        <button class="lightbox-nav prev" v-if="nb.lightboxPhotos.length > 1" @click.stop="nbPrevPhoto">‹</button>
+        <button class="lightbox-nav next" v-if="nb.lightboxPhotos.length > 1" @click.stop="nbNextPhoto">›</button>
+        <span class="lightbox-count" v-if="nb.lightboxPhotos.length">
+            [[ nb.lightboxIndex + 1 ]] / [[ nb.lightboxPhotos.length ]] · 按 Esc 或点背景关闭<template v-if="nb.lightboxPhotos.length > 1"> · ← → 切换</template>
+        </span>
+        <span class="lightbox-close" @click.stop="nbClosePhoto">✕</span>
     </div>
 
     <div class="toast" v-if="toast"><span>[[ toast ]]</span></div>
 </div>
 
 <script>
-    window.__BOOT__ = {
-        page: "{{ page|default:'home'|escapejs }}",
-        recipeId: {{ recipe_id|default:"0" }},
-        keyword: "{{ keyword|default:''|escapejs }}",
-        isAuthenticated: {{ is_authenticated|yesno:"true,false" }},
-        userName: "{{ user_name|escapejs }}",
-        llmReady: {{ llm_ready|yesno:"true,false" }},
-        demoMode: {{ demo_mode|yesno:"true,false" }},
-        cuisines: {{ cuisines|safe }},
-        tags: {{ tags|safe }}
-    };
+    window.__BOOT__ = {{ boot_json|safe }};
 </script>
 <script src="{% static 'js/vue.global.js' %}?v={{ static_version }}"></script>
 <script src="{% static 'js/axios.min.js' %}?v={{ static_version }}"></script>

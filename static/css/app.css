@@ -1390,3 +1390,327 @@ code {
 @media (max-width: 760px) {
     .photo-thumb { height: 72px; }
 }
+
+/* ===========================================================
+   附近美食 · 收尾增强
+   1) 桌面：列表在左、地图在右（DOM 顺序调成「地图在前」，方便手机端地图在上）
+   2) 手机：地图在上、列表为可上下拖拽的底部抽屉
+   3) 地图中心点标记 / 波纹反馈 / 离线提示 / 定位引导 / lightbox 换页
+   =========================================================== */
+
+/* ---------- 桌面布局：显式栅格位置 ---------- */
+.nearby-body > .nearby-map { grid-column: 2; grid-row: 1; }
+.nearby-body > .nearby-list-wrap { grid-column: 1; grid-row: 1; min-width: 0; display: grid; gap: 14px; }
+.nearby-body > .map-collapsed { grid-column: 1 / -1; }
+.nearby-body.map-off { grid-template-columns: minmax(0, 1fr); }
+.nearby-body.map-off > .nearby-list-wrap { grid-column: 1 / -1; }
+
+.sheet-head { display: none; }
+
+/* ---------- 中心点标记（可拖动） ---------- */
+.amap-center-pin { position: relative; width: 28px; height: 34px; cursor: move; }
+.amap-center-pin i {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 35%, #ff9c6e, #fa541c);
+    border: 3px solid #fff;
+    box-shadow: 0 5px 14px rgba(178, 58, 18, .45);
+    animation: pinPop .28s ease both;
+}
+.amap-center-pin i::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, -3px);
+    border: 6px solid transparent;
+    border-top-color: #fff;
+}
+.amap-center-pin em {
+    position: absolute;
+    top: -19px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-style: normal;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #fff;
+    background: rgba(43, 33, 25, .78);
+    padding: 0 7px;
+    border-radius: 999px;
+}
+@keyframes pinPop {
+    from { opacity: 0; transform: translateX(-50%) scale(.4); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+.map-center-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255, 255, 255, .94);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    box-shadow: var(--shadow-sm);
+    pointer-events: none;
+}
+.map-center-badge i { width: 9px; height: 9px; border-radius: 50%; background: var(--brand); flex: 0 0 auto; }
+.map-center-badge i.pulse { animation: badgePulse 1s ease-out infinite; }
+@keyframes badgePulse {
+    0% { box-shadow: 0 0 0 0 rgba(250, 84, 28, .55); }
+    100% { box-shadow: 0 0 0 12px rgba(250, 84, 28, 0); }
+}
+
+.map-tip {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 6;
+    max-width: calc(100% - 20px);
+    background: rgba(43, 33, 25, .72);
+    color: #fff;
+    font-size: 11.5px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    pointer-events: none;
+}
+.map-fallback-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+
+.map-collapsed {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #fff;
+    border: 1px dashed #ffd9c2;
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--ink-2);
+}
+
+/* ---------- 离线提示条 ---------- */
+.nearby-alert { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.nearby-alert .alert-main { font-weight: 600; }
+.nearby-alert .alert-sub { font-size: 12.5px; color: #8a6516; }
+.nearby-alert .ghost-btn.tiny { margin-top: 3px; border-color: #ffd591; color: #ad6800; background: #fffdf5; }
+
+/* ---------- 未定位引导卡 ---------- */
+.locate-guide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    background: #fff;
+    border: 1.5px dashed #ffcbb3;
+    border-radius: 18px;
+    padding: 26px 22px;
+}
+.locate-guide .guide-emoji { font-size: 34px; }
+.locate-guide h3 { font-size: 17px; }
+.locate-guide p { margin: 0; font-size: 13px; color: var(--muted); max-width: 430px; }
+.locate-guide .guide-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.locate-guide .guide-err { color: #c0392b; }
+
+/* ---------- 搜索中提示 ---------- */
+.searching-line { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-2); padding: 4px 2px; }
+.spin {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #ffd9c2;
+    border-top-color: var(--brand);
+    animation: spin .8s linear infinite;
+    display: inline-block;
+    flex: 0 0 auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- lightbox 翻页 ---------- */
+.lightbox img { cursor: default; }
+.lightbox-close { cursor: pointer; }
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+.lightbox-nav:hover { background: rgba(255, 255, 255, .32); }
+.lightbox-nav.prev { left: 20px; }
+.lightbox-nav.next { right: 20px; }
+.lightbox-count {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, .82);
+    font-size: 12.5px;
+    background: rgba(0, 0, 0, .3);
+    padding: 5px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+/* ---------- 1080：单列，地图固定高度 ---------- */
+@media (max-width: 1080px) {
+    .nearby-body { display: block; }
+    .nearby-body > .nearby-map { position: relative; top: 0; height: 320px; min-height: 320px; margin-bottom: 14px; }
+    .nearby-body > .nearby-list-wrap { display: grid; }
+}
+
+/* ---------- 760：地图在上 + 列表底部抽屉 ---------- */
+@media (max-width: 760px) {
+    .nearby-view { padding-top: 10px; }
+
+    /* 顶栏右簇在 375px 会溢出 3px（横向滚动条），收紧内边距 */
+    .topbar-inner { padding: 10px 12px; gap: 10px; }
+
+    /* 顶部工具条横向滚动，不换行挤压 */
+    .nearby-head { gap: 8px; margin-bottom: 10px; }
+    .nearby-head .loc-box { flex: 1 1 100%; order: 0; padding: 8px 12px; border-radius: 14px; }
+    .nearby-head .ghost-btn.tiny { order: 1; }
+    .nearby-search { order: 2; flex: 1 1 100%; min-width: 0; }
+    .nearby-toolbar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 9px 10px;
+        gap: 8px;
+        border-radius: 14px;
+    }
+    .nearby-toolbar::-webkit-scrollbar { display: none; }
+    .nearby-toolbar > * { flex: 0 0 auto; }
+    .nearby-toolbar .nearby-meta { margin-left: 0; white-space: nowrap; }
+    .radius-chips { flex: 0 0 auto; }
+
+    .nearby-body { display: block; position: relative; }
+    .nearby-body > .nearby-map {
+        position: relative;
+        top: 0;
+        height: calc(100dvh - 330px);
+        min-height: 220px;
+        border-radius: 16px;
+        margin-bottom: 0;
+    }
+    .map-tip { font-size: 11px; }
+    .map-center-badge { font-size: 11.5px; padding: 5px 10px; }
+
+    /* 底部抽屉 */
+    .nearby-list-wrap {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 72vh;
+        max-height: 72vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -14px 44px rgba(178, 58, 18, .2);
+        border-top: 1px solid var(--line);
+        z-index: 45;
+        transform: translateY(calc(100% - 128px));
+        transition: transform .28s cubic-bezier(.22, .8, .3, 1);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        overflow: hidden;
+    }
+    .nearby-list-wrap.up { transform: translateY(0); }
+    .nearby-list-wrap.dragging { transition: none; }
+
+    .sheet-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        padding: 12px 16px 8px;
+        flex: 0 0 auto;
+        touch-action: none;
+        cursor: grab;
+    }
+    .sheet-handle {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 44px;
+        height: 5px;
+        border-radius: 999px;
+        background: #e6d3c6;
+    }
+    .sheet-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .sheet-arrow { margin-left: auto; font-size: 12px; color: var(--brand-ink); }
+
+    .nearby-list {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 14px 20px;
+    }
+    .nearby-list .place-card { border-radius: 16px; }
+    /* 窄屏下 grid 项默认 min-width:auto，会把卡片撑破抽屉；这里统一压回容器宽度 */
+    .nearby-list > * { min-width: 0; }
+    .place-card,
+    .place-main,
+    .place-title-row,
+    .place-title-row h3 { min-width: 0; }
+    .place-title-row h3 { flex: 1 1 auto; }
+    .locate-guide { padding: 20px 16px; }
+    .map-collapsed { border-radius: 12px; padding: 10px 12px; font-size: 12.5px; }
+
+    /* 详情 modal → 全屏 sheet（只留顶部圆角） */
+    .modal-mask.shop-sheet {
+        padding: 0;
+        place-items: stretch;
+        align-items: end;
+    }
+    .modal-mask.shop-sheet .modal {
+        width: 100%;
+        max-width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 20px 20px 0 0;
+        animation: sheetRise .26s cubic-bezier(.22, .8, .3, 1) both;
+    }
+    @keyframes sheetRise {
+        from { transform: translateY(16px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-mask.shop-sheet .modal-head { padding: 16px 16px 10px; }
+    .modal-mask.shop-sheet .modal-body { padding: 14px 16px 26px; }
+    .photo-strip { grid-template-columns: repeat(2, 1fr); }
+
+    .lightbox { padding: 16px; }
+    .lightbox-nav { width: 40px; height: 40px; font-size: 22px; }
+    .lightbox-nav.prev { left: 8px; }
+    .lightbox-nav.next { right: 8px; }
+    .lightbox-count { bottom: 18px; font-size: 11.5px; }
+    .lightbox-close { top: 14px; right: 16px; }
+}
