@@ -23,6 +23,7 @@ def _base_context(request, page: str, **extra) -> dict:
         "tags": list(Tag.objects.values("id", "name", "kind")[:40]),
         "llm_ready": _llm_ready(),
         "demo_mode": getattr(settings, "DEMO_VERIFY_CODE", False),
+        "static_version": getattr(settings, "STATIC_VERSION", ""),
     }
     context.update(extra)
     return context

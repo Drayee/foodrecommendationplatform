@@ -27,7 +27,14 @@ logger = logging.getLogger("food.views")
 def login_html(request):
     if request.user.is_authenticated:
         return redirect("index_page")
-    return render(request, "login.html", {"demo_mode": getattr(settings, "DEMO_VERIFY_CODE", False)})
+    return render(
+        request,
+        "login.html",
+        {
+            "demo_mode": getattr(settings, "DEMO_VERIFY_CODE", False),
+            "static_version": getattr(settings, "STATIC_VERSION", ""),
+        },
+    )
 
 
 def index_html(request):
@@ -40,6 +47,7 @@ def index_html(request):
         "tastes": list(Tag.objects.filter(kind="taste").values("id", "name")[:12]),
         "llm_ready": assistant.llm_ready(),
         "demo_mode": getattr(settings, "DEMO_VERIFY_CODE", False),
+        "static_version": getattr(settings, "STATIC_VERSION", ""),
     }
     return render(request, "index.html", context)
 

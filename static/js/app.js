@@ -164,6 +164,7 @@
             const myRating = ref(null);
             const showRate = ref(false);
             const commentText = ref('');
+            const detailNearby = ref([]);
 
             /* ---------- 助手 ---------- */
             const messages = ref([]);
@@ -340,6 +341,30 @@
             }
 
             /* ---------- 详情 ---------- */
+            /** 菜谱详情页联查：附近有哪些店在做这道菜（复用高德 POI 搜索） */
+            async function loadDishesNearby(title) {
+                detailNearby.value = [];
+                if (!title || !near.nb.located) return;
+                try {
+                    const resp = await axios.get('/api/v1/places/nearby/', {
+                        params: {
+                            lng: near.nb.lng,
+                            lat: near.nb.lat,
+                            coord: 'gcj02',
+                            q: title,
+                            radius: 3000,
+                            sort: 'smart',
+                        },
+                    });
+                    const body = resp.data || {};
+                    if (body.code === 0 && body.data) {
+                        detailNearby.value = (body.data.items || []).slice(0, 4);
+                    }
+                } catch (err) {
+                    detailNearby.value = [];
+                }
+            }
+
             async function openRecipe(item) {
                 const id = item && (item.id || item.recipe_id);
                 if (!id) return;
@@ -359,6 +384,7 @@
                         similar.value = (sims || []).filter((x) => x.id);
                     } catch (e) { /* 相似推荐失败不影响详情 */ }
                     API.track('view', id, 1);
+                    loadDishesNearby(data.title);
                 } catch (e) {
                     showToast(e.message || '菜谱加载失败');
                     go('home');
@@ -582,7 +608,7 @@
                 view, scrolled, keyword, toast, navItems, quickQueries, scenes, activeScene,
                 cuisines, difficulties, user, feed, feedHint, hot, results, detail, similar, favorites,
                 loading, searchMode, filters, searchState, status,
-                myRating, showRate, commentText,
+                myRating, showRate, commentText, detailNearby,
                 messages, question, thinking, chatLog, sessionId,
                 pref, prefSaved, dietOptions, nutritionRows, detailEmoji,
                 /* 附近美食 */

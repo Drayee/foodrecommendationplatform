@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>寻味 · 懂你的美食推荐</title>
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}?v={{ static_version }}">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍜</text></svg>">
 </head>
 <body>
@@ -366,6 +366,38 @@
                 </div>
             </div>
 
+            <!-- 附近能吃到 -->
+            <div class="panel" v-if="detail">
+                <h2>附近能吃到这道菜</h2>
+                <p class="muted" v-if="!nb.located">
+                    先去「附近」页点一下定位，这里会显示周边做「[[ detail.title ]]」的店。
+                </p>
+                <div class="nearby-list" v-else-if="detailNearby.length">
+                    <article class="place-card" v-for="p in detailNearby" :key="'dn' + p.poi_id" @click="nbOpenPlace(p)">
+                        <div class="place-cover" :style="placeCover(p)">
+                            <span v-if="!p.photos || !p.photos.length" class="place-emoji">[[ placeEmoji(p) ]]</span>
+                        </div>
+                        <div class="place-main">
+                            <div class="place-title-row">
+                                <h3>[[ p.name ]]</h3>
+                                <span class="place-dist">[[ p.distance_text ]]</span>
+                            </div>
+                            <p class="place-sub">
+                                <span class="tag-type" v-if="p.type_label">[[ p.type_label ]]</span>
+                                <span v-if="p.rating">★ [[ p.rating ]]</span>
+                                <span v-if="p.cost">人均 ¥[[ p.cost ]]</span>
+                            </p>
+                            <p class="place-addr">[[ p.address || p.district ]]</p>
+                            <div class="place-actions">
+                                <button class="ghost-btn tiny" @click.stop="nbOpenPlace(p)">详情</button>
+                                <button class="ghost-btn tiny" @click.stop="nbNavigate(p, 'car')">🚗 导航</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <p class="muted" v-else>周边 3km 内暂时没搜到做这道菜的店。</p>
+            </div>
+
             <!-- 评论 -->
             <div class="panel">
                 <h2>厨友评论 <small>([[ detail.comments.length ]])</small></h2>
@@ -661,11 +693,11 @@
         tags: {{ tags|safe }}
     };
 </script>
-<script src="{% static 'js/vue.global.js' %}"></script>
-<script src="{% static 'js/axios.min.js' %}"></script>
-<script src="{% static 'js/api.js' %}"></script>
-<script src="{% static 'js/components.js' %}"></script>
-<script src="{% static 'js/nearby.js' %}"></script>
-<script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/vue.global.js' %}?v={{ static_version }}"></script>
+<script src="{% static 'js/axios.min.js' %}?v={{ static_version }}"></script>
+<script src="{% static 'js/api.js' %}?v={{ static_version }}"></script>
+<script src="{% static 'js/components.js' %}?v={{ static_version }}"></script>
+<script src="{% static 'js/nearby.js' %}?v={{ static_version }}"></script>
+<script src="{% static 'js/app.js' %}?v={{ static_version }}"></script>
 </body>
 </html>

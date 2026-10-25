@@ -7,6 +7,7 @@ Django settings —— 美食推荐平台（基于 RAGDjange 扩展）
 3. 缓存默认本地文件缓存，配置 REDIS_URL 后自动切换 Redis；
 4. LLM / 向量模型 / 网络搜索均为「可降级」：没有 Key、断网时平台仍然完整可用。
 """
+import time
 from pathlib import Path
 
 from .env import env, env_bool, env_int, env_list
@@ -167,6 +168,10 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# 静态资源版本号：模板里以 `?v=` 附加，避免浏览器在 JS/CSS 更新后继续用旧缓存
+# （生产环境可用 CI 注入的 git 短哈希覆盖；本地默认取启动时间戳，重启即失效）
+STATIC_VERSION = env("STATIC_VERSION", "") or str(int(time.time()))
 
 # --------------------------------------------------------------------------
 # 日志
