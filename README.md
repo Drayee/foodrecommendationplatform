@@ -77,21 +77,23 @@ python manage.py runserver
 
 ---
 
-## 🐳 容器化部署
+## 🚀 生产部署（本机）
+
+项目直接跑在本机：**PostgreSQL 用自己的实例**（默认 `127.0.0.1:5432/food_platform`），Ollama 与高德 API 走本机/公网，不需要容器。
 
 ```bash
-cp .env.example .env          # 至少填 DB_PASSWORD；有高德/LLM 就一并填
-docker compose up -d --build
-docker compose exec web python manage.py seed_data
-docker compose exec web python manage.py build_index
-# 打开 http://127.0.0.1:8000/
+pip install -r requirements.txt -r requirements-prod.txt   # 含 gunicorn / psycopg
+python manage.py migrate
+python manage.py collectstatic --noinput
+
+gunicorn RAGDjange.wsgi:application \
+  --bind 0.0.0.0:8000 --workers 3 --threads 4 --timeout 120 \
+  --access-logfile - --error-logfile -
 ```
 
-- 生产用 **gunicorn**（3 worker × 4 thread），容器内含 `/health/` HEALTHCHECK
-- PostgreSQL 独立容器 + 数据卷；`web` 首次启动自动 `migrate`
-- Ollama 跑在宿主机时用 `host.docker.internal`（compose 已配 `extra_hosts`）；跑在容器里就改成服务名
-- 镜像只装 `requirements.txt` + `requirements-prod.txt`（gunicorn / psycopg），开发依赖不进镜像
-- 不想用 Docker 也可以直接 `python manage.py runserver`，两种方式共用同一份 `.env`
+- `.env` 里 `DB_ENGINE=postgresql`、`DB_HOST=127.0.0.1` 指向本机库；换库只改这几行
+- nginx 反代、systemd 守护、日志与备份脚本见 [docs/DEPLOY.md](docs/DEPLOY.md)
+- 不想装 gunicorn 时 `python manage.py runserver` 也能跑，两者共用同一份 `.env`
 
 ---
 
